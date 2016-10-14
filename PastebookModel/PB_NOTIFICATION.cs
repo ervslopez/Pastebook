@@ -14,20 +14,16 @@ namespace PastebookModel
     
     public partial class PB_NOTIFICATION
     {
-        public int NOTIF_ID { get; set; }
+        public int ID { get; set; }
         public int RECEIVER_ID { get; set; }
         public string NOTIF_TYPE { get; set; }
         public int SENDER_ID { get; set; }
         public System.DateTime CREATED_DATE { get; set; }
-        public Nullable<int> LIKES_ID { get; set; }
         public Nullable<int> COMMENT_ID { get; set; }
         public Nullable<int> POST_ID { get; set; }
-        public Nullable<int> FRIEND_ID { get; set; }
         public string SEEN { get; set; }
     
         public virtual PB_COMMENT PB_COMMENT { get; set; }
-        public virtual PB_FRIEND PB_FRIEND { get; set; }
-        public virtual PB_LIKE PB_LIKE { get; set; }
         public virtual PB_POST PB_POST { get; set; }
         public virtual PB_USER PB_USER { get; set; }
         public virtual PB_USER PB_USER1 { get; set; }

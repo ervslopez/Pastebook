@@ -14,21 +14,14 @@ namespace PastebookModel
     
     public partial class PB_FRIEND
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public PB_FRIEND()
-        {
-            this.PB_NOTIFICATION = new HashSet<PB_NOTIFICATION>();
-        }
-    
         public int ID { get; set; }
-        public string USER_NAME { get; set; }
+        public int USER_ID { get; set; }
         public int FRIEND_ID { get; set; }
         public string REQUEST { get; set; }
         public string IsBLOCKED { get; set; }
         public System.DateTime CREATED_DATE { get; set; }
     
         public virtual PB_USER PB_USER { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PB_NOTIFICATION> PB_NOTIFICATION { get; set; }
+        public virtual PB_USER PB_USER1 { get; set; }
     }
 }

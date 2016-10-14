@@ -14,19 +14,11 @@ namespace PastebookModel
     
     public partial class PB_LIKE
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public PB_LIKE()
-        {
-            this.PB_NOTIFICATION = new HashSet<PB_NOTIFICATION>();
-        }
-    
-        public int LIKE_ID { get; set; }
+        public int ID { get; set; }
         public int POST_ID { get; set; }
         public int LIKED_BY { get; set; }
     
         public virtual PB_POST PB_POST { get; set; }
         public virtual PB_USER PB_USER { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PB_NOTIFICATION> PB_NOTIFICATION { get; set; }
     }
 }

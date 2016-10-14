@@ -1,0 +1,309 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DB_PASTEBOOKModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="PB_COMMENT">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="POST_ID" Type="int" Nullable="false" />
+    <Property Name="POSTER_ID" Type="int" Nullable="false" />
+    <Property Name="CONTENT" Type="varchar" MaxLength="1000" Nullable="false" />
+    <Property Name="DATE_CREATED" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PB_FRIEND">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="USER_ID" Type="int" Nullable="false" />
+    <Property Name="FRIEND_ID" Type="int" Nullable="false" />
+    <Property Name="REQUEST" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="IsBLOCKED" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="CREATED_DATE" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PB_LIKE">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="POST_ID" Type="int" Nullable="false" />
+    <Property Name="LIKED_BY" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PB_NOTIFICATION">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RECEIVER_ID" Type="int" Nullable="false" />
+    <Property Name="NOTIF_TYPE" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="SENDER_ID" Type="int" Nullable="false" />
+    <Property Name="CREATED_DATE" Type="datetime" Nullable="false" />
+    <Property Name="COMMENT_ID" Type="int" />
+    <Property Name="POST_ID" Type="int" />
+    <Property Name="SEEN" Type="varchar" MaxLength="1" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PB_POST">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CREATED_DATE" Type="datetime" Nullable="false" />
+    <Property Name="CONTENT" Type="varchar" MaxLength="1000" Nullable="false" />
+    <Property Name="PROFILE_OWNER_ID" Type="int" Nullable="false" />
+    <Property Name="POSTER_ID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PB_REF_COUNTRY">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="COUNTRY" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PB_USER">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="USER_NAME" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="PASSWORD" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="SALT" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="FIRST_NAME" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="LAST_NAME" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="BIRTHDAY" Type="date" Nullable="false" />
+    <Property Name="COUNTRY_ID" Type="int" />
+    <Property Name="MOBILE_NO" Type="varchar" MaxLength="50" />
+    <Property Name="GENDER" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="PROFILE_PIC" Type="varbinary(max)" />
+    <Property Name="DATE_CREATED" Type="datetime" Nullable="false" />
+    <Property Name="ABOUT_ME" Type="varchar" MaxLength="2000" />
+    <Property Name="EMAIL" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <Association Name="FK_PB_COMMENT_PB_POST">
+    <End Role="PB_POST" Type="Self.PB_POST" Multiplicity="1" />
+    <End Role="PB_COMMENT" Type="Self.PB_COMMENT" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PB_POST">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="PB_COMMENT">
+        <PropertyRef Name="POST_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PB_COMMENT_PB_USER">
+    <End Role="PB_USER" Type="Self.PB_USER" Multiplicity="1" />
+    <End Role="PB_COMMENT" Type="Self.PB_COMMENT" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PB_USER">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="PB_COMMENT">
+        <PropertyRef Name="POSTER_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PB_FRIEND_PB_USER">
+    <End Role="PB_USER" Type="Self.PB_USER" Multiplicity="1" />
+    <End Role="PB_FRIEND" Type="Self.PB_FRIEND" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PB_USER">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="PB_FRIEND">
+        <PropertyRef Name="FRIEND_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PB_FRIEND_PB_USER1">
+    <End Role="PB_USER" Type="Self.PB_USER" Multiplicity="1" />
+    <End Role="PB_FRIEND" Type="Self.PB_FRIEND" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PB_USER">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="PB_FRIEND">
+        <PropertyRef Name="USER_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PB_LIKE_PB_POST">
+    <End Role="PB_POST" Type="Self.PB_POST" Multiplicity="1" />
+    <End Role="PB_LIKE" Type="Self.PB_LIKE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PB_POST">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="PB_LIKE">
+        <PropertyRef Name="POST_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PB_LIKE_PB_USER">
+    <End Role="PB_USER" Type="Self.PB_USER" Multiplicity="1" />
+    <End Role="PB_LIKE" Type="Self.PB_LIKE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PB_USER">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="PB_LIKE">
+        <PropertyRef Name="LIKED_BY" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PB_NOTIFICATION_PB_COMMENT">
+    <End Role="PB_COMMENT" Type="Self.PB_COMMENT" Multiplicity="0..1" />
+    <End Role="PB_NOTIFICATION" Type="Self.PB_NOTIFICATION" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PB_COMMENT">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="PB_NOTIFICATION">
+        <PropertyRef Name="COMMENT_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PB_NOTIFICATION_PB_POST">
+    <End Role="PB_POST" Type="Self.PB_POST" Multiplicity="0..1" />
+    <End Role="PB_NOTIFICATION" Type="Self.PB_NOTIFICATION" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PB_POST">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="PB_NOTIFICATION">
+        <PropertyRef Name="POST_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PB_NOTIFICATION_PB_USER">
+    <End Role="PB_USER" Type="Self.PB_USER" Multiplicity="1" />
+    <End Role="PB_NOTIFICATION" Type="Self.PB_NOTIFICATION" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PB_USER">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="PB_NOTIFICATION">
+        <PropertyRef Name="RECEIVER_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PB_NOTIFICATION_PB_USER1">
+    <End Role="PB_USER" Type="Self.PB_USER" Multiplicity="1" />
+    <End Role="PB_NOTIFICATION" Type="Self.PB_NOTIFICATION" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PB_USER">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="PB_NOTIFICATION">
+        <PropertyRef Name="SENDER_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PB_POST_PB_USER">
+    <End Role="PB_USER" Type="Self.PB_USER" Multiplicity="1" />
+    <End Role="PB_POST" Type="Self.PB_POST" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PB_USER">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="PB_POST">
+        <PropertyRef Name="POSTER_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PB_POST_PB_USER1">
+    <End Role="PB_USER" Type="Self.PB_USER" Multiplicity="1" />
+    <End Role="PB_POST" Type="Self.PB_POST" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PB_USER">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="PB_POST">
+        <PropertyRef Name="PROFILE_OWNER_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PB_USER_PB_REF_COUNTRY">
+    <End Role="PB_REF_COUNTRY" Type="Self.PB_REF_COUNTRY" Multiplicity="0..1" />
+    <End Role="PB_USER" Type="Self.PB_USER" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PB_REF_COUNTRY">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="PB_USER">
+        <PropertyRef Name="COUNTRY_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DB_PASTEBOOKModelStoreContainer">
+    <EntitySet Name="PB_COMMENT" EntityType="Self.PB_COMMENT" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PB_FRIEND" EntityType="Self.PB_FRIEND" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PB_LIKE" EntityType="Self.PB_LIKE" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PB_NOTIFICATION" EntityType="Self.PB_NOTIFICATION" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PB_POST" EntityType="Self.PB_POST" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PB_REF_COUNTRY" EntityType="Self.PB_REF_COUNTRY" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PB_USER" EntityType="Self.PB_USER" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_PB_COMMENT_PB_POST" Association="Self.FK_PB_COMMENT_PB_POST">
+      <End Role="PB_POST" EntitySet="PB_POST" />
+      <End Role="PB_COMMENT" EntitySet="PB_COMMENT" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PB_COMMENT_PB_USER" Association="Self.FK_PB_COMMENT_PB_USER">
+      <End Role="PB_USER" EntitySet="PB_USER" />
+      <End Role="PB_COMMENT" EntitySet="PB_COMMENT" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PB_FRIEND_PB_USER" Association="Self.FK_PB_FRIEND_PB_USER">
+      <End Role="PB_USER" EntitySet="PB_USER" />
+      <End Role="PB_FRIEND" EntitySet="PB_FRIEND" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PB_FRIEND_PB_USER1" Association="Self.FK_PB_FRIEND_PB_USER1">
+      <End Role="PB_USER" EntitySet="PB_USER" />
+      <End Role="PB_FRIEND" EntitySet="PB_FRIEND" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PB_LIKE_PB_POST" Association="Self.FK_PB_LIKE_PB_POST">
+      <End Role="PB_POST" EntitySet="PB_POST" />
+      <End Role="PB_LIKE" EntitySet="PB_LIKE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PB_LIKE_PB_USER" Association="Self.FK_PB_LIKE_PB_USER">
+      <End Role="PB_USER" EntitySet="PB_USER" />
+      <End Role="PB_LIKE" EntitySet="PB_LIKE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PB_NOTIFICATION_PB_COMMENT" Association="Self.FK_PB_NOTIFICATION_PB_COMMENT">
+      <End Role="PB_COMMENT" EntitySet="PB_COMMENT" />
+      <End Role="PB_NOTIFICATION" EntitySet="PB_NOTIFICATION" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PB_NOTIFICATION_PB_POST" Association="Self.FK_PB_NOTIFICATION_PB_POST">
+      <End Role="PB_POST" EntitySet="PB_POST" />
+      <End Role="PB_NOTIFICATION" EntitySet="PB_NOTIFICATION" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PB_NOTIFICATION_PB_USER" Association="Self.FK_PB_NOTIFICATION_PB_USER">
+      <End Role="PB_USER" EntitySet="PB_USER" />
+      <End Role="PB_NOTIFICATION" EntitySet="PB_NOTIFICATION" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PB_NOTIFICATION_PB_USER1" Association="Self.FK_PB_NOTIFICATION_PB_USER1">
+      <End Role="PB_USER" EntitySet="PB_USER" />
+      <End Role="PB_NOTIFICATION" EntitySet="PB_NOTIFICATION" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PB_POST_PB_USER" Association="Self.FK_PB_POST_PB_USER">
+      <End Role="PB_USER" EntitySet="PB_USER" />
+      <End Role="PB_POST" EntitySet="PB_POST" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PB_POST_PB_USER1" Association="Self.FK_PB_POST_PB_USER1">
+      <End Role="PB_USER" EntitySet="PB_USER" />
+      <End Role="PB_POST" EntitySet="PB_POST" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PB_USER_PB_REF_COUNTRY" Association="Self.FK_PB_USER_PB_REF_COUNTRY">
+      <End Role="PB_REF_COUNTRY" EntitySet="PB_REF_COUNTRY" />
+      <End Role="PB_USER" EntitySet="PB_USER" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

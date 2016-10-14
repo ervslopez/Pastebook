@@ -12,50 +12,48 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="POST_ID" Type="int" Nullable="false" />
           <Property Name="POSTER_ID" Type="int" Nullable="false" />
-          <Property Name="CONTENT" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="DATE_CREATED" Type="date" Nullable="false" />
+          <Property Name="CONTENT" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="DATE_CREATED" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="PB_FRIEND">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="USER_NAME" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="USER_ID" Type="int" Nullable="false" />
           <Property Name="FRIEND_ID" Type="int" Nullable="false" />
-          <Property Name="REQUEST" Type="varchar" MaxLength="1" Nullable="false" />
-          <Property Name="IsBLOCKED" Type="varchar" MaxLength="1" Nullable="false" />
-          <Property Name="CREATED_DATE" Type="date" Nullable="false" />
+          <Property Name="REQUEST" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="IsBLOCKED" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="CREATED_DATE" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="PB_LIKE">
           <Key>
-            <PropertyRef Name="LIKE_ID" />
+            <PropertyRef Name="ID" />
           </Key>
-          <Property Name="LIKE_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="POST_ID" Type="int" Nullable="false" />
           <Property Name="LIKED_BY" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="PB_NOTIFICATION">
           <Key>
-            <PropertyRef Name="NOTIF_ID" />
+            <PropertyRef Name="ID" />
           </Key>
-          <Property Name="NOTIF_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="RECEIVER_ID" Type="int" Nullable="false" />
-          <Property Name="NOTIF_TYPE" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="NOTIF_TYPE" Type="char" MaxLength="1" Nullable="false" />
           <Property Name="SENDER_ID" Type="int" Nullable="false" />
-          <Property Name="CREATED_DATE" Type="date" Nullable="false" />
-          <Property Name="LIKES_ID" Type="int" />
+          <Property Name="CREATED_DATE" Type="datetime" Nullable="false" />
           <Property Name="COMMENT_ID" Type="int" />
           <Property Name="POST_ID" Type="int" />
-          <Property Name="FRIEND_ID" Type="int" />
           <Property Name="SEEN" Type="varchar" MaxLength="1" Nullable="false" />
         </EntityType>
         <EntityType Name="PB_POST">
           <Key>
-            <PropertyRef Name="POST_ID" />
+            <PropertyRef Name="ID" />
           </Key>
-          <Property Name="POST_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CREATED_DATE" Type="date" Nullable="false" />
-          <Property Name="CONTENT" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CREATED_DATE" Type="datetime" Nullable="false" />
+          <Property Name="CONTENT" Type="varchar" MaxLength="1000" Nullable="false" />
           <Property Name="PROFILE_OWNER_ID" Type="int" Nullable="false" />
           <Property Name="POSTER_ID" Type="int" Nullable="false" />
         </EntityType>
@@ -64,25 +62,25 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="COUNTRY" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="COUNTRY" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="PB_USER">
           <Key>
-            <PropertyRef Name="USER_ID" />
+            <PropertyRef Name="ID" />
           </Key>
-          <Property Name="USER_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="USER_NAME" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="PASSWORD" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="SALT" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="SALT" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="FIRST_NAME" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="LAST_NAME" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="BIRTHDAY" Type="date" Nullable="false" />
           <Property Name="COUNTRY_ID" Type="int" />
           <Property Name="MOBILE_NO" Type="varchar" MaxLength="50" />
-          <Property Name="GENDER" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="GENDER" Type="char" MaxLength="1" Nullable="false" />
           <Property Name="PROFILE_PIC" Type="varbinary(max)" />
-          <Property Name="DATE_CREATED" Type="date" Nullable="false" />
-          <Property Name="ABOUT_ME" Type="varchar" MaxLength="250" />
+          <Property Name="DATE_CREATED" Type="datetime" Nullable="false" />
+          <Property Name="ABOUT_ME" Type="varchar" MaxLength="2000" />
           <Property Name="EMAIL" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="sysdiagrams">
@@ -100,7 +98,7 @@
           <End Role="PB_COMMENT" Type="Self.PB_COMMENT" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PB_POST">
-              <PropertyRef Name="POST_ID" />
+              <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="PB_COMMENT">
               <PropertyRef Name="POST_ID" />
@@ -112,7 +110,7 @@
           <End Role="PB_COMMENT" Type="Self.PB_COMMENT" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PB_USER">
-              <PropertyRef Name="USER_ID" />
+              <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="PB_COMMENT">
               <PropertyRef Name="POSTER_ID" />
@@ -124,10 +122,22 @@
           <End Role="PB_FRIEND" Type="Self.PB_FRIEND" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PB_USER">
-              <PropertyRef Name="USER_ID" />
+              <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="PB_FRIEND">
               <PropertyRef Name="FRIEND_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PB_FRIEND_PB_USER1">
+          <End Role="PB_USER" Type="Self.PB_USER" Multiplicity="1" />
+          <End Role="PB_FRIEND" Type="Self.PB_FRIEND" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PB_USER">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PB_FRIEND">
+              <PropertyRef Name="USER_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -136,7 +146,7 @@
           <End Role="PB_LIKE" Type="Self.PB_LIKE" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PB_POST">
-              <PropertyRef Name="POST_ID" />
+              <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="PB_LIKE">
               <PropertyRef Name="POST_ID" />
@@ -148,7 +158,7 @@
           <End Role="PB_LIKE" Type="Self.PB_LIKE" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PB_USER">
-              <PropertyRef Name="USER_ID" />
+              <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="PB_LIKE">
               <PropertyRef Name="LIKED_BY" />
@@ -167,36 +177,12 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PB_NOTIFICATION_PB_FRIEND">
-          <End Role="PB_FRIEND" Type="Self.PB_FRIEND" Multiplicity="0..1" />
-          <End Role="PB_NOTIFICATION" Type="Self.PB_NOTIFICATION" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PB_FRIEND">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="PB_NOTIFICATION">
-              <PropertyRef Name="FRIEND_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PB_NOTIFICATION_PB_LIKE">
-          <End Role="PB_LIKE" Type="Self.PB_LIKE" Multiplicity="0..1" />
-          <End Role="PB_NOTIFICATION" Type="Self.PB_NOTIFICATION" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PB_LIKE">
-              <PropertyRef Name="LIKE_ID" />
-            </Principal>
-            <Dependent Role="PB_NOTIFICATION">
-              <PropertyRef Name="LIKES_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_PB_NOTIFICATION_PB_POST">
           <End Role="PB_POST" Type="Self.PB_POST" Multiplicity="0..1" />
           <End Role="PB_NOTIFICATION" Type="Self.PB_NOTIFICATION" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PB_POST">
-              <PropertyRef Name="POST_ID" />
+              <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="PB_NOTIFICATION">
               <PropertyRef Name="POST_ID" />
@@ -208,7 +194,7 @@
           <End Role="PB_NOTIFICATION" Type="Self.PB_NOTIFICATION" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PB_USER">
-              <PropertyRef Name="USER_ID" />
+              <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="PB_NOTIFICATION">
               <PropertyRef Name="RECEIVER_ID" />
@@ -220,7 +206,7 @@
           <End Role="PB_NOTIFICATION" Type="Self.PB_NOTIFICATION" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PB_USER">
-              <PropertyRef Name="USER_ID" />
+              <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="PB_NOTIFICATION">
               <PropertyRef Name="SENDER_ID" />
@@ -232,7 +218,7 @@
           <End Role="PB_POST" Type="Self.PB_POST" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PB_USER">
-              <PropertyRef Name="USER_ID" />
+              <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="PB_POST">
               <PropertyRef Name="POSTER_ID" />
@@ -244,7 +230,7 @@
           <End Role="PB_POST" Type="Self.PB_POST" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PB_USER">
-              <PropertyRef Name="USER_ID" />
+              <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="PB_POST">
               <PropertyRef Name="PROFILE_OWNER_ID" />
@@ -284,6 +270,10 @@
             <End Role="PB_USER" EntitySet="PB_USER" />
             <End Role="PB_FRIEND" EntitySet="PB_FRIEND" />
           </AssociationSet>
+          <AssociationSet Name="FK_PB_FRIEND_PB_USER1" Association="Self.FK_PB_FRIEND_PB_USER1">
+            <End Role="PB_USER" EntitySet="PB_USER" />
+            <End Role="PB_FRIEND" EntitySet="PB_FRIEND" />
+          </AssociationSet>
           <AssociationSet Name="FK_PB_LIKE_PB_POST" Association="Self.FK_PB_LIKE_PB_POST">
             <End Role="PB_POST" EntitySet="PB_POST" />
             <End Role="PB_LIKE" EntitySet="PB_LIKE" />
@@ -294,14 +284,6 @@
           </AssociationSet>
           <AssociationSet Name="FK_PB_NOTIFICATION_PB_COMMENT" Association="Self.FK_PB_NOTIFICATION_PB_COMMENT">
             <End Role="PB_COMMENT" EntitySet="PB_COMMENT" />
-            <End Role="PB_NOTIFICATION" EntitySet="PB_NOTIFICATION" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PB_NOTIFICATION_PB_FRIEND" Association="Self.FK_PB_NOTIFICATION_PB_FRIEND">
-            <End Role="PB_FRIEND" EntitySet="PB_FRIEND" />
-            <End Role="PB_NOTIFICATION" EntitySet="PB_NOTIFICATION" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PB_NOTIFICATION_PB_LIKE" Association="Self.FK_PB_NOTIFICATION_PB_LIKE">
-            <End Role="PB_LIKE" EntitySet="PB_LIKE" />
             <End Role="PB_NOTIFICATION" EntitySet="PB_NOTIFICATION" />
           </AssociationSet>
           <AssociationSet Name="FK_PB_NOTIFICATION_PB_POST" Association="Self.FK_PB_NOTIFICATION_PB_POST">
@@ -341,8 +323,8 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="POST_ID" Type="Int32" Nullable="false" />
           <Property Name="POSTER_ID" Type="Int32" Nullable="false" />
-          <Property Name="CONTENT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="DATE_CREATED" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CONTENT" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DATE_CREATED" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="PB_POST" Relationship="Self.FK_PB_COMMENT_PB_POST" FromRole="PB_COMMENT" ToRole="PB_POST" />
           <NavigationProperty Name="PB_USER" Relationship="Self.FK_PB_COMMENT_PB_USER" FromRole="PB_COMMENT" ToRole="PB_USER" />
           <NavigationProperty Name="PB_NOTIFICATION" Relationship="Self.FK_PB_NOTIFICATION_PB_COMMENT" FromRole="PB_COMMENT" ToRole="PB_NOTIFICATION" />
@@ -352,53 +334,48 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="USER_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="USER_ID" Type="Int32" Nullable="false" />
           <Property Name="FRIEND_ID" Type="Int32" Nullable="false" />
-          <Property Name="REQUEST" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="IsBLOCKED" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="CREATED_DATE" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="REQUEST" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="IsBLOCKED" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="CREATED_DATE" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="PB_USER" Relationship="Self.FK_PB_FRIEND_PB_USER" FromRole="PB_FRIEND" ToRole="PB_USER" />
-          <NavigationProperty Name="PB_NOTIFICATION" Relationship="Self.FK_PB_NOTIFICATION_PB_FRIEND" FromRole="PB_FRIEND" ToRole="PB_NOTIFICATION" />
+          <NavigationProperty Name="PB_USER1" Relationship="Self.FK_PB_FRIEND_PB_USER1" FromRole="PB_FRIEND" ToRole="PB_USER" />
         </EntityType>
         <EntityType Name="PB_LIKE">
           <Key>
-            <PropertyRef Name="LIKE_ID" />
+            <PropertyRef Name="ID" />
           </Key>
-          <Property Name="LIKE_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="POST_ID" Type="Int32" Nullable="false" />
           <Property Name="LIKED_BY" Type="Int32" Nullable="false" />
           <NavigationProperty Name="PB_POST" Relationship="Self.FK_PB_LIKE_PB_POST" FromRole="PB_LIKE" ToRole="PB_POST" />
           <NavigationProperty Name="PB_USER" Relationship="Self.FK_PB_LIKE_PB_USER" FromRole="PB_LIKE" ToRole="PB_USER" />
-          <NavigationProperty Name="PB_NOTIFICATION" Relationship="Self.FK_PB_NOTIFICATION_PB_LIKE" FromRole="PB_LIKE" ToRole="PB_NOTIFICATION" />
         </EntityType>
         <EntityType Name="PB_NOTIFICATION">
           <Key>
-            <PropertyRef Name="NOTIF_ID" />
+            <PropertyRef Name="ID" />
           </Key>
-          <Property Name="NOTIF_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="RECEIVER_ID" Type="Int32" Nullable="false" />
-          <Property Name="NOTIF_TYPE" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NOTIF_TYPE" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="SENDER_ID" Type="Int32" Nullable="false" />
-          <Property Name="CREATED_DATE" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="LIKES_ID" Type="Int32" />
+          <Property Name="CREATED_DATE" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="COMMENT_ID" Type="Int32" />
           <Property Name="POST_ID" Type="Int32" />
-          <Property Name="FRIEND_ID" Type="Int32" />
           <Property Name="SEEN" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="PB_COMMENT" Relationship="Self.FK_PB_NOTIFICATION_PB_COMMENT" FromRole="PB_NOTIFICATION" ToRole="PB_COMMENT" />
-          <NavigationProperty Name="PB_FRIEND" Relationship="Self.FK_PB_NOTIFICATION_PB_FRIEND" FromRole="PB_NOTIFICATION" ToRole="PB_FRIEND" />
-          <NavigationProperty Name="PB_LIKE" Relationship="Self.FK_PB_NOTIFICATION_PB_LIKE" FromRole="PB_NOTIFICATION" ToRole="PB_LIKE" />
           <NavigationProperty Name="PB_POST" Relationship="Self.FK_PB_NOTIFICATION_PB_POST" FromRole="PB_NOTIFICATION" ToRole="PB_POST" />
           <NavigationProperty Name="PB_USER" Relationship="Self.FK_PB_NOTIFICATION_PB_USER" FromRole="PB_NOTIFICATION" ToRole="PB_USER" />
           <NavigationProperty Name="PB_USER1" Relationship="Self.FK_PB_NOTIFICATION_PB_USER1" FromRole="PB_NOTIFICATION" ToRole="PB_USER" />
         </EntityType>
         <EntityType Name="PB_POST">
           <Key>
-            <PropertyRef Name="POST_ID" />
+            <PropertyRef Name="ID" />
           </Key>
-          <Property Name="POST_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CREATED_DATE" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="CONTENT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CREATED_DATE" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CONTENT" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="PROFILE_OWNER_ID" Type="Int32" Nullable="false" />
           <Property Name="POSTER_ID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="PB_COMMENT" Relationship="Self.FK_PB_COMMENT_PB_POST" FromRole="PB_POST" ToRole="PB_COMMENT" />
@@ -412,29 +389,30 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="COUNTRY" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="COUNTRY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="PB_USER" Relationship="Self.FK_PB_USER_PB_REF_COUNTRY" FromRole="PB_REF_COUNTRY" ToRole="PB_USER" />
         </EntityType>
         <EntityType Name="PB_USER">
           <Key>
-            <PropertyRef Name="USER_ID" />
+            <PropertyRef Name="ID" />
           </Key>
-          <Property Name="USER_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="USER_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="PASSWORD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="SALT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SALT" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="FIRST_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="LAST_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="BIRTHDAY" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="COUNTRY_ID" Type="Int32" />
           <Property Name="MOBILE_NO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="GENDER" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="GENDER" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="PROFILE_PIC" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="DATE_CREATED" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="ABOUT_ME" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="DATE_CREATED" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ABOUT_ME" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
           <Property Name="EMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="PB_COMMENT" Relationship="Self.FK_PB_COMMENT_PB_USER" FromRole="PB_USER" ToRole="PB_COMMENT" />
           <NavigationProperty Name="PB_FRIEND" Relationship="Self.FK_PB_FRIEND_PB_USER" FromRole="PB_USER" ToRole="PB_FRIEND" />
+          <NavigationProperty Name="PB_FRIEND1" Relationship="Self.FK_PB_FRIEND_PB_USER1" FromRole="PB_USER" ToRole="PB_FRIEND" />
           <NavigationProperty Name="PB_LIKE" Relationship="Self.FK_PB_LIKE_PB_USER" FromRole="PB_USER" ToRole="PB_LIKE" />
           <NavigationProperty Name="PB_NOTIFICATION" Relationship="Self.FK_PB_NOTIFICATION_PB_USER" FromRole="PB_USER" ToRole="PB_NOTIFICATION" />
           <NavigationProperty Name="PB_NOTIFICATION1" Relationship="Self.FK_PB_NOTIFICATION_PB_USER1" FromRole="PB_USER" ToRole="PB_NOTIFICATION" />
@@ -457,7 +435,7 @@
           <End Role="PB_COMMENT" Type="Self.PB_COMMENT" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PB_POST">
-              <PropertyRef Name="POST_ID" />
+              <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="PB_COMMENT">
               <PropertyRef Name="POST_ID" />
@@ -469,7 +447,7 @@
           <End Role="PB_COMMENT" Type="Self.PB_COMMENT" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PB_USER">
-              <PropertyRef Name="USER_ID" />
+              <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="PB_COMMENT">
               <PropertyRef Name="POSTER_ID" />
@@ -493,22 +471,22 @@
           <End Role="PB_FRIEND" Type="Self.PB_FRIEND" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PB_USER">
-              <PropertyRef Name="USER_ID" />
+              <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="PB_FRIEND">
               <PropertyRef Name="FRIEND_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PB_NOTIFICATION_PB_FRIEND">
-          <End Role="PB_FRIEND" Type="Self.PB_FRIEND" Multiplicity="0..1" />
-          <End Role="PB_NOTIFICATION" Type="Self.PB_NOTIFICATION" Multiplicity="*" />
+        <Association Name="FK_PB_FRIEND_PB_USER1">
+          <End Role="PB_USER" Type="Self.PB_USER" Multiplicity="1" />
+          <End Role="PB_FRIEND" Type="Self.PB_FRIEND" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="PB_FRIEND">
+            <Principal Role="PB_USER">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="PB_NOTIFICATION">
-              <PropertyRef Name="FRIEND_ID" />
+            <Dependent Role="PB_FRIEND">
+              <PropertyRef Name="USER_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -517,7 +495,7 @@
           <End Role="PB_LIKE" Type="Self.PB_LIKE" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PB_POST">
-              <PropertyRef Name="POST_ID" />
+              <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="PB_LIKE">
               <PropertyRef Name="POST_ID" />
@@ -529,22 +507,10 @@
           <End Role="PB_LIKE" Type="Self.PB_LIKE" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PB_USER">
-              <PropertyRef Name="USER_ID" />
+              <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="PB_LIKE">
               <PropertyRef Name="LIKED_BY" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PB_NOTIFICATION_PB_LIKE">
-          <End Role="PB_LIKE" Type="Self.PB_LIKE" Multiplicity="0..1" />
-          <End Role="PB_NOTIFICATION" Type="Self.PB_NOTIFICATION" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PB_LIKE">
-              <PropertyRef Name="LIKE_ID" />
-            </Principal>
-            <Dependent Role="PB_NOTIFICATION">
-              <PropertyRef Name="LIKES_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -553,7 +519,7 @@
           <End Role="PB_NOTIFICATION" Type="Self.PB_NOTIFICATION" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PB_POST">
-              <PropertyRef Name="POST_ID" />
+              <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="PB_NOTIFICATION">
               <PropertyRef Name="POST_ID" />
@@ -565,7 +531,7 @@
           <End Role="PB_NOTIFICATION" Type="Self.PB_NOTIFICATION" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PB_USER">
-              <PropertyRef Name="USER_ID" />
+              <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="PB_NOTIFICATION">
               <PropertyRef Name="RECEIVER_ID" />
@@ -577,7 +543,7 @@
           <End Role="PB_NOTIFICATION" Type="Self.PB_NOTIFICATION" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PB_USER">
-              <PropertyRef Name="USER_ID" />
+              <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="PB_NOTIFICATION">
               <PropertyRef Name="SENDER_ID" />
@@ -589,7 +555,7 @@
           <End Role="PB_POST" Type="Self.PB_POST" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PB_USER">
-              <PropertyRef Name="USER_ID" />
+              <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="PB_POST">
               <PropertyRef Name="POSTER_ID" />
@@ -601,7 +567,7 @@
           <End Role="PB_POST" Type="Self.PB_POST" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PB_USER">
-              <PropertyRef Name="USER_ID" />
+              <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="PB_POST">
               <PropertyRef Name="PROFILE_OWNER_ID" />
@@ -620,7 +586,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="DB_PASTEBOOKEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="DB_PASTEBOOKEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="PB_COMMENT" EntityType="Self.PB_COMMENT" />
           <EntitySet Name="PB_FRIEND" EntityType="Self.PB_FRIEND" />
           <EntitySet Name="PB_LIKE" EntityType="Self.PB_LIKE" />
@@ -645,9 +611,9 @@
             <End Role="PB_USER" EntitySet="PB_USER" />
             <End Role="PB_FRIEND" EntitySet="PB_FRIEND" />
           </AssociationSet>
-          <AssociationSet Name="FK_PB_NOTIFICATION_PB_FRIEND" Association="Self.FK_PB_NOTIFICATION_PB_FRIEND">
+          <AssociationSet Name="FK_PB_FRIEND_PB_USER1" Association="Self.FK_PB_FRIEND_PB_USER1">
+            <End Role="PB_USER" EntitySet="PB_USER" />
             <End Role="PB_FRIEND" EntitySet="PB_FRIEND" />
-            <End Role="PB_NOTIFICATION" EntitySet="PB_NOTIFICATION" />
           </AssociationSet>
           <AssociationSet Name="FK_PB_LIKE_PB_POST" Association="Self.FK_PB_LIKE_PB_POST">
             <End Role="PB_POST" EntitySet="PB_POST" />
@@ -656,10 +622,6 @@
           <AssociationSet Name="FK_PB_LIKE_PB_USER" Association="Self.FK_PB_LIKE_PB_USER">
             <End Role="PB_USER" EntitySet="PB_USER" />
             <End Role="PB_LIKE" EntitySet="PB_LIKE" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PB_NOTIFICATION_PB_LIKE" Association="Self.FK_PB_NOTIFICATION_PB_LIKE">
-            <End Role="PB_LIKE" EntitySet="PB_LIKE" />
-            <End Role="PB_NOTIFICATION" EntitySet="PB_NOTIFICATION" />
           </AssociationSet>
           <AssociationSet Name="FK_PB_NOTIFICATION_PB_POST" Association="Self.FK_PB_NOTIFICATION_PB_POST">
             <End Role="PB_POST" EntitySet="PB_POST" />
@@ -691,7 +653,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="DB_PASTEBOOKModelStoreContainer" CdmEntityContainer="DB_PASTEBOOKEntities">
+        <EntityContainerMapping StorageEntityContainer="DB_PASTEBOOKModelStoreContainer" CdmEntityContainer="DB_PASTEBOOKEntities1">
           <EntitySetMapping Name="PB_COMMENT">
             <EntityTypeMapping TypeName="DB_PASTEBOOKModel.PB_COMMENT">
               <MappingFragment StoreEntitySet="PB_COMMENT">
@@ -707,7 +669,7 @@
             <EntityTypeMapping TypeName="DB_PASTEBOOKModel.PB_FRIEND">
               <MappingFragment StoreEntitySet="PB_FRIEND">
                 <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="USER_NAME" ColumnName="USER_NAME" />
+                <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
                 <ScalarProperty Name="FRIEND_ID" ColumnName="FRIEND_ID" />
                 <ScalarProperty Name="REQUEST" ColumnName="REQUEST" />
                 <ScalarProperty Name="IsBLOCKED" ColumnName="IsBLOCKED" />
@@ -718,7 +680,7 @@
           <EntitySetMapping Name="PB_LIKE">
             <EntityTypeMapping TypeName="DB_PASTEBOOKModel.PB_LIKE">
               <MappingFragment StoreEntitySet="PB_LIKE">
-                <ScalarProperty Name="LIKE_ID" ColumnName="LIKE_ID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="POST_ID" ColumnName="POST_ID" />
                 <ScalarProperty Name="LIKED_BY" ColumnName="LIKED_BY" />
               </MappingFragment>
@@ -727,15 +689,13 @@
           <EntitySetMapping Name="PB_NOTIFICATION">
             <EntityTypeMapping TypeName="DB_PASTEBOOKModel.PB_NOTIFICATION">
               <MappingFragment StoreEntitySet="PB_NOTIFICATION">
-                <ScalarProperty Name="NOTIF_ID" ColumnName="NOTIF_ID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="RECEIVER_ID" ColumnName="RECEIVER_ID" />
                 <ScalarProperty Name="NOTIF_TYPE" ColumnName="NOTIF_TYPE" />
                 <ScalarProperty Name="SENDER_ID" ColumnName="SENDER_ID" />
                 <ScalarProperty Name="CREATED_DATE" ColumnName="CREATED_DATE" />
-                <ScalarProperty Name="LIKES_ID" ColumnName="LIKES_ID" />
                 <ScalarProperty Name="COMMENT_ID" ColumnName="COMMENT_ID" />
                 <ScalarProperty Name="POST_ID" ColumnName="POST_ID" />
-                <ScalarProperty Name="FRIEND_ID" ColumnName="FRIEND_ID" />
                 <ScalarProperty Name="SEEN" ColumnName="SEEN" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -743,7 +703,7 @@
           <EntitySetMapping Name="PB_POST">
             <EntityTypeMapping TypeName="DB_PASTEBOOKModel.PB_POST">
               <MappingFragment StoreEntitySet="PB_POST">
-                <ScalarProperty Name="POST_ID" ColumnName="POST_ID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="CREATED_DATE" ColumnName="CREATED_DATE" />
                 <ScalarProperty Name="CONTENT" ColumnName="CONTENT" />
                 <ScalarProperty Name="PROFILE_OWNER_ID" ColumnName="PROFILE_OWNER_ID" />
@@ -762,7 +722,7 @@
           <EntitySetMapping Name="PB_USER">
             <EntityTypeMapping TypeName="DB_PASTEBOOKModel.PB_USER">
               <MappingFragment StoreEntitySet="PB_USER">
-                <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="USER_NAME" ColumnName="USER_NAME" />
                 <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
                 <ScalarProperty Name="SALT" ColumnName="SALT" />

@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PastebookModel", "Pastebook
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PastebookWebApp", "PastebookWebApp\PastebookWebApp.csproj", "{E16208A2-F2F6-4406-91E2-F8DA73D6876A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PastebookService", "PastebookService\PastebookService.csproj", "{6ACBD0AA-0F85-4EAB-A9FB-7A5909397A9C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PastebookWCF", "PastebookService\PastebookWCF.csproj", "{6ACBD0AA-0F85-4EAB-A9FB-7A5909397A9C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

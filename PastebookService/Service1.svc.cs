@@ -12,6 +12,17 @@ namespace PastebookService
     // NOTE: In order to launch WCF Test Client for testing this service, please select Service1.svc or Service1.svc.cs at the Solution Explorer and start debugging.
     public class Service1 : IService1
     {
-        //
+        AccountManager manager = new AccountManager();
+        public StatusResponse CreateUserAccount(UserRequest request)
+        {
+            return new StatusResponse() {
+                Status = manager.CreateUserAccount(request)
+            };
+        }
+
+        public LoginResponse LoginUserAccount(UserRequest request)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

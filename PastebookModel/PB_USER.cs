@@ -19,6 +19,7 @@ namespace PastebookModel
         {
             this.PB_COMMENT = new HashSet<PB_COMMENT>();
             this.PB_FRIEND = new HashSet<PB_FRIEND>();
+            this.PB_FRIEND1 = new HashSet<PB_FRIEND>();
             this.PB_LIKE = new HashSet<PB_LIKE>();
             this.PB_NOTIFICATION = new HashSet<PB_NOTIFICATION>();
             this.PB_NOTIFICATION1 = new HashSet<PB_NOTIFICATION>();
@@ -26,7 +27,7 @@ namespace PastebookModel
             this.PB_POST1 = new HashSet<PB_POST>();
         }
     
-        public int USER_ID { get; set; }
+        public int ID { get; set; }
         public string USER_NAME { get; set; }
         public string PASSWORD { get; set; }
         public string SALT { get; set; }
@@ -45,6 +46,8 @@ namespace PastebookModel
         public virtual ICollection<PB_COMMENT> PB_COMMENT { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PB_FRIEND> PB_FRIEND { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PB_FRIEND> PB_FRIEND1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PB_LIKE> PB_LIKE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
