@@ -24,6 +24,7 @@ namespace PastebookService
                 SALT = salt,
             };
 
+
             //int result = 0;//dataAccess.RegisterUser(user);
 
             return false;
