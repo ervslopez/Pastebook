@@ -13,16 +13,24 @@ namespace PastebookService
     public class Service1 : IService1
     {
         AccountManager manager = new AccountManager();
-        public StatusResponse CreateUserAccount(UserRequest request)
+        public CreateUserResponse CreateUserAccount(UserRequest request)
         {
-            return new StatusResponse() {
-                Status = manager.CreateUserAccount(request)
-            };
+            return manager.CreateUserAccount(request);
         }
 
-        public LoginResponse LoginUserAccount(UserRequest request)
+        public LoginResponse LoginUserAccount(LoginRequest request)
         {
-            throw new NotImplementedException();
+            return manager.LoginUserAccount(request);
+        }
+
+        public StatusResponse EditUserProfile(UserRequest request)
+        {
+            return manager.UpdateUserAccount(request);
+        }
+
+        public StatusResponse EditUserPassword(EditPasswordOrEmailRequest request)
+        {
+            return manager.UpdatePasswordOrEmail(request);
         }
     }
 }

@@ -10,28 +10,108 @@ namespace PastebookService
     public class AccountManager
     {
         PasswordManager passwordManager = new PasswordManager();
+        AccountDataAccess dataAccess = new AccountDataAccess();
 
-        public bool CreateUserAccount(UserRequest request)
+        public CreateUserResponse CreateUserAccount(UserRequest request)
         {
-            string salt = null;
-
-            string passwordHash = passwordManager.GeneratePasswordHash(request.PASSWORD, out salt);
-
-            PB_USER user = new PB_USER()
+            CreateUserResponse resp = new CreateUserResponse();
+            try
             {
-                USER_NAME = request.USER_NAME,
-                PASSWORD = passwordHash,
-                SALT = salt,
-            };
-
-
-            //int result = 0;//dataAccess.RegisterUser(user);
-
-            return false;
+                if (!UsernameExists(request.user.USER_NAME))
+                {
+                    resp.UserNameExists = false;
+                    string salt = null;
+                    request.user.PASSWORD = passwordManager.GeneratePasswordHash(request.user.PASSWORD, out salt);
+                    request.user.SALT = salt;
+                    resp.Status = dataAccess.CreateUserAccount(request) > 0? true: false;
+                }
+                else
+                {
+                    resp.UserNameExists = true;
+                }
+            }
+            catch (Exception)
+            {
+            }
+            return resp;
         }
 
-        
+        public LoginResponse LoginUserAccount(LoginRequest request)
+        {
+            LoginResponse resp = new LoginResponse();
+            try
+            {
+                if (UsernameExists(request.username))
+                {
+                    resp.UserNameExists = true;
+                    resp.user = dataAccess.GetUserAccount(request);
+                    if (!passwordManager.PasswordMatch(request.password, resp.user.SALT, resp.user.PASSWORD))
+                    {
+                        resp.PasswordMatched = false;
+                        resp.user = new User();
+                    }else
+                    {
+                        resp.Status = true;
+                        resp.PasswordMatched = true;
+                    }
+                }
+                else
+                {
+                    resp.UserNameExists = false;
+                }
+            }
+            catch (Exception)
+            {
+            }
+            return resp;
+        }
 
+        public StatusResponse UpdateUserAccount(UserRequest request)
+        {
+            StatusResponse resp = new StatusResponse();
+            try
+            {
+                resp.Status = dataAccess.UpdateUserAccount(request) > 0 ? true : false;
+            }
+            catch (Exception)
+            {
+            }
+            return resp;
+        }
+
+        public StatusResponse UpdatePasswordOrEmail(EditPasswordOrEmailRequest request)
+        {
+            StatusResponse resp = new StatusResponse();
+            try
+            {
+                LoginResponse loginResp = LoginUserAccount(new LoginRequest() {
+                    username = request.user.USER_NAME,
+                    password = request.OldPassword
+                });
+
+                loginResp.PasswordMatched = true;
+
+                if (loginResp.PasswordMatched)
+                {
+                    string salt = null;
+                    request.user.PASSWORD = passwordManager.GeneratePasswordHash(request.user.PASSWORD, out salt);
+                    request.user.SALT = salt;
+                    resp.Status = dataAccess.UpdateUserAccount(request) > 0 ? true : false;
+                }else
+                {
+                    resp.Status = false;
+                }
+            }
+            catch (Exception)
+            {
+            }
+            return resp;
+        }
+
+        public bool UsernameExists(string username)
+        {
+            return dataAccess.UsernameExists(username);
+        }
         
     }
 }

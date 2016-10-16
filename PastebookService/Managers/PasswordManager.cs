@@ -8,14 +8,32 @@ namespace PastebookService
 {
     public class PasswordManager
     {
-        private static RNGCryptoServiceProvider m_cryptoServiceProvider = new RNGCryptoServiceProvider();
+        private static RNGCryptoServiceProvider m_cryptoServiceProvider;
         private const int SALT_SIZE = 24;
+
+        static PasswordManager()
+        {
+            m_cryptoServiceProvider = new RNGCryptoServiceProvider();
+        }
 
         public string GeneratePasswordHash(string Password, out string salt)
         {
             SHA256 sha = new SHA256CryptoServiceProvider();
             salt = GetSaltString();
             byte[] resultBytes = sha.ComputeHash(Mapper.GetBytes(Password + salt));
+
+            // return the hash string to the caller
+            return Mapper.GetString(resultBytes);
+        }
+
+
+        public string GetPasswordHash(string message)
+        {
+            // Let us use SHA256 algorithm to 
+            // generate the hash from this salted password
+            SHA256 sha = new SHA256CryptoServiceProvider();
+            byte[] dataBytes = Mapper.GetBytes(message);
+            byte[] resultBytes = sha.ComputeHash(dataBytes);
 
             // return the hash string to the caller
             return Mapper.GetString(resultBytes);
@@ -33,9 +51,9 @@ namespace PastebookService
         {
             var retVal = false;
             string finalString = password + salt;
-            retVal = hash == null;// m_hashComputer.GetPasswordHashAndSalt(finalString);
+            retVal = hash == GetPasswordHash(finalString);
             return retVal;
         }
-        
+
     }
 }

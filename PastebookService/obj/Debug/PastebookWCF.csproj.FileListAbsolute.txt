@@ -1,3 +1,4 @@
+C:\Users\Bootcamp\Source\Repos\Pastebook\PastebookService\obj\Debug\PastebookWCF.csprojResolveAssemblyReference.cache
 C:\Users\Bootcamp\Source\Repos\Pastebook\PastebookService\bin\ApplicationInsights.config
 C:\Users\Bootcamp\Source\Repos\Pastebook\PastebookService\bin\PastebookService.dll.config
 C:\Users\Bootcamp\Source\Repos\Pastebook\PastebookService\bin\PastebookService.dll
@@ -20,6 +21,5 @@ C:\Users\Bootcamp\Source\Repos\Pastebook\PastebookService\bin\Microsoft.AI.Serve
 C:\Users\Bootcamp\Source\Repos\Pastebook\PastebookService\bin\Microsoft.AI.Web.xml
 C:\Users\Bootcamp\Source\Repos\Pastebook\PastebookService\bin\Microsoft.AI.WindowsServer.xml
 C:\Users\Bootcamp\Source\Repos\Pastebook\PastebookService\bin\Microsoft.ApplicationInsights.xml
-C:\Users\Bootcamp\Source\Repos\Pastebook\PastebookService\obj\Debug\PastebookWCF.csprojResolveAssemblyReference.cache
 C:\Users\Bootcamp\Source\Repos\Pastebook\PastebookService\obj\Debug\PastebookService.dll
 C:\Users\Bootcamp\Source\Repos\Pastebook\PastebookService\obj\Debug\PastebookService.pdb

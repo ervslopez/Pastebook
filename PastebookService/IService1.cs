@@ -11,11 +11,17 @@ namespace PastebookService
     [ServiceContract]
     public interface IService1
     {
+        //User Account Related Services
         [OperationContract]
-        StatusResponse CreateUserAccount(UserRequest request);
+        CreateUserResponse CreateUserAccount(UserRequest request);
 
         [OperationContract]
-        LoginResponse LoginUserAccount(UserRequest request);
+        LoginResponse LoginUserAccount(LoginRequest request);
 
+        [OperationContract]
+        StatusResponse EditUserProfile(UserRequest request);
+
+        [OperationContract]
+        StatusResponse EditUserPassword(EditPasswordOrEmailRequest request);
     }
 }
