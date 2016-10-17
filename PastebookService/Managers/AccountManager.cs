@@ -30,8 +30,9 @@ namespace PastebookService
                     resp.UserNameExists = true;
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
+               // resp.errorList.Add(e);
             }
             return resp;
         }
@@ -60,8 +61,9 @@ namespace PastebookService
                     resp.UserNameExists = false;
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                //resp.errorList.Add(e);
             }
             return resp;
         }
@@ -73,8 +75,9 @@ namespace PastebookService
             {
                 resp.Status = dataAccess.UpdateUserAccount(request) > 0 ? true : false;
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                //resp.errorList.Add(e);
             }
             return resp;
         }
@@ -89,8 +92,6 @@ namespace PastebookService
                     password = request.OldPassword
                 });
 
-                loginResp.PasswordMatched = true;
-
                 if (loginResp.PasswordMatched)
                 {
                     string salt = null;
@@ -102,8 +103,9 @@ namespace PastebookService
                     resp.Status = false;
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                //resp.errorList.Add(e);
             }
             return resp;
         }
@@ -113,5 +115,10 @@ namespace PastebookService
             return dataAccess.UsernameExists(username);
         }
         
+        public bool UserIDExists(int ID)
+        {
+            return dataAccess.UserIDExists(ID);
+        }
+
     }
 }

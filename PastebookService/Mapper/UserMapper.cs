@@ -1,14 +1,10 @@
 ﻿using PastebookModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace PastebookService
 {
     public static class UserMapper
     {
-        public static PB_USER toPB_USER(User user)
+        public static PB_USER ToPB_USER(User user)
         {
             return new PB_USER()
             {
@@ -29,7 +25,7 @@ namespace PastebookService
             };
         }
 
-        public static User toUser(PB_USER user)
+        public static User ToUser(PB_USER user)
         {
             return new User()
             {

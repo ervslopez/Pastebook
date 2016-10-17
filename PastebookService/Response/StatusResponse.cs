@@ -11,5 +11,13 @@ namespace PastebookService
     {
         [DataMember]
         public bool Status { get; set; }
+
+        //[DataMember]
+        //public List<Exception> errorList;
+
+        //public StatusResponse()
+        //{
+        //    errorList = new List<Exception>();
+        //}
     }
 }

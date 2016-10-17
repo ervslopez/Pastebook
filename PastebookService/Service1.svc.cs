@@ -12,25 +12,82 @@ namespace PastebookService
     // NOTE: In order to launch WCF Test Client for testing this service, please select Service1.svc or Service1.svc.cs at the Solution Explorer and start debugging.
     public class Service1 : IService1
     {
-        AccountManager manager = new AccountManager();
+        //User Account Related Services
+        AccountManager accountManager = new AccountManager();
         public CreateUserResponse CreateUserAccount(UserRequest request)
         {
-            return manager.CreateUserAccount(request);
+            return accountManager.CreateUserAccount(request);
         }
 
         public LoginResponse LoginUserAccount(LoginRequest request)
         {
-            return manager.LoginUserAccount(request);
+            return accountManager.LoginUserAccount(request);
         }
 
         public StatusResponse EditUserProfile(UserRequest request)
         {
-            return manager.UpdateUserAccount(request);
+            return accountManager.UpdateUserAccount(request);
         }
 
         public StatusResponse EditUserPassword(EditPasswordOrEmailRequest request)
         {
-            return manager.UpdatePasswordOrEmail(request);
+            return accountManager.UpdatePasswordOrEmail(request);
+        }
+
+        //Post Related Services
+        PostManager postManager = new PostManager();
+        public StatusResponse CreatePost(PostRequest request)
+        {
+            return postManager.CreatePost(request);
+        }
+
+        public GetPostListResponse GetUserRelatedPosts(GetPostsRequest request)
+        {
+            GetPostListResponse resp = new GetPostListResponse();
+            resp =  postManager.GetUserRelatedPosts(request);
+            foreach (var item in resp.postList)
+            {
+                resp.completePostList.Add(new CompletePost() {
+                    post = item,
+                    commentsList = GetPostComments(new GetPostLikesRequest() {
+                        POST_ID = item.ID
+                    }).commentsList,
+                    likeList = GetPostLikes(new GetPostLikesRequest()
+                    {
+                        POST_ID = item.ID
+                    }).likeList
+                });
+            }
+            return resp;
+        }
+
+        public GetPostListResponse GetUserAndFriendsPosts(GetPostsRequest request)
+        {
+            throw new NotImplementedException();
+        }
+        
+        //Like Related Services
+
+        public StatusResponse LikePost(LikePostRequest request)
+        {
+            return postManager.LikePost(request);
+        }
+
+        public GetPostLikesResponse GetPostLikes(GetPostLikesRequest request)
+        {
+            return postManager.GetPostLikes(request);
+        }
+
+        //Comment Related Services
+
+        public StatusResponse CommentOnPost(CommentOnPostRequest request)
+        {
+            return postManager.CommentOnPost(request);
+        }
+
+        public GetPostCommentsResponse GetPostComments(GetPostLikesRequest request)
+        {
+            return postManager.GetPostComments(request);
         }
     }
 }

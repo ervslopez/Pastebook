@@ -7,13 +7,13 @@ using System.Web;
 namespace PastebookService
 {
     [DataContract]
-    public class LoginResponse :StatusResponse
+    public class Like
     {
         [DataMember]
-        public bool UserNameExists { get; set; }
+        public int ID { get; set; }
         [DataMember]
-        public bool PasswordMatched { get; set; }
+        public int POST_ID { get; set; }
         [DataMember]
-        public User user { get; set; }
+        public int LIKED_BY { get; set; }
     }
 }

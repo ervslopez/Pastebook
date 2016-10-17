@@ -7,9 +7,8 @@ using System.Web;
 
 namespace PastebookService
 {
-    public class AccountDataAccess
+    public class AccountDataAccess : BaseDataAccess
     {
-        List<Exception> listOfException = new List<Exception>();
 
         public int CreateUserAccount(UserRequest request)
         {
@@ -18,7 +17,7 @@ namespace PastebookService
             {
                 using (var context = new DB_PASTEBOOKEntities1())
                 {
-                    context.PB_USER.Add(UserMapper.toPB_USER(request.user));
+                    context.PB_USER.Add(UserMapper.ToPB_USER(request.user));
                     result = context.SaveChanges();
                 }
             }
@@ -36,7 +35,7 @@ namespace PastebookService
             {
                 using (var context = new DB_PASTEBOOKEntities1())
                 {
-                    user = UserMapper.toUser(
+                    user = UserMapper.ToUser(
                         context.PB_USER.Where(x => x.USER_NAME == request.username)
                         .FirstOrDefault());
                 }
@@ -55,7 +54,7 @@ namespace PastebookService
             {
                 using (var context = new DB_PASTEBOOKEntities1())
                 {
-                    context.Entry(UserMapper.toPB_USER(request.user)).State = EntityState.Modified;
+                    context.Entry(UserMapper.ToPB_USER(request.user)).State = EntityState.Modified;
                     //PB_USER userRequest = UserMapper.toPB_USER(GetUserAccount(new LoginRequest() {
                     //    username = request.user.USER_NAME
                     //}));
@@ -84,6 +83,23 @@ namespace PastebookService
                 using (var context = new DB_PASTEBOOKEntities1())
                 {
                     result = context.PB_USER.Any(x => x.USER_NAME == username);
+                }
+            }
+            catch (Exception ex)
+            {
+                listOfException.Add(ex);
+            }
+            return result;
+        }
+
+        public bool UserIDExists(int ID)
+        {
+            bool result = false;
+            try
+            {
+                using (var context = new DB_PASTEBOOKEntities1())
+                {
+                    result = context.PB_USER.Any(x => x.ID == ID);
                 }
             }
             catch (Exception ex)
