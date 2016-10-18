@@ -19,10 +19,10 @@ namespace PastebookService
         LoginResponse LoginUserAccount(LoginRequest request);
 
         [OperationContract]
-        StatusResponse EditUserProfile(UserRequest request);
+        EditUserResponse EditUserProfile(UserRequest request);
 
         [OperationContract]
-        StatusResponse EditUserPassword(EditPasswordOrEmailRequest request);
+        EditUserResponse EditUserPasswordOrEmail(EditPasswordOrEmailRequest request);
 
         //Post Related Services
         [OperationContract]
@@ -48,5 +48,17 @@ namespace PastebookService
         [OperationContract]
         GetPostCommentsResponse GetPostComments(GetPostLikesRequest request);
 
+        //Friend Related Services
+        [OperationContract]
+        FriendResponse RequestFriendship(FriendRequest request);
+
+        [OperationContract]
+        FriendResponse AcceptFriendship(FriendRequest request);
+
+        [OperationContract]
+        FriendResponse BlockAccount(FriendRequest request);
+
+        [OperationContract]
+        ViewFriendsListResponse ViewFriendsList(ViewFriendsListRequest request);
     }
 }

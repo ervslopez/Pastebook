@@ -14,6 +14,7 @@ namespace PastebookService
     {
         //User Account Related Services
         AccountManager accountManager = new AccountManager();
+
         public CreateUserResponse CreateUserAccount(UserRequest request)
         {
             return accountManager.CreateUserAccount(request);
@@ -24,18 +25,19 @@ namespace PastebookService
             return accountManager.LoginUserAccount(request);
         }
 
-        public StatusResponse EditUserProfile(UserRequest request)
+        public EditUserResponse EditUserProfile(UserRequest request)
         {
             return accountManager.UpdateUserAccount(request);
         }
 
-        public StatusResponse EditUserPassword(EditPasswordOrEmailRequest request)
+        public EditUserResponse EditUserPasswordOrEmail(EditPasswordOrEmailRequest request)
         {
-            return accountManager.UpdatePasswordOrEmail(request);
+            return accountManager.UpdatePasswordOrEmail(request); 
         }
 
         //Post Related Services
         PostManager postManager = new PostManager();
+
         public StatusResponse CreatePost(PostRequest request)
         {
             return postManager.CreatePost(request);
@@ -45,6 +47,7 @@ namespace PastebookService
         {
             GetPostListResponse resp = new GetPostListResponse();
             resp =  postManager.GetUserRelatedPosts(request);
+
             foreach (var item in resp.postList)
             {
                 resp.completePostList.Add(new CompletePost() {
@@ -63,6 +66,25 @@ namespace PastebookService
 
         public GetPostListResponse GetUserAndFriendsPosts(GetPostsRequest request)
         {
+            //GetPostListResponse resp = new GetPostListResponse();
+            //resp = postManager.GetUserRelatedPosts(request);
+
+            //foreach (var item in resp.postList)
+            //{
+            //    resp.completePostList.Add(new CompletePost()
+            //    {
+            //        post = item,
+            //        commentsList = GetPostComments(new GetPostLikesRequest()
+            //        {
+            //            POST_ID = item.ID
+            //        }).commentsList,
+            //        likeList = GetPostLikes(new GetPostLikesRequest()
+            //        {
+            //            POST_ID = item.ID
+            //        }).likeList
+            //    });
+            //}
+            //return resp;
             throw new NotImplementedException();
         }
         
@@ -88,6 +110,28 @@ namespace PastebookService
         public GetPostCommentsResponse GetPostComments(GetPostLikesRequest request)
         {
             return postManager.GetPostComments(request);
+        }
+
+        //Friend Related Services
+        FriendManager friendManager = new FriendManager();
+        public FriendResponse RequestFriendship(FriendRequest request)
+        {
+            return friendManager.RequestFriendship(request);
+        }
+
+        public FriendResponse AcceptFriendship(FriendRequest request)
+        {
+            return friendManager.AcceptFriendship(request);
+        }
+
+        public FriendResponse BlockAccount(FriendRequest request)
+        {
+            return friendManager.BlockAccount(request);
+        }
+
+        public ViewFriendsListResponse ViewFriendsList(ViewFriendsListRequest request)
+        {
+            return friendManager.ViewFriendsList(request);
         }
     }
 }

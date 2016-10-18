@@ -15,7 +15,7 @@ namespace PastebookService
             int result = 0;
             try
             {
-                using (var context = new DB_PASTEBOOKEntities1())
+                using (var context = new DB_PASTEBOOKEntities())
                 {
                     context.PB_USER.Add(UserMapper.ToPB_USER(request.user));
                     result = context.SaveChanges();
@@ -28,15 +28,15 @@ namespace PastebookService
             return result;
         }
 
-        public User GetUserAccount(LoginRequest request)
+        public User GetUserAccount(string email)
         {
             User user = new User();
             try
             {
-                using (var context = new DB_PASTEBOOKEntities1())
+                using (var context = new DB_PASTEBOOKEntities())
                 {
                     user = UserMapper.ToUser(
-                        context.PB_USER.Where(x => x.USER_NAME == request.username)
+                        context.PB_USER.Where(x => x.EMAIL == email)
                         .FirstOrDefault());
                 }
             }
@@ -52,19 +52,9 @@ namespace PastebookService
             int result = 0;
             try
             {
-                using (var context = new DB_PASTEBOOKEntities1())
+                using (var context = new DB_PASTEBOOKEntities())
                 {
                     context.Entry(UserMapper.ToPB_USER(request.user)).State = EntityState.Modified;
-                    //PB_USER userRequest = UserMapper.toPB_USER(GetUserAccount(new LoginRequest() {
-                    //    username = request.user.USER_NAME
-                    //}));
-
-                    //context.PB_USER.Attach(userRequest);
-                    //userRequest.PROFILE_PIC = request.user.PROFILE_PIC;
-                    //userRequest.ABOUT_ME = request.user.ABOUT_ME;
-                    //userRequest.PASSWORD = request.user.PASSWORD;
-                    //userRequest.SALT = request.user.SALT;
-                    //userRequest.EMAIL = request.user.EMAIL;
                     result = context.SaveChanges();
                 }
             }
@@ -75,14 +65,14 @@ namespace PastebookService
             return result;
         }
         
-        public bool UsernameExists(string username)
+        public bool EmailExists(string email)
         {
             bool result = false;
             try
             {
-                using (var context = new DB_PASTEBOOKEntities1())
+                using (var context = new DB_PASTEBOOKEntities())
                 {
-                    result = context.PB_USER.Any(x => x.USER_NAME == username);
+                    result = context.PB_USER.Any(x => x.EMAIL == email);
                 }
             }
             catch (Exception ex)
@@ -97,7 +87,7 @@ namespace PastebookService
             bool result = false;
             try
             {
-                using (var context = new DB_PASTEBOOKEntities1())
+                using (var context = new DB_PASTEBOOKEntities())
                 {
                     result = context.PB_USER.Any(x => x.ID == ID);
                 }

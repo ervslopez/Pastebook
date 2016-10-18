@@ -13,7 +13,7 @@ namespace PastebookService
             int result = 0;
             try
             {
-                using (var context = new DB_PASTEBOOKEntities1())
+                using (var context = new DB_PASTEBOOKEntities())
                 {
                     context.PB_POST.Add(PostMapper.ToPB_POST(request.post));
                     result = context.SaveChanges();
@@ -31,7 +31,7 @@ namespace PastebookService
             List<Post> postList = new List<Post>();
             try
             {
-                using (var context = new DB_PASTEBOOKEntities1())
+                using (var context = new DB_PASTEBOOKEntities())
                 {
                     var tblPosts = context.PB_POST.Where(x => x.PROFILE_OWNER_ID == request.accountID).ToList();
 
@@ -53,7 +53,7 @@ namespace PastebookService
             List<Post> postList = new List<Post>();
             try
             {
-                using (var context = new DB_PASTEBOOKEntities1())
+                using (var context = new DB_PASTEBOOKEntities())
                 {
                     var tblPosts = context.PB_POST.Where(x => x.PROFILE_OWNER_ID == request.accountID).ToList();
 
@@ -75,7 +75,7 @@ namespace PastebookService
             int result = 0;
             try
             {
-                using (var context = new DB_PASTEBOOKEntities1())
+                using (var context = new DB_PASTEBOOKEntities())
                 {
                     context.PB_LIKE.Add(LikeMapper.ToPB_LIKE(request.like));
                     result = context.SaveChanges();
@@ -93,7 +93,7 @@ namespace PastebookService
             List<GetPostLikes_Result> likersList = new List<GetPostLikes_Result>();
             try
             {
-                using (var context = new DB_PASTEBOOKEntities1())
+                using (var context = new DB_PASTEBOOKEntities())
                 {
                     likersList = context.GetPostLikes(request.POST_ID).ToList();
                 }
@@ -110,7 +110,7 @@ namespace PastebookService
             int result = 0;
             try
             {
-                using (var context = new DB_PASTEBOOKEntities1())
+                using (var context = new DB_PASTEBOOKEntities())
                 {
                     context.PB_COMMENT.Add(CommentMapper.ToPB_COMMENT(request.comment));
                     result = context.SaveChanges();
@@ -128,7 +128,7 @@ namespace PastebookService
             List<GetPostComments_Result> commentsList = new List<GetPostComments_Result>();
             try
             {
-                using (var context = new DB_PASTEBOOKEntities1())
+                using (var context = new DB_PASTEBOOKEntities())
                 {
                     commentsList = context.GetPostComments(request.POST_ID).ToList();
                 }
@@ -145,9 +145,26 @@ namespace PastebookService
             bool result = false;
             try
             {
-                using (var context = new DB_PASTEBOOKEntities1())
+                using (var context = new DB_PASTEBOOKEntities())
                 {
                     result = context.PB_POST.Any(x => x.ID == ID);
+                }
+            }
+            catch (Exception ex)
+            {
+                listOfException.Add(ex);
+            }
+            return result;
+        }
+
+        public bool CheckIfPostIsLikedAlready(int postID, int userID)
+        {
+            bool result = false;
+            try
+            {
+                using (var context = new DB_PASTEBOOKEntities())
+                {
+                    result = context.PB_LIKE.Any(x => x.POST_ID == postID && x.LIKED_BY == userID);
                 }
             }
             catch (Exception ex)

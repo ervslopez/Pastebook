@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="f573fee0f9c7438492c4e41a717fbc60" Name="Diagram1" ZoomLevel="86">
+      <Diagram DiagramId="327c32c7a06f48c49a13eca425b6e3c5" Name="Diagram1">
         <EntityTypeShape EntityType="DB_PASTEBOOKModel.PB_COMMENT" Width="1.5" PointX="7.5" PointY="10" IsExpanded="true" />
         <EntityTypeShape EntityType="DB_PASTEBOOKModel.PB_FRIEND" Width="1.5" PointX="5.25" PointY="8.25" IsExpanded="true" />
         <EntityTypeShape EntityType="DB_PASTEBOOKModel.PB_LIKE" Width="1.5" PointX="7.5" PointY="13.25" IsExpanded="true" />

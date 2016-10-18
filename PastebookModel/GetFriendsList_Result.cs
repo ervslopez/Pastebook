@@ -11,11 +11,10 @@ namespace PastebookModel
 {
     using System;
     
-    public partial class GetPostComments_Result
+    public partial class GetFriendsList_Result
     {
         public string FIRST_NAME { get; set; }
         public string LAST_NAME { get; set; }
-        public string CONTENT { get; set; }
-        public System.DateTime DATE_CREATED { get; set; }
+        public int ID { get; set; }
     }
 }

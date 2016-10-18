@@ -7,9 +7,7 @@ using System.Web;
 namespace PastebookService
 {
     [DataContract]
-    public class PostRequest
+    public class EditUserResponse : LoginResponse
     {
-        [DataMember]
-        public Post post { get; set; }
     }
 }

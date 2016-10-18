@@ -19,6 +19,7 @@ namespace PastebookService
                 if (accountDataAccess.UserIDExists(request.post.PROFILE_OWNER_ID)
                     && accountDataAccess.UserIDExists(request.post.PROFILE_OWNER_ID))
                 {
+                    request.post.CREATED_DATE = DateTime.Now;
                     resp.Status = postDataAccess.CreatePost(request) > 0 ? true : false;
                 }
                 else
@@ -28,7 +29,7 @@ namespace PastebookService
             }
             catch (Exception e)
             {
-               // resp.errorList.Add(e);
+                resp.errorList.Add(e.ToString());
             }
             return resp;
         }
@@ -49,7 +50,7 @@ namespace PastebookService
             }
             catch (Exception e)
             {
-                //resp.errorList.Add(e);
+                resp.errorList.Add(e.ToString());
             }
             return resp;
         }
@@ -60,7 +61,7 @@ namespace PastebookService
             StatusResponse resp = new StatusResponse();
             try
             {
-                if (postDataAccess.PostExists(request.like.POST_ID))
+                if (postDataAccess.PostExists(request.like.POST_ID) && !PostLiked(request.like.POST_ID, request.like.LIKED_BY))
                 {
                     resp.Status = postDataAccess.LikePost(request) > 0 ? true : false;
                 }
@@ -71,7 +72,7 @@ namespace PastebookService
             }
             catch (Exception e)
             {
-                // resp.errorList.Add(e);
+                resp.errorList.Add(e.ToString());
             }
             return resp;
         }
@@ -92,7 +93,7 @@ namespace PastebookService
             }
             catch (Exception e)
             {
-                // resp.errorList.Add(e);
+                resp.errorList.Add(e.ToString());
             }
             return resp;
         }
@@ -105,6 +106,7 @@ namespace PastebookService
             {
                 if (postDataAccess.PostExists(request.comment.POST_ID))
                 {
+                    request.comment.DATE_CREATED = DateTime.Now;
                     resp.Status = postDataAccess.CommentOnPost(request) > 0 ? true : false;
                 }
                 else
@@ -114,7 +116,7 @@ namespace PastebookService
             }
             catch (Exception e)
             {
-                // resp.errorList.Add(e);
+                resp.errorList.Add(e.ToString());
             }
             return resp;
         }
@@ -135,9 +137,14 @@ namespace PastebookService
             }
             catch (Exception e)
             {
-                // resp.errorList.Add(e);
+                resp.errorList.Add(e.ToString());
             }
             return resp;
+        }
+
+        public bool PostLiked(int postID, int userID)
+        {
+            return postDataAccess.CheckIfPostIsLikedAlready(postID, userID);
         }
     }
 }

@@ -15,10 +15,10 @@ namespace PastebookModel
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class DB_PASTEBOOKEntities1 : DbContext
+    public partial class DB_PASTEBOOKEntities : DbContext
     {
-        public DB_PASTEBOOKEntities1()
-            : base("name=DB_PASTEBOOKEntities1")
+        public DB_PASTEBOOKEntities()
+            : base("name=DB_PASTEBOOKEntities")
         {
         }
     
@@ -35,6 +35,15 @@ namespace PastebookModel
         public virtual DbSet<PB_REF_COUNTRY> PB_REF_COUNTRY { get; set; }
         public virtual DbSet<PB_USER> PB_USER { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+    
+        public virtual ObjectResult<GetFriendsList_Result> GetFriendsList(Nullable<int> uSER_ID)
+        {
+            var uSER_IDParameter = uSER_ID.HasValue ?
+                new ObjectParameter("USER_ID", uSER_ID) :
+                new ObjectParameter("USER_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetFriendsList_Result>("GetFriendsList", uSER_IDParameter);
+        }
     
         public virtual ObjectResult<GetPostComments_Result> GetPostComments(Nullable<int> pOST_ID)
         {

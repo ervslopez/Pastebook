@@ -11,5 +11,8 @@ namespace PastebookService
     {
         [DataMember]
         public string OldPassword { get; set; }
+
+        [DataMember]
+        public string OldEmail { get; set; }
     }
 }

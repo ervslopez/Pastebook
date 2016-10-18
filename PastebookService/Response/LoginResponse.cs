@@ -10,9 +10,9 @@ namespace PastebookService
     public class LoginResponse :StatusResponse
     {
         [DataMember]
-        public bool UserNameExists { get; set; }
+        public bool emailExists { get; set; }
         [DataMember]
-        public bool PasswordMatched { get; set; }
+        public bool passwordMatched { get; set; }
         [DataMember]
         public User user { get; set; }
     }

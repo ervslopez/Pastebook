@@ -51,84 +51,86 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GetFriendsList_Result.cs">
+      <DependentUpon>PastebookModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="GetPostComments_Result.cs">
-      <DependentUpon>PastebookDataModel.tt</DependentUpon>
+      <DependentUpon>PastebookModel.tt</DependentUpon>
     </Compile>
     <Compile Include="GetPostLikes_Result.cs">
-      <DependentUpon>PastebookDataModel.tt</DependentUpon>
+      <DependentUpon>PastebookModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="PastebookDataModel.Context.cs">
+    <Compile Include="PastebookModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>PastebookDataModel.Context.tt</DependentUpon>
+      <DependentUpon>PastebookModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="PastebookDataModel.cs">
+    <Compile Include="PastebookModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>PastebookDataModel.tt</DependentUpon>
+      <DependentUpon>PastebookModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="PastebookDataModel.Designer.cs">
+    <Compile Include="PastebookModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>PastebookDataModel.edmx</DependentUpon>
+      <DependentUpon>PastebookModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="PB_COMMENT.cs">
-      <DependentUpon>PastebookDataModel.tt</DependentUpon>
+      <DependentUpon>PastebookModel.tt</DependentUpon>
     </Compile>
     <Compile Include="PB_FRIEND.cs">
-      <DependentUpon>PastebookDataModel.tt</DependentUpon>
+      <DependentUpon>PastebookModel.tt</DependentUpon>
     </Compile>
     <Compile Include="PB_LIKE.cs">
-      <DependentUpon>PastebookDataModel.tt</DependentUpon>
+      <DependentUpon>PastebookModel.tt</DependentUpon>
     </Compile>
     <Compile Include="PB_NOTIFICATION.cs">
-      <DependentUpon>PastebookDataModel.tt</DependentUpon>
+      <DependentUpon>PastebookModel.tt</DependentUpon>
     </Compile>
     <Compile Include="PB_POST.cs">
-      <DependentUpon>PastebookDataModel.tt</DependentUpon>
+      <DependentUpon>PastebookModel.tt</DependentUpon>
     </Compile>
     <Compile Include="PB_REF_COUNTRY.cs">
-      <DependentUpon>PastebookDataModel.tt</DependentUpon>
+      <DependentUpon>PastebookModel.tt</DependentUpon>
     </Compile>
     <Compile Include="PB_USER.cs">
-      <DependentUpon>PastebookDataModel.tt</DependentUpon>
+      <DependentUpon>PastebookModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="sp_helpdiagramdefinition_Result.cs">
-      <DependentUpon>PastebookDataModel.tt</DependentUpon>
+      <DependentUpon>PastebookModel.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_helpdiagrams_Result.cs">
-      <DependentUpon>PastebookDataModel.tt</DependentUpon>
+      <DependentUpon>PastebookModel.tt</DependentUpon>
     </Compile>
     <Compile Include="sysdiagram.cs">
-      <DependentUpon>PastebookDataModel.tt</DependentUpon>
+      <DependentUpon>PastebookModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
     <None Include="packages.config" />
-    <EntityDeploy Include="PastebookDataModel.edmx">
+    <EntityDeploy Include="PastebookModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>PastebookDataModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>PastebookModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="PastebookDataModel.edmx.diagram">
-      <DependentUpon>PastebookDataModel.edmx</DependentUpon>
+    <None Include="PastebookModel.edmx.diagram">
+      <DependentUpon>PastebookModel.edmx</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <Content Include="PastebookDataModel.Context.tt">
+    <Content Include="PastebookModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>PastebookDataModel.edmx</DependentUpon>
-      <LastGenOutput>PastebookDataModel.Context.cs</LastGenOutput>
+      <DependentUpon>PastebookModel.edmx</DependentUpon>
+      <LastGenOutput>PastebookModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="PastebookDataModel.tt">
+    <Content Include="PastebookModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>PastebookDataModel.edmx</DependentUpon>
-      <LastGenOutput>PastebookDataModel.cs</LastGenOutput>
+      <DependentUpon>PastebookModel.edmx</DependentUpon>
+      <LastGenOutput>PastebookModel.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

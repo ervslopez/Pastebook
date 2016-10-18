@@ -270,7 +270,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="DB_PASTEBOOKEntities1" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="DB_PASTEBOOKEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="PB_COMMENT" EntityType="Self.PB_COMMENT" />
     <EntitySet Name="PB_FRIEND" EntityType="Self.PB_FRIEND" />
     <EntitySet Name="PB_LIKE" EntityType="Self.PB_LIKE" />
@@ -331,6 +331,9 @@
       <End Role="PB_REF_COUNTRY" EntitySet="PB_REF_COUNTRY" />
       <End Role="PB_USER" EntitySet="PB_USER" />
     </AssociationSet>
+    <FunctionImport Name="GetFriendsList" ReturnType="Collection(DB_PASTEBOOKModel.GetFriendsList_Result)">
+      <Parameter Name="USER_ID" Mode="In" Type="Int32" />
+    </FunctionImport>
     <FunctionImport Name="GetPostComments" ReturnType="Collection(DB_PASTEBOOKModel.GetPostComments_Result)">
       <Parameter Name="POST_ID" Mode="In" Type="Int32" />
     </FunctionImport>
@@ -367,14 +370,17 @@
       <Parameter Name="new_diagramname" Mode="In" Type="String" />
     </FunctionImport>
     <FunctionImport Name="sp_upgraddiagrams" />
-    <FunctionImport Name="GetFriendsList" ReturnType="Collection(DB_PASTEBOOKModel.GetFriendsList_Result)">
-      <Parameter Name="USER_ID" Mode="In" Type="Int32" />
-    </FunctionImport>
   </EntityContainer>
+  <ComplexType Name="GetFriendsList_Result">
+    <Property Type="String" Name="FIRST_NAME" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="LAST_NAME" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+  </ComplexType>
   <ComplexType Name="GetPostComments_Result">
     <Property Type="String" Name="FIRST_NAME" Nullable="false" MaxLength="50" />
     <Property Type="String" Name="LAST_NAME" Nullable="false" MaxLength="50" />
     <Property Type="String" Name="CONTENT" Nullable="false" MaxLength="1000" />
+    <Property Type="DateTime" Name="DATE_CREATED" Nullable="false" Precision="23" />
   </ComplexType>
   <ComplexType Name="GetPostLikes_Result">
     <Property Type="String" Name="FIRST_NAME" Nullable="false" MaxLength="50" />
@@ -390,9 +396,5 @@
     <Property Type="Int32" Name="ID" Nullable="false" />
     <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
     <Property Type="Int32" Name="OwnerID" Nullable="false" />
-  </ComplexType>
-  <ComplexType Name="GetFriendsList_Result">
-    <Property Type="String" Name="FIRST_NAME" Nullable="false" MaxLength="50" />
-    <Property Type="String" Name="LAST_NAME" Nullable="false" MaxLength="50" />
   </ComplexType>
 </Schema>

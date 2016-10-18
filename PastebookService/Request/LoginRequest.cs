@@ -10,7 +10,7 @@ namespace PastebookService
     public class LoginRequest
     {
         [DataMember]
-        public string username { get; set; }
+        public string email { get; set; }
         [DataMember]
         public string password { get; set; }
     }

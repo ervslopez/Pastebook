@@ -7,9 +7,12 @@ using System.Web;
 namespace PastebookService
 {
     [DataContract]
-    public class PostRequest
+    public class FriendResponse : StatusResponse
     {
         [DataMember]
-        public Post post { get; set; }
+        public bool IsBlocked { get; set; }
+
+        [DataMember]
+        public bool RequestExists { get; set; }
     }
 }

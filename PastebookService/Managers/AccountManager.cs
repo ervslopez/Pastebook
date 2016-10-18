@@ -17,22 +17,23 @@ namespace PastebookService
             CreateUserResponse resp = new CreateUserResponse();
             try
             {
-                if (!UsernameExists(request.user.USER_NAME))
+                if (!EmailExists(request.user.EMAIL))
                 {
-                    resp.UserNameExists = false;
+                    resp.emailExists = false;
                     string salt = null;
                     request.user.PASSWORD = passwordManager.GeneratePasswordHash(request.user.PASSWORD, out salt);
                     request.user.SALT = salt;
-                    resp.Status = dataAccess.CreateUserAccount(request) > 0? true: false;
+                    request.user.DATE_CREATED = DateTime.Now;
+                    resp.Status = dataAccess.CreateUserAccount(request) > 0 ? true : false;
                 }
                 else
                 {
-                    resp.UserNameExists = true;
+                    resp.emailExists = true;
                 }
             }
             catch (Exception e)
             {
-               // resp.errorList.Add(e);
+                resp.errorList.Add(e.ToString());
             }
             return resp;
         }
@@ -42,83 +43,128 @@ namespace PastebookService
             LoginResponse resp = new LoginResponse();
             try
             {
-                if (UsernameExists(request.username))
+                if (EmailExists(request.email))
                 {
-                    resp.UserNameExists = true;
-                    resp.user = dataAccess.GetUserAccount(request);
-                    if (!passwordManager.PasswordMatch(request.password, resp.user.SALT, resp.user.PASSWORD))
+                    resp.emailExists = true;
+                    resp.user = GetUser(request.email);
+                    if (PasswordMatch(request.password, resp.user.SALT, resp.user.PASSWORD))
                     {
-                        resp.PasswordMatched = false;
-                        resp.user = new User();
-                    }else
-                    {
+                        resp.passwordMatched = true;
                         resp.Status = true;
-                        resp.PasswordMatched = true;
+                    }
+                    else
+                    {
+                        resp.passwordMatched = false;
+                        resp.user = new User();
                     }
                 }
                 else
                 {
-                    resp.UserNameExists = false;
+                    resp.emailExists = false;
                 }
             }
             catch (Exception e)
             {
-                //resp.errorList.Add(e);
+                resp.errorList.Add(e.ToString());
             }
             return resp;
         }
 
-        public StatusResponse UpdateUserAccount(UserRequest request)
+        public EditUserResponse UpdateUserAccount(UserRequest request)
         {
-            StatusResponse resp = new StatusResponse();
+            EditUserResponse resp = new EditUserResponse();
             try
             {
-                resp.Status = dataAccess.UpdateUserAccount(request) > 0 ? true : false;
-            }
-            catch (Exception e)
-            {
-                //resp.errorList.Add(e);
-            }
-            return resp;
-        }
-
-        public StatusResponse UpdatePasswordOrEmail(EditPasswordOrEmailRequest request)
-        {
-            StatusResponse resp = new StatusResponse();
-            try
-            {
-                LoginResponse loginResp = LoginUserAccount(new LoginRequest() {
-                    username = request.user.USER_NAME,
-                    password = request.OldPassword
-                });
-
-                if (loginResp.PasswordMatched)
+                if (EmailExists(request.user.EMAIL))
                 {
-                    string salt = null;
-                    request.user.PASSWORD = passwordManager.GeneratePasswordHash(request.user.PASSWORD, out salt);
-                    request.user.SALT = salt;
-                    resp.Status = dataAccess.UpdateUserAccount(request) > 0 ? true : false;
-                }else
+                    resp.emailExists = true;
+                    resp.user = GetUser(request.user.EMAIL);
+                    if (PasswordMatch(request.user.PASSWORD, resp.user.SALT, resp.user.PASSWORD))
+                    {
+                        resp.passwordMatched = true;
+                        request.user.ID = resp.user.ID;
+                        request.user.PASSWORD = resp.user.PASSWORD;
+                        request.user.SALT = resp.user.SALT;
+                        if (resp.Status = dataAccess.UpdateUserAccount(request) > 0)
+                        {
+                            resp.user = GetUser(request.user.EMAIL);
+                        }
+                    }
+                    else
+                    {
+                        resp.passwordMatched = false;
+                        resp.user = new User();
+                    }
+                }
+                else
                 {
-                    resp.Status = false;
+                    resp.emailExists = false;
                 }
             }
             catch (Exception e)
             {
-                //resp.errorList.Add(e);
+                resp.errorList.Add(e.ToString());
             }
             return resp;
         }
 
-        public bool UsernameExists(string username)
+        public EditUserResponse UpdatePasswordOrEmail(EditPasswordOrEmailRequest request)
         {
-            return dataAccess.UsernameExists(username);
+            EditUserResponse resp = new EditUserResponse();
+            try
+            {
+                if (EmailExists(request.OldEmail))
+                {
+                    resp.emailExists = true;
+                    resp.user = GetUser(request.OldEmail);
+                    if (PasswordMatch(request.OldPassword, resp.user.SALT, resp.user.PASSWORD))
+                    {
+                        resp.passwordMatched = true;
+                        string salt = null;
+                        request.user.PASSWORD = passwordManager.GeneratePasswordHash(request.user.PASSWORD, out salt);
+                        request.user.SALT = salt;
+                        request.user.ID = resp.user.ID;
+                        if (resp.Status = dataAccess.UpdateUserAccount(request) > 0)
+                        {
+                            resp.user = GetUser(request.user.EMAIL);
+                        }
+                    }
+                    else
+                    {
+                        resp.passwordMatched = false;
+                        resp.user = new User();
+                    }
+                }
+                else
+                {
+                    resp.emailExists = false;
+                }
+            }
+            catch (Exception e)
+            {
+                resp.errorList.Add(e.ToString());
+            }
+            return resp;
         }
-        
+
+        public User GetUser(string email)
+        {
+            return dataAccess.GetUserAccount(email);
+        }
+
+        public bool EmailExists(string email)
+        {
+            return dataAccess.EmailExists(email);
+        }
+
         public bool UserIDExists(int ID)
         {
             return dataAccess.UserIDExists(ID);
         }
 
+        public bool PasswordMatch(string password, string salt, string hash)
+        {
+            return passwordManager.PasswordMatch(password, salt, hash);
+        }
     }
 }

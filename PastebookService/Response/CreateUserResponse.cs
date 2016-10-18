@@ -10,6 +10,6 @@ namespace PastebookService
     public class CreateUserResponse:StatusResponse
     {
         [DataMember]
-        public bool UserNameExists { get; set; }
+        public bool emailExists { get; set; }
     }
 }

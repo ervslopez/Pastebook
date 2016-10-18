@@ -7,9 +7,9 @@ using System.Web;
 namespace PastebookService
 {
     [DataContract]
-    public class PostRequest
+    public class FriendRequest
     {
         [DataMember]
-        public Post post { get; set; }
+        public Friend friend { get; set; }
     }
 }
