@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace PastebookService
 {
@@ -18,9 +15,9 @@ namespace PastebookService
                 if (accountDataAccess.UserIDExists(request.friend.USER_ID)
                     && accountDataAccess.UserIDExists(request.friend.FRIEND_ID))
                 {
-                    Friend friend = friendDataAccess.GetFriendshipStatusID(request.friend.USER_ID, request.friend.FRIEND_ID);
-                    if (!friendDataAccess.checkRelationship(request.friend.FRIEND_ID, request.friend.USER_ID, "Y",
-                                                                                    "N", true))
+                    Friend friend = friendDataAccess.GetFriendshipStatus(request.friend.USER_ID, request.friend.FRIEND_ID);
+                    if (!friendDataAccess.checkRelationship(request.friend.USER_ID, request.friend.FRIEND_ID, "N",
+                                                                                    "Y", true))
                     {
                         resp.IsBlocked = false;
                         request.friend.REQUEST = 'Y';
@@ -29,11 +26,11 @@ namespace PastebookService
                         if (friend.FRIEND_ID > 0)
                         {
                             request.friend.ID = friend.ID;
-                            resp.Status = friendDataAccess.UpdateFriendship(request) > 0 ? true : false;
+                            resp.Status = friendDataAccess.UpdateFriendship(request.friend) > 0 ? true : false;
                         }
                         else
                         {
-                            resp.Status = friendDataAccess.RequestFriendship(request) > 0 ? true : false;
+                            resp.Status = friendDataAccess.AddFriendshipStatus(request.friend) > 0 ? true : false;
                         }
                     }
                     else
@@ -72,10 +69,10 @@ namespace PastebookService
                             request.friend.IsBLOCKED = 'N';
                             request.friend.CREATED_DATE = DateTime.Now;
 
-                            request.friend.ID = friendDataAccess.GetFriendshipStatusID(request.friend.USER_ID,
+                            request.friend.ID = friendDataAccess.GetFriendshipStatus(request.friend.USER_ID,
                                                                                     request.friend.FRIEND_ID).ID;
 
-                            resp.Status = friendDataAccess.UpdateFriendship(request) > 0 ? true : false;
+                            resp.Status = friendDataAccess.UpdateFriendship(request.friend) > 0 ? true : false;
                         }
                     }
                     else
@@ -108,7 +105,7 @@ namespace PastebookService
                         resp.IsBlocked = false;
                         request.friend.REQUEST = 'N';
                         request.friend.IsBLOCKED = 'Y';
-                        request.friend.ID = friendDataAccess.GetFriendshipStatusID(request.friend.USER_ID,
+                        request.friend.ID = friendDataAccess.GetFriendshipStatus(request.friend.USER_ID,
                                                                                     request.friend.FRIEND_ID).ID;
 
                         var dummy = request.friend.USER_ID;
@@ -116,7 +113,14 @@ namespace PastebookService
                         request.friend.FRIEND_ID = dummy;
 
                         request.friend.CREATED_DATE = DateTime.Now;
-                        resp.Status = friendDataAccess.UpdateFriendship(request) > 0 ? true : false;
+                        if (request.friend.ID > 0)
+                        {
+                            resp.Status = friendDataAccess.UpdateFriendship(request.friend) > 0 ? true : false;
+                        }
+                        else
+                        {
+                            resp.Status = friendDataAccess.AddFriendshipStatus(request.friend) > 0 ? true : false;
+                        }
                     }
                     else
                     {

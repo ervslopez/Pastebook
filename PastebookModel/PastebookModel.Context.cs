@@ -165,5 +165,49 @@ namespace PastebookModel
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
         }
+    
+        public virtual ObjectResult<GetCommentsNotif_Result> GetCommentsNotif(Nullable<int> uSER_ID)
+        {
+            var uSER_IDParameter = uSER_ID.HasValue ?
+                new ObjectParameter("USER_ID", uSER_ID) :
+                new ObjectParameter("USER_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetCommentsNotif_Result>("GetCommentsNotif", uSER_IDParameter);
+        }
+    
+        public virtual ObjectResult<GetLikesNotif_Result> GetLikesNotif(Nullable<int> uSER_ID)
+        {
+            var uSER_IDParameter = uSER_ID.HasValue ?
+                new ObjectParameter("USER_ID", uSER_ID) :
+                new ObjectParameter("USER_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetLikesNotif_Result>("GetLikesNotif", uSER_IDParameter);
+        }
+    
+        public virtual ObjectResult<GetAccountRelatedPosts_Result> GetAccountRelatedPosts(Nullable<int> uSER_ID, Nullable<int> sTART_RANGE)
+        {
+            var uSER_IDParameter = uSER_ID.HasValue ?
+                new ObjectParameter("USER_ID", uSER_ID) :
+                new ObjectParameter("USER_ID", typeof(int));
+    
+            var sTART_RANGEParameter = sTART_RANGE.HasValue ?
+                new ObjectParameter("START_RANGE", sTART_RANGE) :
+                new ObjectParameter("START_RANGE", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAccountRelatedPosts_Result>("GetAccountRelatedPosts", uSER_IDParameter, sTART_RANGEParameter);
+        }
+    
+        public virtual ObjectResult<GetNewsfeed_Result> GetNewsfeed(Nullable<int> uSERID, Nullable<int> sTART_RANGE)
+        {
+            var uSERIDParameter = uSERID.HasValue ?
+                new ObjectParameter("USERID", uSERID) :
+                new ObjectParameter("USERID", typeof(int));
+    
+            var sTART_RANGEParameter = sTART_RANGE.HasValue ?
+                new ObjectParameter("START_RANGE", sTART_RANGE) :
+                new ObjectParameter("START_RANGE", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetNewsfeed_Result>("GetNewsfeed", uSERIDParameter, sTART_RANGEParameter);
+        }
     }
 }

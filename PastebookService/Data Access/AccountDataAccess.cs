@@ -10,14 +10,14 @@ namespace PastebookService
     public class AccountDataAccess : BaseDataAccess
     {
 
-        public int CreateUserAccount(UserRequest request)
+        public int CreateUserAccount(User user)
         {
             int result = 0;
             try
             {
                 using (var context = new DB_PASTEBOOKEntities())
                 {
-                    context.PB_USER.Add(UserMapper.ToPB_USER(request.user));
+                    context.PB_USER.Add(UserMapper.ToPB_USER(user));
                     result = context.SaveChanges();
                 }
             }
@@ -46,15 +46,53 @@ namespace PastebookService
             }
             return user;
         }
-        
-        public int UpdateUserAccount(UserRequest request)
+
+        public User GetUserAccount(int ID)
+        {
+            User user = new User();
+            try
+            {
+                using (var context = new DB_PASTEBOOKEntities())
+                {
+                    user = UserMapper.ToUser(
+                        context.PB_USER.Where(x => x.ID == ID)
+                        .FirstOrDefault());
+                }
+            }
+            catch (Exception ex)
+            {
+                listOfException.Add(ex);
+            }
+            return user;
+        }
+
+        public User GetUserAccountUsingUsername(string username)
+        {
+            User user = new User();
+            try
+            {
+                using (var context = new DB_PASTEBOOKEntities())
+                {
+                    user = UserMapper.ToUser(
+                        context.PB_USER.Where(x => x.USER_NAME == username)
+                        .FirstOrDefault());
+                }
+            }
+            catch (Exception ex)
+            {
+                listOfException.Add(ex);
+            }
+            return user;
+        }
+
+        public int UpdateUserAccount(User user)
         {
             int result = 0;
             try
             {
                 using (var context = new DB_PASTEBOOKEntities())
                 {
-                    context.Entry(UserMapper.ToPB_USER(request.user)).State = EntityState.Modified;
+                    context.Entry(UserMapper.ToPB_USER(user)).State = EntityState.Modified;
                     result = context.SaveChanges();
                 }
             }

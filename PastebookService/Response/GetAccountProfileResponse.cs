@@ -7,12 +7,9 @@ using System.Web;
 namespace PastebookService
 {
     [DataContract]
-    public class GetPostsRequest
+    public class GetAccountProfileResponse : StatusResponse
     {
         [DataMember]
-        public int accountID { get; set; }
-
-        [DataMember]
-        public int StartRange { get; set; }
+        public User user { get; set; }
     }
 }

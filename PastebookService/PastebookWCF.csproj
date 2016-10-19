@@ -108,9 +108,9 @@
     <Compile Include="Data Access\AccountDataAccess.cs" />
     <Compile Include="Data Access\BaseDataAccess.cs" />
     <Compile Include="Data Access\FriendDataAccess.cs" />
+    <Compile Include="Data Access\NotificationDataAccess.cs" />
     <Compile Include="Data Access\PostDataAccess.cs" />
     <Compile Include="Entities\Comment.cs" />
-    <Compile Include="Entities\CompletePost.cs" />
     <Compile Include="Entities\Friend.cs" />
     <Compile Include="Entities\Like.cs" />
     <Compile Include="Entities\Notification.cs" />
@@ -119,6 +119,7 @@
     <Compile Include="Entities\User.cs" />
     <Compile Include="Managers\AccountManager.cs" />
     <Compile Include="Managers\FriendManager.cs" />
+    <Compile Include="Managers\NotificationManager.cs" />
     <Compile Include="Managers\PasswordManager.cs" />
     <Compile Include="Managers\PostManager.cs" />
     <Compile Include="Mapper\CommentMapper.cs" />
@@ -131,6 +132,8 @@
     <Compile Include="Request\CommentOnPostRequest.cs" />
     <Compile Include="Request\EditPasswordOrEmailRequest.cs" />
     <Compile Include="Request\FriendRequest.cs" />
+    <Compile Include="Request\GetAccountProfileRequest.cs" />
+    <Compile Include="Request\GetAllNotificationsRequest.cs" />
     <Compile Include="Request\GetCommentsRequest.cs" />
     <Compile Include="Request\GetPostLikesRequest.cs" />
     <Compile Include="Request\GetPostsRequest.cs" />
@@ -138,9 +141,12 @@
     <Compile Include="Request\LoginRequest.cs" />
     <Compile Include="Request\PostRequest.cs" />
     <Compile Include="Request\ViewFriendsListRequest.cs" />
+    <Compile Include="Response\CommentOnPostResponse.cs" />
     <Compile Include="Response\CreateUserResponse.cs" />
     <Compile Include="Response\EditUserResponse.cs" />
     <Compile Include="Response\FriendResponse.cs" />
+    <Compile Include="Response\GetAccountProfileResponse.cs" />
+    <Compile Include="Response\GetAllNotificationsResponse.cs" />
     <Compile Include="Response\GetPostCommentsResponse.cs" />
     <Compile Include="Response\GetPostLikesResponse.cs" />
     <Compile Include="Response\GetPostListResponse.cs" />

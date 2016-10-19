@@ -24,7 +24,7 @@ namespace PastebookService
                     request.user.PASSWORD = passwordManager.GeneratePasswordHash(request.user.PASSWORD, out salt);
                     request.user.SALT = salt;
                     request.user.DATE_CREATED = DateTime.Now;
-                    resp.Status = dataAccess.CreateUserAccount(request) > 0 ? true : false;
+                    resp.Status = dataAccess.CreateUserAccount(request.user) > 0 ? true : false;
                 }
                 else
                 {
@@ -85,7 +85,7 @@ namespace PastebookService
                         request.user.ID = resp.user.ID;
                         request.user.PASSWORD = resp.user.PASSWORD;
                         request.user.SALT = resp.user.SALT;
-                        if (resp.Status = dataAccess.UpdateUserAccount(request) > 0)
+                        if (resp.Status = dataAccess.UpdateUserAccount(request.user) > 0)
                         {
                             resp.user = GetUser(request.user.EMAIL);
                         }
@@ -124,7 +124,7 @@ namespace PastebookService
                         request.user.PASSWORD = passwordManager.GeneratePasswordHash(request.user.PASSWORD, out salt);
                         request.user.SALT = salt;
                         request.user.ID = resp.user.ID;
-                        if (resp.Status = dataAccess.UpdateUserAccount(request) > 0)
+                        if (resp.Status = dataAccess.UpdateUserAccount(request.user) > 0)
                         {
                             resp.user = GetUser(request.user.EMAIL);
                         }
@@ -138,6 +138,31 @@ namespace PastebookService
                 else
                 {
                     resp.emailExists = false;
+                }
+            }
+            catch (Exception e)
+            {
+                resp.errorList.Add(e.ToString());
+            }
+            return resp;
+        }
+
+        public GetAccountProfileResponse GetAccountProfile(GetAccountProfileRequest request)
+        {
+            GetAccountProfileResponse resp = new GetAccountProfileResponse();
+            try
+            {
+                if (request.accountID > 0)
+                {
+                    resp.user = dataAccess.GetUserAccount(request.accountID);
+                }
+                else if (request.email.ToString().Length > 0)
+                {
+                    resp.user = dataAccess.GetUserAccount(request.email);
+                }
+                else
+                {
+                    resp.user = dataAccess.GetUserAccountUsingUsername(request.username);
                 }
             }
             catch (Exception e)

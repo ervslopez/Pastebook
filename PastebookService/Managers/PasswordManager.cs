@@ -25,8 +25,7 @@ namespace PastebookService
             // return the hash string to the caller
             return Mapper.GetString(resultBytes);
         }
-
-
+        
         public string GetPasswordHash(string message)
         {
             // Let us use SHA256 algorithm to 

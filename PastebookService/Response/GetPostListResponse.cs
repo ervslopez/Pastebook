@@ -11,14 +11,11 @@ namespace PastebookService
     public class GetPostListResponse : StatusResponse
     {
         [DataMember]
-        public List<Post> postList;             //signatures of all posts
-        [DataMember]
-        public List<CompletePost> completePostList;   //posts that will be displayed
+        public List<GetNewsfeed_Result> postList;       
 
         public GetPostListResponse()
         {
-            postList = new List<Post>();
-            completePostList = new List<CompletePost>();
+            postList = new List<GetNewsfeed_Result>();
         }
     }
 }

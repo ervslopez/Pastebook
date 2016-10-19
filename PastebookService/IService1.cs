@@ -24,15 +24,18 @@ namespace PastebookService
         [OperationContract]
         EditUserResponse EditUserPasswordOrEmail(EditPasswordOrEmailRequest request);
 
+        [OperationContract]
+        GetAccountProfileResponse GetAccountProfile(GetAccountProfileRequest request);       //not yet done
+
         //Post Related Services
         [OperationContract]
         StatusResponse CreatePost(PostRequest request);
+        
+        [OperationContract]
+        GetPostListResponse GetNewsfeed(GetPostsRequest request);
 
-        [OperationContract]                                                    //not yet done
-        GetPostListResponse GetUserRelatedPosts(GetPostsRequest request);      //Posts on user's timeline
-
-        [OperationContract]                                                    // not yet done
-        GetPostListResponse GetUserAndFriendsPosts(GetPostsRequest request);   //Posts of user and friends
+        [OperationContract]
+        GetPostListResponse GetAccountRelatedPosts(GetPostsRequest request);
 
         //Like Related Service
         [OperationContract]
@@ -43,7 +46,7 @@ namespace PastebookService
 
         //Comment Related Services
         [OperationContract]
-        StatusResponse CommentOnPost(CommentOnPostRequest request);
+        CommentOnPostResponse CommentOnPost(CommentOnPostRequest request);
 
         [OperationContract]
         GetPostCommentsResponse GetPostComments(GetPostLikesRequest request);
@@ -60,5 +63,9 @@ namespace PastebookService
 
         [OperationContract]
         ViewFriendsListResponse ViewFriendsList(ViewFriendsListRequest request);
+
+        //Notification Related Services
+        [OperationContract]
+        GetAllNotificationsResponse GetAllNotifications(GetAllNotificationsRequest request);
     }
 }

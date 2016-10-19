@@ -8,14 +8,14 @@ namespace PastebookService
 {
     public class PostDataAccess : BaseDataAccess
     {
-        public int CreatePost(PostRequest request)
+        public int CreatePost(Post post)
         {
             int result = 0;
             try
             {
                 using (var context = new DB_PASTEBOOKEntities())
                 {
-                    context.PB_POST.Add(PostMapper.ToPB_POST(request.post));
+                    context.PB_POST.Add(PostMapper.ToPB_POST(post));
                     result = context.SaveChanges();
                 }
             }
@@ -26,76 +26,14 @@ namespace PastebookService
             return result;
         }
 
-        public List<Post> GetUserRelatedPosts(GetPostsRequest request)
+        public List<GetNewsfeed_Result> GetNewsfeed(int accountID, int startRange)
         {
-            List<Post> postList = new List<Post>();
+            List<GetNewsfeed_Result> likersList = new List<GetNewsfeed_Result>();
             try
             {
                 using (var context = new DB_PASTEBOOKEntities())
                 {
-                    var tblPosts = context.PB_POST.Where(x => x.PROFILE_OWNER_ID == request.accountID).ToList();
-
-                    foreach (var item in tblPosts)
-                    {
-                        postList.Add(PostMapper.ToPost(item));
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                listOfException.Add(ex);
-            }
-            return postList.OrderByDescending(x=>x.CREATED_DATE).ToList();
-        }
-
-        public List<Post> GetUserAndFriendsPosts(GetPostsRequest request)
-        {
-            List<Post> postList = new List<Post>();
-            try
-            {
-                using (var context = new DB_PASTEBOOKEntities())
-                {
-                    var tblPosts = context.PB_POST.Where(x => x.PROFILE_OWNER_ID == request.accountID).ToList();
-
-                    foreach (var item in tblPosts)
-                    {
-                        postList.Add(PostMapper.ToPost(item));
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                listOfException.Add(ex);
-            }
-            return postList.OrderByDescending(x => x.CREATED_DATE).ToList();
-        }
-
-        public int LikePost(LikePostRequest request)
-        {
-            int result = 0;
-            try
-            {
-                using (var context = new DB_PASTEBOOKEntities())
-                {
-                    context.PB_LIKE.Add(LikeMapper.ToPB_LIKE(request.like));
-                    result = context.SaveChanges();
-                }
-            }
-            catch (Exception ex)
-            {
-                listOfException.Add(ex);
-            }
-            return result;
-        }
-
-        public List<GetPostLikes_Result> GetPostLikes(GetPostLikesRequest request)
-        {
-            List<GetPostLikes_Result> likersList = new List<GetPostLikes_Result>();
-            try
-            {
-                using (var context = new DB_PASTEBOOKEntities())
-                {
-                    likersList = context.GetPostLikes(request.POST_ID).ToList();
+                    likersList = context.GetNewsfeed(accountID, startRange).ToList();
                 }
             }
             catch (Exception ex)
@@ -105,14 +43,66 @@ namespace PastebookService
             return likersList;
         }
 
-        public int CommentOnPost(CommentOnPostRequest request)
+        public List<GetAccountRelatedPosts_Result> GetAccountRelatedPosts(int accountID, int startRange)
+        {
+            List<GetAccountRelatedPosts_Result> postList = new List<GetAccountRelatedPosts_Result>();
+            try
+            {
+                using (var context = new DB_PASTEBOOKEntities())
+                {
+                    postList = context.GetAccountRelatedPosts(accountID, startRange).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                listOfException.Add(ex);
+            }
+            return postList;
+        }
+
+        public int LikePost(Like like)
         {
             int result = 0;
             try
             {
                 using (var context = new DB_PASTEBOOKEntities())
                 {
-                    context.PB_COMMENT.Add(CommentMapper.ToPB_COMMENT(request.comment));
+                    context.PB_LIKE.Add(LikeMapper.ToPB_LIKE(like));
+                    result = context.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                listOfException.Add(ex);
+            }
+            return result;
+        }
+
+        public List<GetPostLikes_Result> GetPostLikes(int postID)
+        {
+            List<GetPostLikes_Result> likersList = new List<GetPostLikes_Result>();
+            try
+            {
+                using (var context = new DB_PASTEBOOKEntities())
+                {
+                    likersList = context.GetPostLikes(postID).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                listOfException.Add(ex);
+            }
+            return likersList;
+        }
+
+        public int CommentOnPost(Comment comment)
+        {
+            int result = 0;
+            try
+            {
+                using (var context = new DB_PASTEBOOKEntities())
+                {
+                    context.PB_COMMENT.Add(CommentMapper.ToPB_COMMENT(comment));
                     result = context.SaveChanges();
                 }
             }
@@ -123,14 +113,14 @@ namespace PastebookService
             return result;
         }
         
-        public List<GetPostComments_Result> GetPostComments(GetPostLikesRequest request)
+        public List<GetPostComments_Result> GetPostComments(int postID)
         {
             List<GetPostComments_Result> commentsList = new List<GetPostComments_Result>();
             try
             {
                 using (var context = new DB_PASTEBOOKEntities())
                 {
-                    commentsList = context.GetPostComments(request.POST_ID).ToList();
+                    commentsList = context.GetPostComments(postID).ToList();
                 }
             }
             catch (Exception ex)
@@ -148,6 +138,42 @@ namespace PastebookService
                 using (var context = new DB_PASTEBOOKEntities())
                 {
                     result = context.PB_POST.Any(x => x.ID == ID);
+                }
+            }
+            catch (Exception ex)
+            {
+                listOfException.Add(ex);
+            }
+            return result;
+        }
+
+        public int GetPostOwnerID(int postID)
+        {
+            int result = 0;
+            try
+            {
+                using (var context = new DB_PASTEBOOKEntities())
+                {
+                    result = context.PB_POST.Where(x => x.ID == postID).SingleOrDefault().POSTER_ID;
+                }
+            }
+            catch (Exception ex)
+            {
+                listOfException.Add(ex);
+            }
+            return result;
+        }
+
+        public int getCommentID(int posterID, DateTime dateCreated)
+        {
+            int result = 0;
+            try
+            {
+                using (var context = new DB_PASTEBOOKEntities())
+                {
+                    result = context.PB_COMMENT.Where(x => x.POSTER_ID == posterID && x.DATE_CREATED.CompareTo(dateCreated)>0)
+                                                                                        .Select(x=>x.ID)                                    
+                                                                                        .SingleOrDefault();
                 }
             }
             catch (Exception ex)

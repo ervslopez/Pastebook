@@ -9,14 +9,14 @@ namespace PastebookService
 {
     public class FriendDataAccess : BaseDataAccess
     {
-        public int RequestFriendship(FriendRequest request)
+        public int AddFriendshipStatus(Friend friend)
         {
             int result = 0;
             try
             {
                 using (var context = new DB_PASTEBOOKEntities())
                 {
-                    context.PB_FRIEND.Add(FriendMapper.toPB_FRIEND(request.friend));
+                    context.PB_FRIEND.Add(FriendMapper.toPB_FRIEND(friend));
                     result = context.SaveChanges();
                 }
             }
@@ -27,7 +27,7 @@ namespace PastebookService
             return result;
         }
 
-        public Friend GetFriendshipStatusID(int userID, int friendID)
+        public Friend GetFriendshipStatus(int userID, int friendID)
         {
             Friend result = new Friend();
             try
@@ -47,14 +47,14 @@ namespace PastebookService
             return result;
         }
 
-        public int UpdateFriendship(FriendRequest request)
+        public int UpdateFriendship(Friend friend)
         {
             int result = 0;
             try
             {
                 using (var context = new DB_PASTEBOOKEntities())
                 {
-                    context.Entry(FriendMapper.toPB_FRIEND(request.friend)).State = EntityState.Modified;
+                    context.Entry(FriendMapper.toPB_FRIEND(friend)).State = EntityState.Modified;
                     result = context.SaveChanges();
                 }
             }

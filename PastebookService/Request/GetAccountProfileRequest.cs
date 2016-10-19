@@ -7,12 +7,15 @@ using System.Web;
 namespace PastebookService
 {
     [DataContract]
-    public class GetPostsRequest
+    public class GetAccountProfileRequest
     {
         [DataMember]
         public int accountID { get; set; }
 
         [DataMember]
-        public int StartRange { get; set; }
+        public string email { get; set; }
+
+        [DataMember]
+        public string username { get; set; }
     }
 }

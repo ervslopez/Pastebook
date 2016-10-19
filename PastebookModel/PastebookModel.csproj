@@ -51,7 +51,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GetAccountRelatedPosts_Result.cs">
+      <DependentUpon>PastebookModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetCommentsNotif_Result.cs">
+      <DependentUpon>PastebookModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="GetFriendsList_Result.cs">
+      <DependentUpon>PastebookModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetLikesNotif_Result.cs">
+      <DependentUpon>PastebookModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetNewsfeed_Result.cs">
       <DependentUpon>PastebookModel.tt</DependentUpon>
     </Compile>
     <Compile Include="GetPostComments_Result.cs">

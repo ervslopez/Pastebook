@@ -370,6 +370,20 @@
       <Parameter Name="new_diagramname" Mode="In" Type="String" />
     </FunctionImport>
     <FunctionImport Name="sp_upgraddiagrams" />
+    <FunctionImport Name="GetCommentsNotif" ReturnType="Collection(DB_PASTEBOOKModel.GetCommentsNotif_Result)">
+      <Parameter Name="USER_ID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetLikesNotif" ReturnType="Collection(DB_PASTEBOOKModel.GetLikesNotif_Result)">
+      <Parameter Name="USER_ID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetAccountRelatedPosts" ReturnType="Collection(DB_PASTEBOOKModel.GetAccountRelatedPosts_Result)">
+      <Parameter Name="USER_ID" Mode="In" Type="Int32" />
+      <Parameter Name="START_RANGE" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetNewsfeed" ReturnType="Collection(DB_PASTEBOOKModel.GetNewsfeed_Result)">
+      <Parameter Name="USERID" Mode="In" Type="Int32" />
+      <Parameter Name="START_RANGE" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="GetFriendsList_Result">
     <Property Type="String" Name="FIRST_NAME" Nullable="false" MaxLength="50" />
@@ -396,5 +410,35 @@
     <Property Type="Int32" Name="ID" Nullable="false" />
     <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
     <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="GetCommentsNotif_Result">
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="FIRST_NAME" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="LAST_NAME" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="CONTENT" Nullable="false" MaxLength="1000" />
+    <Property Type="DateTime" Name="DATE_CREATED" Nullable="false" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="GetLikesNotif_Result">
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="FIRST_NAME" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="LAST_NAME" Nullable="false" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="GetAccountRelatedPosts_Result">
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="CONTENT" Nullable="false" MaxLength="1000" />
+    <Property Type="Int32" Name="POSTER_ID" Nullable="false" />
+    <Property Type="DateTime" Name="CREATED_DATE" Nullable="false" Precision="23" />
+    <Property Type="Int32" Name="PROFILE_OWNER_ID" Nullable="false" />
+    <Property Type="Int32" Name="Like_Count" Nullable="true" />
+    <Property Type="Int32" Name="Comment_Count" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="GetNewsfeed_Result">
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="CONTENT" Nullable="false" MaxLength="1000" />
+    <Property Type="Int32" Name="POSTER_ID" Nullable="false" />
+    <Property Type="DateTime" Name="CREATED_DATE" Nullable="false" Precision="23" />
+    <Property Type="Int32" Name="PROFILE_OWNER_ID" Nullable="false" />
+    <Property Type="Int32" Name="Like_Count" Nullable="true" />
+    <Property Type="Int32" Name="Comment_Count" Nullable="true" />
   </ComplexType>
 </Schema>

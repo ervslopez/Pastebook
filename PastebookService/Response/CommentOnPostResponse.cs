@@ -7,12 +7,9 @@ using System.Web;
 namespace PastebookService
 {
     [DataContract]
-    public class GetPostsRequest
+    public class CommentOnPostResponse : StatusResponse
     {
         [DataMember]
-        public int accountID { get; set; }
-
-        [DataMember]
-        public int StartRange { get; set; }
+        public DateTime commentDateTime { get; set; }
     }
 }

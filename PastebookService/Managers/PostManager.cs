@@ -17,10 +17,10 @@ namespace PastebookService
             try
             {
                 if (accountDataAccess.UserIDExists(request.post.PROFILE_OWNER_ID)
-                    && accountDataAccess.UserIDExists(request.post.PROFILE_OWNER_ID))
+                    && accountDataAccess.UserIDExists(request.post.POSTER_ID))
                 {
                     request.post.CREATED_DATE = DateTime.Now;
-                    resp.Status = postDataAccess.CreatePost(request) > 0 ? true : false;
+                    resp.Status = postDataAccess.CreatePost(request.post) > 0 ? true : false;
                 }
                 else
                 {
@@ -34,14 +34,36 @@ namespace PastebookService
             return resp;
         }
 
-        public GetPostListResponse GetUserRelatedPosts(GetPostsRequest request)
+        public GetPostListResponse GetNewsfeed(GetPostsRequest request)
         {
             GetPostListResponse resp = new GetPostListResponse();
             try
             {
                 if (accountDataAccess.UserIDExists(request.accountID))
                 {
-                    resp.postList = postDataAccess.GetUserRelatedPosts(request);
+                    resp.postList = postDataAccess.GetNewsfeed(request.accountID, request.StartRange);
+                }
+                else
+                {
+                    resp.Status = false;
+                }
+            }
+            catch (Exception e)
+            {
+                resp.errorList.Add(e.ToString());
+            }
+            return resp;
+        }
+
+        public GetPostListResponse GetAccountRelatedPosts(GetPostsRequest request)
+        {
+            GetPostListResponse resp = new GetPostListResponse();
+            try
+            {
+                if (accountDataAccess.UserIDExists(request.accountID))
+                {
+                    resp.postList = PostMapper.toGetNewsfeed_Result(postDataAccess
+                        .GetAccountRelatedPosts(request.accountID, request.StartRange).ToList());
                 }
                 else
                 {
@@ -63,7 +85,7 @@ namespace PastebookService
             {
                 if (postDataAccess.PostExists(request.like.POST_ID) && !PostLiked(request.like.POST_ID, request.like.LIKED_BY))
                 {
-                    resp.Status = postDataAccess.LikePost(request) > 0 ? true : false;
+                    resp.Status = postDataAccess.LikePost(request.like) > 0 ? true : false;
                 }
                 else
                 {
@@ -84,7 +106,7 @@ namespace PastebookService
             {
                 if (postDataAccess.PostExists(request.POST_ID))
                 {
-                    resp.likeList = postDataAccess.GetPostLikes(request);
+                    resp.likeList = postDataAccess.GetPostLikes(request.POST_ID);
                 }
                 else
                 {
@@ -99,15 +121,18 @@ namespace PastebookService
         }
 
         //  "COMMENT" SERVICES
-        public StatusResponse CommentOnPost(CommentOnPostRequest request)
+        public CommentOnPostResponse CommentOnPost(CommentOnPostRequest request)
         {
-            StatusResponse resp = new StatusResponse();
+            CommentOnPostResponse resp = new CommentOnPostResponse();
             try
             {
                 if (postDataAccess.PostExists(request.comment.POST_ID))
                 {
-                    request.comment.DATE_CREATED = DateTime.Now;
-                    resp.Status = postDataAccess.CommentOnPost(request) > 0 ? true : false;
+                    resp.commentDateTime = request.comment.DATE_CREATED = DateTime.Now;
+                    if(postDataAccess.CommentOnPost(request.comment)>0)
+                    {
+                        resp.Status = true;
+                    }
                 }
                 else
                 {
@@ -128,7 +153,7 @@ namespace PastebookService
             {
                 if (postDataAccess.PostExists(request.POST_ID))
                 {
-                    resp.commentsList = postDataAccess.GetPostComments(request);
+                    resp.commentsList = postDataAccess.GetPostComments(request.POST_ID);
                 }
                 else
                 {
@@ -140,6 +165,16 @@ namespace PastebookService
                 resp.errorList.Add(e.ToString());
             }
             return resp;
+        }
+
+        public int GetPostOwnerID(int postID)
+        {
+            return postDataAccess.GetPostOwnerID(postID);
+        }
+
+        public int getCommentID(int posterID, DateTime dateCreated)
+        {
+            return postDataAccess.getCommentID(posterID, dateCreated);
         }
 
         public bool PostLiked(int postID, int userID)

@@ -12,6 +12,8 @@ namespace PastebookService
     // NOTE: In order to launch WCF Test Client for testing this service, please select Service1.svc or Service1.svc.cs at the Solution Explorer and start debugging.
     public class Service1 : IService1
     {
+        NotificationManager notificationManager = new NotificationManager();
+
         //User Account Related Services
         AccountManager accountManager = new AccountManager();
 
@@ -35,6 +37,10 @@ namespace PastebookService
             return accountManager.UpdatePasswordOrEmail(request); 
         }
 
+        public GetAccountProfileResponse GetAccountProfile(GetAccountProfileRequest request)
+        {
+            return accountManager.GetAccountProfile(request);
+        }
         //Post Related Services
         PostManager postManager = new PostManager();
 
@@ -43,56 +49,30 @@ namespace PastebookService
             return postManager.CreatePost(request);
         }
 
-        public GetPostListResponse GetUserRelatedPosts(GetPostsRequest request)
+        public GetPostListResponse GetNewsfeed(GetPostsRequest request)
         {
-            GetPostListResponse resp = new GetPostListResponse();
-            resp =  postManager.GetUserRelatedPosts(request);
-
-            foreach (var item in resp.postList)
-            {
-                resp.completePostList.Add(new CompletePost() {
-                    post = item,
-                    commentsList = GetPostComments(new GetPostLikesRequest() {
-                        POST_ID = item.ID
-                    }).commentsList,
-                    likeList = GetPostLikes(new GetPostLikesRequest()
-                    {
-                        POST_ID = item.ID
-                    }).likeList
-                });
-            }
-            return resp;
+            return postManager.GetNewsfeed(request);
         }
 
-        public GetPostListResponse GetUserAndFriendsPosts(GetPostsRequest request)
+        public GetPostListResponse GetAccountRelatedPosts(GetPostsRequest request)
         {
-            //GetPostListResponse resp = new GetPostListResponse();
-            //resp = postManager.GetUserRelatedPosts(request);
-
-            //foreach (var item in resp.postList)
-            //{
-            //    resp.completePostList.Add(new CompletePost()
-            //    {
-            //        post = item,
-            //        commentsList = GetPostComments(new GetPostLikesRequest()
-            //        {
-            //            POST_ID = item.ID
-            //        }).commentsList,
-            //        likeList = GetPostLikes(new GetPostLikesRequest()
-            //        {
-            //            POST_ID = item.ID
-            //        }).likeList
-            //    });
-            //}
-            //return resp;
-            throw new NotImplementedException();
+            return postManager.GetAccountRelatedPosts(request);
         }
         
         //Like Related Services
 
         public StatusResponse LikePost(LikePostRequest request)
         {
-            return postManager.LikePost(request);
+            StatusResponse stat = postManager.LikePost(request);
+            if(stat.Status && stat.errorList.Count == 0)
+            {
+                if (!notificationManager.LikeNotification(request.like.POST_ID, request.like.LIKED_BY, 
+                                                    postManager.GetPostOwnerID(request.like.POST_ID)))
+                {
+                    stat.errorList.Add("Like Notification Failed To Send");
+                }
+            }
+            return stat;
         }
 
         public GetPostLikesResponse GetPostLikes(GetPostLikesRequest request)
@@ -102,9 +82,21 @@ namespace PastebookService
 
         //Comment Related Services
 
-        public StatusResponse CommentOnPost(CommentOnPostRequest request)
+        public CommentOnPostResponse CommentOnPost(CommentOnPostRequest request)
         {
-            return postManager.CommentOnPost(request);
+            CommentOnPostResponse stat = postManager.CommentOnPost(request);
+            if (stat.Status && stat.errorList.Count == 0)
+            {
+                if (!notificationManager.CommentNotification(request.comment.POST_ID, 
+                                                            request.comment.POSTER_ID, 
+                                                            postManager.GetPostOwnerID(request.comment.POST_ID),
+                                                            postManager.getCommentID( request.comment.POSTER_ID,
+                                                            stat.commentDateTime)))
+                {
+                    stat.errorList.Add("Comment Notification Failed To Send");
+                }
+            }
+            return stat;
         }
 
         public GetPostCommentsResponse GetPostComments(GetPostLikesRequest request)
@@ -113,10 +105,19 @@ namespace PastebookService
         }
 
         //Friend Related Services
+
         FriendManager friendManager = new FriendManager();
         public FriendResponse RequestFriendship(FriendRequest request)
         {
-            return friendManager.RequestFriendship(request);
+            FriendResponse stat = friendManager.RequestFriendship(request);
+            if (stat.Status && stat.errorList.Count == 0)
+            {
+                if (!notificationManager.FriendNotification(request.friend.FRIEND_ID, request.friend.USER_ID))
+                {
+                    stat.errorList.Add("Friend Notification Failed To Send");
+                }
+            }
+            return stat;
         }
 
         public FriendResponse AcceptFriendship(FriendRequest request)
@@ -133,5 +134,13 @@ namespace PastebookService
         {
             return friendManager.ViewFriendsList(request);
         }
+
+        //Notification Related Services
+
+        public GetAllNotificationsResponse GetAllNotifications(GetAllNotificationsRequest request)
+        {
+            return notificationManager.GetRecentNotifications(request.userID);
+        }
+        
     }
 }
