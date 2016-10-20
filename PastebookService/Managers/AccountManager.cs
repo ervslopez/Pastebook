@@ -191,5 +191,13 @@ namespace PastebookService
         {
             return passwordManager.PasswordMatch(password, salt, hash);
         }
+
+        public GetCountriesResponse GetCountries()
+        {
+            UtilityDataAccess util = new UtilityDataAccess();
+            GetCountriesResponse resp = new GetCountriesResponse();
+            resp.CountryList = CountryMapper.toCountryDictionary(util.GetCountries());
+            return resp;
+        }
     }
 }

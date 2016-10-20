@@ -110,6 +110,7 @@
     <Compile Include="Data Access\FriendDataAccess.cs" />
     <Compile Include="Data Access\NotificationDataAccess.cs" />
     <Compile Include="Data Access\PostDataAccess.cs" />
+    <Compile Include="Data Access\UtilityDataAccess.cs" />
     <Compile Include="Entities\Comment.cs" />
     <Compile Include="Entities\Friend.cs" />
     <Compile Include="Entities\Like.cs" />
@@ -140,6 +141,7 @@
     <Compile Include="Request\LikePostRequest.cs" />
     <Compile Include="Request\LoginRequest.cs" />
     <Compile Include="Request\PostRequest.cs" />
+    <Compile Include="Request\SearchAccountsRequest.cs" />
     <Compile Include="Request\ViewFriendsListRequest.cs" />
     <Compile Include="Response\CommentOnPostResponse.cs" />
     <Compile Include="Response\CreateUserResponse.cs" />
@@ -147,6 +149,7 @@
     <Compile Include="Response\FriendResponse.cs" />
     <Compile Include="Response\GetAccountProfileResponse.cs" />
     <Compile Include="Response\GetAllNotificationsResponse.cs" />
+    <Compile Include="Response\GetCountriesResponse.cs" />
     <Compile Include="Response\GetPostCommentsResponse.cs" />
     <Compile Include="Response\GetPostLikesResponse.cs" />
     <Compile Include="Response\GetPostListResponse.cs" />

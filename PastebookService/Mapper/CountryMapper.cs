@@ -25,5 +25,15 @@ namespace PastebookService
                 Country = country.COUNTRY
             };
         }
+
+        public static Dictionary<int, string> toCountryDictionary(List<Ref_Country> countryFromDB)
+        {
+            Dictionary<int, string> dictionary = new Dictionary<int, string>();
+            foreach (var item in countryFromDB)
+            {
+                dictionary.Add(item.ID, item.Country);
+            }
+            return dictionary;
+        }
     }
 }

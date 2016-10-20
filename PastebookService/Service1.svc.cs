@@ -141,6 +141,17 @@ namespace PastebookService
         {
             return notificationManager.GetRecentNotifications(request.userID);
         }
-        
+
+        public GetAllNotificationsResponse SearchAccount(GetAllNotificationsRequest request)
+        {
+            throw new NotImplementedException();
+        }
+
+        //Utilities
+
+        public GetCountriesResponse GetCountries()
+        {
+            return accountManager.GetCountries();
+        }
     }
 }

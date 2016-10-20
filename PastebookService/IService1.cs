@@ -67,5 +67,13 @@ namespace PastebookService
         //Notification Related Services
         [OperationContract]
         GetAllNotificationsResponse GetAllNotifications(GetAllNotificationsRequest request);
+
+        //Notification Related Services
+        [OperationContract]
+        GetAllNotificationsResponse SearchAccount(GetAllNotificationsRequest request);
+
+        //Utilities
+        [OperationContract]
+        GetCountriesResponse GetCountries();
     }
 }

@@ -80,6 +80,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -153,6 +155,11 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service References\PastebookService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -221,6 +228,49 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Service References\PastebookService\PastebookWebApp.PastebookService.CommentOnPostResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\PastebookService\PastebookWebApp.PastebookService.CreateUserResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\PastebookService\PastebookWebApp.PastebookService.EditUserResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\PastebookService\PastebookWebApp.PastebookService.FriendResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\PastebookService\PastebookWebApp.PastebookService.GetAccountProfileResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\PastebookService\PastebookWebApp.PastebookService.GetAllNotificationsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\PastebookService\PastebookWebApp.PastebookService.GetPostCommentsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\PastebookService\PastebookWebApp.PastebookService.GetPostLikesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\PastebookService\PastebookWebApp.PastebookService.GetPostListResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\PastebookService\PastebookWebApp.PastebookService.LoginResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\PastebookService\PastebookWebApp.PastebookService.StatusResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\PastebookService\PastebookWebApp.PastebookService.ViewFriendsListResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\PastebookService\Service1.disco" />
+    <None Include="Service References\PastebookService\configuration91.svcinfo" />
+    <None Include="Service References\PastebookService\configuration.svcinfo" />
+    <None Include="Service References\PastebookService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -235,6 +285,22 @@
     <Content Include="Views\Pastebook\About.cshtml" />
     <Content Include="Views\Pastebook\Contact.cshtml" />
     <Content Include="Views\Pastebook\Index.cshtml" />
+    <None Include="Service References\PastebookService\Service1.wsdl" />
+    <None Include="Service References\PastebookService\Service1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PastebookService\Service11.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PastebookService\Service12.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PastebookService\Service13.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PastebookService\Service14.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -247,6 +313,12 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\PastebookService\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

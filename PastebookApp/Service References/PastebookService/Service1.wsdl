@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Service1" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:8100/Service1.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:8100/Service1.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:8100/Service1.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/PastebookService" />
+      <xsd:import schemaLocation="http://localhost:8100/Service1.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://localhost:8100/Service1.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/PastebookModel" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IService1_CreateUserAccount_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateUserAccount" />
+  </wsdl:message>
+  <wsdl:message name="IService1_CreateUserAccount_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateUserAccountResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_LoginUserAccount_InputMessage">
+    <wsdl:part name="parameters" element="tns:LoginUserAccount" />
+  </wsdl:message>
+  <wsdl:message name="IService1_LoginUserAccount_OutputMessage">
+    <wsdl:part name="parameters" element="tns:LoginUserAccountResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_EditUserProfile_InputMessage">
+    <wsdl:part name="parameters" element="tns:EditUserProfile" />
+  </wsdl:message>
+  <wsdl:message name="IService1_EditUserProfile_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EditUserProfileResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_EditUserPasswordOrEmail_InputMessage">
+    <wsdl:part name="parameters" element="tns:EditUserPasswordOrEmail" />
+  </wsdl:message>
+  <wsdl:message name="IService1_EditUserPasswordOrEmail_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EditUserPasswordOrEmailResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetAccountProfile_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAccountProfile" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetAccountProfile_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAccountProfileResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_CreatePost_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreatePost" />
+  </wsdl:message>
+  <wsdl:message name="IService1_CreatePost_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreatePostResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetNewsfeed_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetNewsfeed" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetNewsfeed_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetNewsfeedResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetAccountRelatedPosts_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAccountRelatedPosts" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetAccountRelatedPosts_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAccountRelatedPostsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_LikePost_InputMessage">
+    <wsdl:part name="parameters" element="tns:LikePost" />
+  </wsdl:message>
+  <wsdl:message name="IService1_LikePost_OutputMessage">
+    <wsdl:part name="parameters" element="tns:LikePostResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetPostLikes_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPostLikes" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetPostLikes_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPostLikesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_CommentOnPost_InputMessage">
+    <wsdl:part name="parameters" element="tns:CommentOnPost" />
+  </wsdl:message>
+  <wsdl:message name="IService1_CommentOnPost_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CommentOnPostResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetPostComments_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPostComments" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetPostComments_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPostCommentsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_RequestFriendship_InputMessage">
+    <wsdl:part name="parameters" element="tns:RequestFriendship" />
+  </wsdl:message>
+  <wsdl:message name="IService1_RequestFriendship_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RequestFriendshipResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_AcceptFriendship_InputMessage">
+    <wsdl:part name="parameters" element="tns:AcceptFriendship" />
+  </wsdl:message>
+  <wsdl:message name="IService1_AcceptFriendship_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AcceptFriendshipResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_BlockAccount_InputMessage">
+    <wsdl:part name="parameters" element="tns:BlockAccount" />
+  </wsdl:message>
+  <wsdl:message name="IService1_BlockAccount_OutputMessage">
+    <wsdl:part name="parameters" element="tns:BlockAccountResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_ViewFriendsList_InputMessage">
+    <wsdl:part name="parameters" element="tns:ViewFriendsList" />
+  </wsdl:message>
+  <wsdl:message name="IService1_ViewFriendsList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ViewFriendsListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetAllNotifications_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllNotifications" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetAllNotifications_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllNotificationsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_SearchAccount_InputMessage">
+    <wsdl:part name="parameters" element="tns:SearchAccount" />
+  </wsdl:message>
+  <wsdl:message name="IService1_SearchAccount_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SearchAccountResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetCountries_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCountries" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetCountries_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCountriesResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IService1">
+    <wsdl:operation name="CreateUserAccount">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/CreateUserAccount" message="tns:IService1_CreateUserAccount_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/CreateUserAccountResponse" message="tns:IService1_CreateUserAccount_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="LoginUserAccount">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/LoginUserAccount" message="tns:IService1_LoginUserAccount_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/LoginUserAccountResponse" message="tns:IService1_LoginUserAccount_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EditUserProfile">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/EditUserProfile" message="tns:IService1_EditUserProfile_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/EditUserProfileResponse" message="tns:IService1_EditUserProfile_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EditUserPasswordOrEmail">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/EditUserPasswordOrEmail" message="tns:IService1_EditUserPasswordOrEmail_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/EditUserPasswordOrEmailResponse" message="tns:IService1_EditUserPasswordOrEmail_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAccountProfile">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetAccountProfile" message="tns:IService1_GetAccountProfile_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetAccountProfileResponse" message="tns:IService1_GetAccountProfile_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CreatePost">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/CreatePost" message="tns:IService1_CreatePost_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/CreatePostResponse" message="tns:IService1_CreatePost_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNewsfeed">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetNewsfeed" message="tns:IService1_GetNewsfeed_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetNewsfeedResponse" message="tns:IService1_GetNewsfeed_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAccountRelatedPosts">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetAccountRelatedPosts" message="tns:IService1_GetAccountRelatedPosts_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetAccountRelatedPostsResponse" message="tns:IService1_GetAccountRelatedPosts_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="LikePost">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/LikePost" message="tns:IService1_LikePost_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/LikePostResponse" message="tns:IService1_LikePost_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPostLikes">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetPostLikes" message="tns:IService1_GetPostLikes_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetPostLikesResponse" message="tns:IService1_GetPostLikes_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CommentOnPost">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/CommentOnPost" message="tns:IService1_CommentOnPost_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/CommentOnPostResponse" message="tns:IService1_CommentOnPost_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPostComments">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetPostComments" message="tns:IService1_GetPostComments_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetPostCommentsResponse" message="tns:IService1_GetPostComments_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RequestFriendship">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/RequestFriendship" message="tns:IService1_RequestFriendship_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/RequestFriendshipResponse" message="tns:IService1_RequestFriendship_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AcceptFriendship">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/AcceptFriendship" message="tns:IService1_AcceptFriendship_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/AcceptFriendshipResponse" message="tns:IService1_AcceptFriendship_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="BlockAccount">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/BlockAccount" message="tns:IService1_BlockAccount_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/BlockAccountResponse" message="tns:IService1_BlockAccount_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ViewFriendsList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/ViewFriendsList" message="tns:IService1_ViewFriendsList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/ViewFriendsListResponse" message="tns:IService1_ViewFriendsList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllNotifications">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetAllNotifications" message="tns:IService1_GetAllNotifications_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetAllNotificationsResponse" message="tns:IService1_GetAllNotifications_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SearchAccount">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/SearchAccount" message="tns:IService1_SearchAccount_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/SearchAccountResponse" message="tns:IService1_SearchAccount_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCountries">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetCountries" message="tns:IService1_GetCountries_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetCountriesResponse" message="tns:IService1_GetCountries_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IService1" type="tns:IService1">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CreateUserAccount">
+      <soap:operation soapAction="http://tempuri.org/IService1/CreateUserAccount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoginUserAccount">
+      <soap:operation soapAction="http://tempuri.org/IService1/LoginUserAccount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EditUserProfile">
+      <soap:operation soapAction="http://tempuri.org/IService1/EditUserProfile" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EditUserPasswordOrEmail">
+      <soap:operation soapAction="http://tempuri.org/IService1/EditUserPasswordOrEmail" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAccountProfile">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetAccountProfile" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreatePost">
+      <soap:operation soapAction="http://tempuri.org/IService1/CreatePost" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNewsfeed">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetNewsfeed" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAccountRelatedPosts">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetAccountRelatedPosts" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LikePost">
+      <soap:operation soapAction="http://tempuri.org/IService1/LikePost" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPostLikes">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetPostLikes" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CommentOnPost">
+      <soap:operation soapAction="http://tempuri.org/IService1/CommentOnPost" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPostComments">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetPostComments" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RequestFriendship">
+      <soap:operation soapAction="http://tempuri.org/IService1/RequestFriendship" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AcceptFriendship">
+      <soap:operation soapAction="http://tempuri.org/IService1/AcceptFriendship" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BlockAccount">
+      <soap:operation soapAction="http://tempuri.org/IService1/BlockAccount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ViewFriendsList">
+      <soap:operation soapAction="http://tempuri.org/IService1/ViewFriendsList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllNotifications">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetAllNotifications" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchAccount">
+      <soap:operation soapAction="http://tempuri.org/IService1/SearchAccount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCountries">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetCountries" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Service1">
+    <wsdl:port name="BasicHttpBinding_IService1" binding="tns:BasicHttpBinding_IService1">
+      <soap:address location="http://localhost:8100/Service1.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

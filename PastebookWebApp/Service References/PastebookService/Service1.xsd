@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/PastebookService" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/PastebookService" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:8100/Service1.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:import schemaLocation="http://localhost:8100/Service1.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import schemaLocation="http://localhost:8100/Service1.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/PastebookModel" />
+  <xs:complexType name="UserRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="user" nillable="true" type="tns:User" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="UserRequest" nillable="true" type="tns:UserRequest" />
+  <xs:complexType name="User">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ABOUT_ME" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BIRTHDAY" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="COUNTRY_ID" type="xs:int" />
+      <xs:element minOccurs="0" name="DATE_CREATED" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="EMAIL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FIRST_NAME" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="GENDER" type="ser:char" />
+      <xs:element minOccurs="0" name="ID" type="xs:int" />
+      <xs:element minOccurs="0" name="LAST_NAME" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MOBILE_NO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PASSWORD" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PROFILE_PIC" nillable="true" type="xs:base64Binary" />
+      <xs:element minOccurs="0" name="SALT" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="USER_NAME" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="User" nillable="true" type="tns:User" />
+  <xs:complexType name="CreateUserResponse">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:StatusResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="emailExists" type="xs:boolean" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="CreateUserResponse" nillable="true" type="tns:CreateUserResponse" />
+  <xs:complexType name="StatusResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Status" type="xs:boolean" />
+      <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="errorList" nillable="true" type="q1:ArrayOfstring" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="StatusResponse" nillable="true" type="tns:StatusResponse" />
+  <xs:complexType name="LoginRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="email" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="password" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LoginRequest" nillable="true" type="tns:LoginRequest" />
+  <xs:complexType name="LoginResponse">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:StatusResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="emailExists" type="xs:boolean" />
+          <xs:element minOccurs="0" name="passwordMatched" type="xs:boolean" />
+          <xs:element minOccurs="0" name="user" nillable="true" type="tns:User" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="LoginResponse" nillable="true" type="tns:LoginResponse" />
+  <xs:complexType name="EditUserResponse">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:LoginResponse">
+        <xs:sequence />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="EditUserResponse" nillable="true" type="tns:EditUserResponse" />
+  <xs:complexType name="EditPasswordOrEmailRequest">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:UserRequest">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="OldEmail" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="OldPassword" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="EditPasswordOrEmailRequest" nillable="true" type="tns:EditPasswordOrEmailRequest" />
+  <xs:complexType name="GetAccountProfileRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="accountID" type="xs:int" />
+      <xs:element minOccurs="0" name="email" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="username" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GetAccountProfileRequest" nillable="true" type="tns:GetAccountProfileRequest" />
+  <xs:complexType name="GetAccountProfileResponse">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:StatusResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="user" nillable="true" type="tns:User" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="GetAccountProfileResponse" nillable="true" type="tns:GetAccountProfileResponse" />
+  <xs:complexType name="PostRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="post" nillable="true" type="tns:Post" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PostRequest" nillable="true" type="tns:PostRequest" />
+  <xs:complexType name="Post">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CONTENT" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CREATED_DATE" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ID" type="xs:int" />
+      <xs:element minOccurs="0" name="POSTER_ID" type="xs:int" />
+      <xs:element minOccurs="0" name="PROFILE_OWNER_ID" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Post" nillable="true" type="tns:Post" />
+  <xs:complexType name="GetPostsRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="StartRange" type="xs:int" />
+      <xs:element minOccurs="0" name="accountID" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GetPostsRequest" nillable="true" type="tns:GetPostsRequest" />
+  <xs:complexType name="GetPostListResponse">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:StatusResponse">
+        <xs:sequence>
+          <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/PastebookModel" minOccurs="0" name="postList" nillable="true" type="q2:ArrayOfGetNewsfeed_Result" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="GetPostListResponse" nillable="true" type="tns:GetPostListResponse" />
+  <xs:complexType name="LikePostRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="like" nillable="true" type="tns:Like" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LikePostRequest" nillable="true" type="tns:LikePostRequest" />
+  <xs:complexType name="Like">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ID" type="xs:int" />
+      <xs:element minOccurs="0" name="LIKED_BY" type="xs:int" />
+      <xs:element minOccurs="0" name="POST_ID" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Like" nillable="true" type="tns:Like" />
+  <xs:complexType name="GetPostLikesRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="POST_ID" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GetPostLikesRequest" nillable="true" type="tns:GetPostLikesRequest" />
+  <xs:complexType name="GetPostLikesResponse">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:StatusResponse">
+        <xs:sequence>
+          <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/PastebookModel" minOccurs="0" name="likeList" nillable="true" type="q3:ArrayOfGetPostLikes_Result" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="GetPostLikesResponse" nillable="true" type="tns:GetPostLikesResponse" />
+  <xs:complexType name="CommentOnPostRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="comment" nillable="true" type="tns:Comment" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CommentOnPostRequest" nillable="true" type="tns:CommentOnPostRequest" />
+  <xs:complexType name="Comment">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CONTENT" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DATE_CREATED" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ID" type="xs:int" />
+      <xs:element minOccurs="0" name="POSTER_ID" type="xs:int" />
+      <xs:element minOccurs="0" name="POST_ID" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Comment" nillable="true" type="tns:Comment" />
+  <xs:complexType name="CommentOnPostResponse">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:StatusResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="commentDateTime" type="xs:dateTime" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="CommentOnPostResponse" nillable="true" type="tns:CommentOnPostResponse" />
+  <xs:complexType name="GetPostCommentsResponse">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:StatusResponse">
+        <xs:sequence>
+          <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/PastebookModel" minOccurs="0" name="commentsList" nillable="true" type="q4:ArrayOfGetPostComments_Result" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="GetPostCommentsResponse" nillable="true" type="tns:GetPostCommentsResponse" />
+  <xs:complexType name="FriendRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="friend" nillable="true" type="tns:Friend" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="FriendRequest" nillable="true" type="tns:FriendRequest" />
+  <xs:complexType name="Friend">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CREATED_DATE" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FRIEND_ID" type="xs:int" />
+      <xs:element minOccurs="0" name="ID" type="xs:int" />
+      <xs:element minOccurs="0" name="IsBLOCKED" type="ser:char" />
+      <xs:element minOccurs="0" name="REQUEST" type="ser:char" />
+      <xs:element minOccurs="0" name="USER_ID" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Friend" nillable="true" type="tns:Friend" />
+  <xs:complexType name="FriendResponse">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:StatusResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="IsBlocked" type="xs:boolean" />
+          <xs:element minOccurs="0" name="RequestExists" type="xs:boolean" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="FriendResponse" nillable="true" type="tns:FriendResponse" />
+  <xs:complexType name="ViewFriendsListRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="userID" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ViewFriendsListRequest" nillable="true" type="tns:ViewFriendsListRequest" />
+  <xs:complexType name="ViewFriendsListResponse">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:StatusResponse">
+        <xs:sequence>
+          <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/PastebookModel" minOccurs="0" name="friends" nillable="true" type="q5:ArrayOfGetFriendsList_Result" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ViewFriendsListResponse" nillable="true" type="tns:ViewFriendsListResponse" />
+  <xs:complexType name="GetAllNotificationsRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="userID" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GetAllNotificationsRequest" nillable="true" type="tns:GetAllNotificationsRequest" />
+  <xs:complexType name="GetAllNotificationsResponse">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:StatusResponse">
+        <xs:sequence>
+          <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/PastebookModel" minOccurs="0" name="commentsNotif" nillable="true" type="q6:ArrayOfGetCommentsNotif_Result" />
+          <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/PastebookModel" minOccurs="0" name="likesNotif" nillable="true" type="q7:ArrayOfGetLikesNotif_Result" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="GetAllNotificationsResponse" nillable="true" type="tns:GetAllNotificationsResponse" />
+</xs:schema>
