@@ -36,11 +36,13 @@ namespace PastebookApp.Managers
             return resp.Status;
         }
 
-        private UserModel GetAccount(string username)
+        public UserModel GetAccount(string username)
         {
             UserModel model = new UserModel();
             GetAccountProfileResponse resp = service.GetAccountProfile(new GetAccountProfileRequest() {
-                username = username
+                username = username,
+                accountID=0,
+                email=""
             });
             model = UserMapper.ToUserModel(resp.user);
             return model;

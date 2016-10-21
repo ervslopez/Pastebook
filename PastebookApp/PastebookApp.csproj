@@ -154,9 +154,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Managers\PostManager.cs" />
     <Compile Include="Managers\SignupManager.cs" />
     <Compile Include="Mapper\UserMapper.cs" />
     <Compile Include="Models\LoginCredentials.cs" />
+    <Compile Include="Models\PostModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Models\SignupViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

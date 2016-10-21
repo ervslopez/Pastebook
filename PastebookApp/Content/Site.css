@@ -87,13 +87,14 @@ form-control {
 }
 
 #imageHolder{
-    height:100%;
-}
-
-
-img{
     padding-top:10px;
     padding-bottom:10px;
     height:150px;
     width:150px;
+}
+
+
+img{
+    height:200px;
+    width:200px;
 }

@@ -7,11 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PastebookModel", "Pastebook
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PastebookWCF", "PastebookService\PastebookWCF.csproj", "{6ACBD0AA-0F85-4EAB-A9FB-7A5909397A9C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PastebookWebApp", "PastebookWebApp\PastebookWebApp.csproj", "{9C75BCA2-FBBD-4A68-BE06-E684EA103B01}"
-	ProjectSection(ProjectDependencies) = postProject
-		{6ACBD0AA-0F85-4EAB-A9FB-7A5909397A9C} = {6ACBD0AA-0F85-4EAB-A9FB-7A5909397A9C}
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PastebookApp", "PastebookApp\PastebookApp.csproj", "{6AAEB6C3-0BD0-4071-AA5D-1575082796F8}"
 	ProjectSection(ProjectDependencies) = postProject
 		{6ACBD0AA-0F85-4EAB-A9FB-7A5909397A9C} = {6ACBD0AA-0F85-4EAB-A9FB-7A5909397A9C}
@@ -33,10 +28,6 @@ Global
 		{6ACBD0AA-0F85-4EAB-A9FB-7A5909397A9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6ACBD0AA-0F85-4EAB-A9FB-7A5909397A9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6ACBD0AA-0F85-4EAB-A9FB-7A5909397A9C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9C75BCA2-FBBD-4A68-BE06-E684EA103B01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9C75BCA2-FBBD-4A68-BE06-E684EA103B01}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9C75BCA2-FBBD-4A68-BE06-E684EA103B01}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9C75BCA2-FBBD-4A68-BE06-E684EA103B01}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6AAEB6C3-0BD0-4071-AA5D-1575082796F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6AAEB6C3-0BD0-4071-AA5D-1575082796F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6AAEB6C3-0BD0-4071-AA5D-1575082796F8}.Release|Any CPU.ActiveCfg = Release|Any CPU

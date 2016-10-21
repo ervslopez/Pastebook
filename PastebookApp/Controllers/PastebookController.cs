@@ -21,8 +21,9 @@ namespace PastebookApp.Controllers
             return View(model);
         }
         
-        public ActionResult Home(UserModel model)
+        public ActionResult Home(string username)
         {
+            UserModel model = signupManager.GetAccount(username);
             return View(model);
         }
 
@@ -31,15 +32,15 @@ namespace PastebookApp.Controllers
             ViewBag.Message = "Your application description page.";
             return View();
         }
-
+        
         public ActionResult ValidateAccount(SignupViewModel model)
         {
             UserModel user = new UserModel();
             if(signupManager.ValidateAccount(model.login.email, model.login.password, out user))
             {
-                return View("Home", user);
+                return RedirectToAction("Home", "Pastebook", new { username = user.USER_NAME});
             }
-            return View("Index");
+            return RedirectToAction("Index");
         }
 
         public ActionResult RegisterAccount(SignupViewModel model, HttpPostedFileBase file)
@@ -52,9 +53,15 @@ namespace PastebookApp.Controllers
 
             if (signupManager.RegisterAccount(model.signup))
             {
-                return View("Home", model.signup);
+                return RedirectToAction("Home", "Pastebook", new { username = model.signup.USER_NAME });
             }
             return RedirectToAction("Index");
+        }
+
+        public ActionResult ViewPosts(string username)
+        {
+
+            return null;
         }
     }
 }
