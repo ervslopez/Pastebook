@@ -154,6 +154,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Managers\FriendManager.cs" />
+    <Compile Include="Managers\NotificationManager.cs" />
     <Compile Include="Managers\PostManager.cs" />
     <Compile Include="Managers\SignupManager.cs" />
     <Compile Include="Mapper\UserMapper.cs" />
@@ -251,12 +253,6 @@
     <Content Include="Service References\PastebookService\PastebookApp.PastebookService.GetAllNotificationsResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
-    <Content Include="Service References\PastebookService\PastebookApp.PastebookService.GetPostCommentsResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Content>
-    <Content Include="Service References\PastebookService\PastebookApp.PastebookService.GetPostLikesResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Content>
     <Content Include="Service References\PastebookService\PastebookApp.PastebookService.GetPostListResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
@@ -310,9 +306,12 @@
     </None>
     <Content Include="Views\Pastebook\Home.cshtml" />
     <Content Include="Views\Shared\Login.cshtml" />
+    <Content Include="Views\Pastebook\ViewPosts.cshtml" />
+    <Content Include="Views\Pastebook\GetFriendList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Post\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

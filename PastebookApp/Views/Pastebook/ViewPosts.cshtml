@@ -1,0 +1,72 @@
+﻿@model IEnumerable<PastebookApp.PastebookService.CompletePost>
+
+
+@foreach (var item in Model)
+{
+    <div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel panel-default">
+                    <div class="panel-heading" id="postHeader">
+                        <span>
+                            @item.post.CREATED_DATE
+                        </span>
+                        <div>
+                            <span>
+                                @{
+                                    var base64 = Convert.ToBase64String(@item.post.PROFILE_PIC);
+                                    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                                }
+                                <img src="@imgSrc" alt="Profile Picture" id="postProfilePic" class="img-circle" />
+                            </span>
+                            <span>
+                                @item.post.FIRST_NAME @item.post.LAST_NAME
+                            </span>
+                        </div>
+                    </div>
+                    <div class="panel-heading">
+                        @item.post.CONTENT
+                    </div>
+                    <div class="panel-body">
+                        <span>
+                            <button type="button" class="glyphicon glyphicon-apple" id="btnLike" onclick="likePost(@item.post.ID)"></button>
+                        </span>
+                        <span>
+                            @item.post.Like_Count Likes
+                        </span>
+                        <span>
+                            <button type="button" class="glyphicon glyphicon-comment" id="btnViewComment" onclick=""></button>
+                        </span>
+                        <span>
+                            @item.post.Comment_Count Comments
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="panel-body">
+                <textarea class="form-control commentBox" id="@item.post.ID"></textarea>
+                <button type="button" class="glyphicon glyphicon-comment pull-right" id="btnComment" onclick="commentOnPost(@item.post.ID)"></button>
+                @foreach (var comment in item.comments)
+                {
+                    <div class="panel panel-info">
+                        <div class="panel-heading" id="commentHeader">
+                            <span>
+                                @comment.DATE_CREATED
+                            </span>
+                            <span>
+                                @comment.FIRST_NAME @comment.LAST_NAME
+                            </span>
+                        </div>
+                        <div class="panel-footer">
+                            <p>
+                                @comment.CONTENT
+                            </p>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+                                    }

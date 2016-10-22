@@ -241,7 +241,6 @@
         </Function>
         <Function Name="GetNewsfeed" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="USERID" Type="int" Mode="In" />
-          <Parameter Name="START_RANGE" Type="int" Mode="In" />
         </Function>
         <Function Name="GetPostComments" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="POST_ID" Type="int" Mode="In" />
@@ -668,9 +667,6 @@
             <End Role="PB_REF_COUNTRY" EntitySet="PB_REF_COUNTRY" />
             <End Role="PB_USER" EntitySet="PB_USER" />
           </AssociationSet>
-          <FunctionImport Name="GetFriendsList" ReturnType="Collection(DB_PASTEBOOKModel.GetFriendsList_Result)">
-          <Parameter Name="USER_ID" Mode="In" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="GetPostComments" ReturnType="Collection(DB_PASTEBOOKModel.GetPostComments_Result)">
           <Parameter Name="POST_ID" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -718,15 +714,12 @@
             <Parameter Name="START_RANGE" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetNewsfeed" ReturnType="Collection(DB_PASTEBOOKModel.GetNewsfeed_Result)">
-            <Parameter Name="USERID" Mode="In" Type="Int32" />
-            <Parameter Name="START_RANGE" Mode="In" Type="Int32" />
+          <Parameter Name="USERID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetFriendsList" ReturnType="Collection(DB_PASTEBOOKModel.GetFriendsList_Result)">
+            <Parameter Name="USER_ID" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
-        <ComplexType Name="GetFriendsList_Result">
-          <Property Type="String" Name="FIRST_NAME" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="LAST_NAME" Nullable="false" MaxLength="50" />
-          <Property Type="Int32" Name="ID" Nullable="false" />
-        </ComplexType>
         <ComplexType Name="GetPostComments_Result">
           <Property Type="String" Name="FIRST_NAME" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="LAST_NAME" Nullable="false" MaxLength="50" />
@@ -777,6 +770,16 @@
           <Property Type="Int32" Name="PROFILE_OWNER_ID" Nullable="false" />
           <Property Type="Int32" Name="Like_Count" Nullable="true" />
           <Property Type="Int32" Name="Comment_Count" Nullable="true" />
+          <Property Type="String" Name="FIRST_NAME" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="LAST_NAME" Nullable="false" MaxLength="50" />
+          <Property Type="Binary" Name="PROFILE_PIC" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetFriendsList_Result">
+          <Property Type="String" Name="FIRST_NAME" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="LAST_NAME" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="ABOUT_ME" Nullable="true" MaxLength="2000" />
+          <Property Type="Binary" Name="PROFILE_PIC" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -880,15 +883,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="GetFriendsList" FunctionName="DB_PASTEBOOKModel.Store.GetFriendsList">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="DB_PASTEBOOKModel.GetFriendsList_Result">
-                <ScalarProperty Name="FIRST_NAME" ColumnName="FIRST_NAME" />
-                <ScalarProperty Name="LAST_NAME" ColumnName="LAST_NAME" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="GetPostComments" FunctionName="DB_PASTEBOOKModel.Store.GetPostComments">
             <ResultMapping>
               <ComplexTypeMapping TypeName="DB_PASTEBOOKModel.GetPostComments_Result">
@@ -974,6 +968,20 @@
                 <ScalarProperty Name="PROFILE_OWNER_ID" ColumnName="PROFILE_OWNER_ID" />
                 <ScalarProperty Name="Like_Count" ColumnName="Like Count" />
                 <ScalarProperty Name="Comment_Count" ColumnName="Comment Count" />
+                <ScalarProperty Name="FIRST_NAME" ColumnName="FIRST_NAME" />
+                <ScalarProperty Name="LAST_NAME" ColumnName="LAST_NAME" />
+                <ScalarProperty Name="PROFILE_PIC" ColumnName="PROFILE_PIC" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetFriendsList" FunctionName="DB_PASTEBOOKModel.Store.GetFriendsList">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_PASTEBOOKModel.GetFriendsList_Result">
+                <ScalarProperty Name="FIRST_NAME" ColumnName="FIRST_NAME" />
+                <ScalarProperty Name="LAST_NAME" ColumnName="LAST_NAME" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ABOUT_ME" ColumnName="ABOUT_ME" />
+                <ScalarProperty Name="PROFILE_PIC" ColumnName="PROFILE_PIC" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

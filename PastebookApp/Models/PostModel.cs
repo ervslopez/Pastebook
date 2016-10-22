@@ -8,8 +8,11 @@ namespace PastebookApp.Models
 {
     public class PostModel
     {
-        public GetNewsfeed_Result post { get; set; }
-        public List<GetPostComments_Result> comments { get; set; }
-        public List<GetPostLikes_Result> likes { get; set; }
+        public List<CompletePost> post;
+
+        public PostModel()
+        {
+            post = new List<CompletePost>();
+        }
     }
 }

@@ -36,15 +36,6 @@ namespace PastebookModel
         public virtual DbSet<PB_USER> PB_USER { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
     
-        public virtual ObjectResult<GetFriendsList_Result> GetFriendsList(Nullable<int> uSER_ID)
-        {
-            var uSER_IDParameter = uSER_ID.HasValue ?
-                new ObjectParameter("USER_ID", uSER_ID) :
-                new ObjectParameter("USER_ID", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetFriendsList_Result>("GetFriendsList", uSER_IDParameter);
-        }
-    
         public virtual ObjectResult<GetPostComments_Result> GetPostComments(Nullable<int> pOST_ID)
         {
             var pOST_IDParameter = pOST_ID.HasValue ?
@@ -197,17 +188,22 @@ namespace PastebookModel
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAccountRelatedPosts_Result>("GetAccountRelatedPosts", uSER_IDParameter, sTART_RANGEParameter);
         }
     
-        public virtual ObjectResult<GetNewsfeed_Result> GetNewsfeed(Nullable<int> uSERID, Nullable<int> sTART_RANGE)
+        public virtual ObjectResult<GetNewsfeed_Result> GetNewsfeed(Nullable<int> uSERID)
         {
             var uSERIDParameter = uSERID.HasValue ?
                 new ObjectParameter("USERID", uSERID) :
                 new ObjectParameter("USERID", typeof(int));
     
-            var sTART_RANGEParameter = sTART_RANGE.HasValue ?
-                new ObjectParameter("START_RANGE", sTART_RANGE) :
-                new ObjectParameter("START_RANGE", typeof(int));
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetNewsfeed_Result>("GetNewsfeed", uSERIDParameter);
+        }
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetNewsfeed_Result>("GetNewsfeed", uSERIDParameter, sTART_RANGEParameter);
+        public virtual ObjectResult<GetFriendsList_Result> GetFriendsList(Nullable<int> uSER_ID)
+        {
+            var uSER_IDParameter = uSER_ID.HasValue ?
+                new ObjectParameter("USER_ID", uSER_ID) :
+                new ObjectParameter("USER_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetFriendsList_Result>("GetFriendsList", uSER_IDParameter);
         }
     }
 }

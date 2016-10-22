@@ -121,7 +121,7 @@ namespace PastebookService
             {
                 using (var context = new DB_PASTEBOOKEntities())
                 {
-                    friendList = context.GetFriendsList((int)ID).ToList();
+                    //friendList = context.PB_USER.Include("PB_FRIEND").Where(x=>x.);
                 }
             }
             catch (Exception ex)

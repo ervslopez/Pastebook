@@ -74,12 +74,7 @@ namespace PastebookService
             }
             return stat;
         }
-
-        public GetPostLikesResponse GetPostLikes(GetPostLikesRequest request)
-        {
-            return postManager.GetPostLikes(request);
-        }
-
+        
         //Comment Related Services
 
         public CommentOnPostResponse CommentOnPost(CommentOnPostRequest request)
@@ -98,12 +93,7 @@ namespace PastebookService
             }
             return stat;
         }
-
-        public GetPostCommentsResponse GetPostComments(GetPostLikesRequest request)
-        {
-            return postManager.GetPostComments(request);
-        }
-
+        
         //Friend Related Services
 
         FriendManager friendManager = new FriendManager();

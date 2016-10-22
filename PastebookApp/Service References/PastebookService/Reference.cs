@@ -359,9 +359,7 @@ namespace PastebookApp.PastebookService {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(PastebookApp.PastebookService.EditUserResponse))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(PastebookApp.PastebookService.GetAccountProfileResponse))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(PastebookApp.PastebookService.GetPostListResponse))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(PastebookApp.PastebookService.GetPostLikesResponse))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(PastebookApp.PastebookService.CommentOnPostResponse))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(PastebookApp.PastebookService.GetPostCommentsResponse))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(PastebookApp.PastebookService.FriendResponse))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(PastebookApp.PastebookService.ViewFriendsListResponse))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(PastebookApp.PastebookService.GetAllNotificationsResponse))]
@@ -516,10 +514,10 @@ namespace PastebookApp.PastebookService {
     public partial class GetPostListResponse : PastebookApp.PastebookService.StatusResponse {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private PastebookApp.PastebookService.GetNewsfeed_Result[] postListField;
+        private PastebookApp.PastebookService.CompletePost[] postListField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public PastebookApp.PastebookService.GetNewsfeed_Result[] postList {
+        public PastebookApp.PastebookService.CompletePost[] postList {
             get {
                 return this.postListField;
             }
@@ -527,29 +525,6 @@ namespace PastebookApp.PastebookService {
                 if ((object.ReferenceEquals(this.postListField, value) != true)) {
                     this.postListField = value;
                     this.RaisePropertyChanged("postList");
-                }
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="GetPostLikesResponse", Namespace="http://schemas.datacontract.org/2004/07/PastebookService")]
-    [System.SerializableAttribute()]
-    public partial class GetPostLikesResponse : PastebookApp.PastebookService.StatusResponse {
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private PastebookApp.PastebookService.GetPostLikes_Result[] likeListField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public PastebookApp.PastebookService.GetPostLikes_Result[] likeList {
-            get {
-                return this.likeListField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.likeListField, value) != true)) {
-                    this.likeListField = value;
-                    this.RaisePropertyChanged("likeList");
                 }
             }
         }
@@ -573,29 +548,6 @@ namespace PastebookApp.PastebookService {
                 if ((this.commentDateTimeField.Equals(value) != true)) {
                     this.commentDateTimeField = value;
                     this.RaisePropertyChanged("commentDateTime");
-                }
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="GetPostCommentsResponse", Namespace="http://schemas.datacontract.org/2004/07/PastebookService")]
-    [System.SerializableAttribute()]
-    public partial class GetPostCommentsResponse : PastebookApp.PastebookService.StatusResponse {
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private PastebookApp.PastebookService.GetPostComments_Result[] commentsListField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public PastebookApp.PastebookService.GetPostComments_Result[] commentsList {
-            get {
-                return this.commentsListField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.commentsListField, value) != true)) {
-                    this.commentsListField = value;
-                    this.RaisePropertyChanged("commentsList");
                 }
             }
         }
@@ -727,6 +679,83 @@ namespace PastebookApp.PastebookService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="CompletePost", Namespace="http://schemas.datacontract.org/2004/07/PastebookService")]
+    [System.SerializableAttribute()]
+    public partial class CompletePost : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private PastebookApp.PastebookService.GetPostComments_Result[] commentsField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private PastebookApp.PastebookService.GetPostLikes_Result[] likesField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private PastebookApp.PastebookService.GetNewsfeed_Result postField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public PastebookApp.PastebookService.GetPostComments_Result[] comments {
+            get {
+                return this.commentsField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.commentsField, value) != true)) {
+                    this.commentsField = value;
+                    this.RaisePropertyChanged("comments");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public PastebookApp.PastebookService.GetPostLikes_Result[] likes {
+            get {
+                return this.likesField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.likesField, value) != true)) {
+                    this.likesField = value;
+                    this.RaisePropertyChanged("likes");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public PastebookApp.PastebookService.GetNewsfeed_Result post {
+            get {
+                return this.postField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.postField, value) != true)) {
+                    this.postField = value;
+                    this.RaisePropertyChanged("post");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="GetNewsfeed_Result", Namespace="http://schemas.datacontract.org/2004/07/PastebookModel")]
     [System.SerializableAttribute()]
     public partial class GetNewsfeed_Result : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -744,7 +773,13 @@ namespace PastebookApp.PastebookService {
         private System.Nullable<int> Comment_CountField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FIRST_NAMEField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int IDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string LAST_NAMEField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Nullable<int> Like_CountField;
@@ -754,6 +789,9 @@ namespace PastebookApp.PastebookService {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int PROFILE_OWNER_IDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private byte[] PROFILE_PICField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -805,6 +843,19 @@ namespace PastebookApp.PastebookService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string FIRST_NAME {
+            get {
+                return this.FIRST_NAMEField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FIRST_NAMEField, value) != true)) {
+                    this.FIRST_NAMEField = value;
+                    this.RaisePropertyChanged("FIRST_NAME");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public int ID {
             get {
                 return this.IDField;
@@ -813,6 +864,19 @@ namespace PastebookApp.PastebookService {
                 if ((this.IDField.Equals(value) != true)) {
                     this.IDField = value;
                     this.RaisePropertyChanged("ID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string LAST_NAME {
+            get {
+                return this.LAST_NAMEField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.LAST_NAMEField, value) != true)) {
+                    this.LAST_NAMEField = value;
+                    this.RaisePropertyChanged("LAST_NAME");
                 }
             }
         }
@@ -856,63 +920,15 @@ namespace PastebookApp.PastebookService {
             }
         }
         
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="GetPostLikes_Result", Namespace="http://schemas.datacontract.org/2004/07/PastebookModel")]
-    [System.SerializableAttribute()]
-    public partial class GetPostLikes_Result : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string FIRST_NAMEField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string LAST_NAMEField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string FIRST_NAME {
+        public byte[] PROFILE_PIC {
             get {
-                return this.FIRST_NAMEField;
+                return this.PROFILE_PICField;
             }
             set {
-                if ((object.ReferenceEquals(this.FIRST_NAMEField, value) != true)) {
-                    this.FIRST_NAMEField = value;
-                    this.RaisePropertyChanged("FIRST_NAME");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string LAST_NAME {
-            get {
-                return this.LAST_NAMEField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.LAST_NAMEField, value) != true)) {
-                    this.LAST_NAMEField = value;
-                    this.RaisePropertyChanged("LAST_NAME");
+                if ((object.ReferenceEquals(this.PROFILE_PICField, value) != true)) {
+                    this.PROFILE_PICField = value;
+                    this.RaisePropertyChanged("PROFILE_PIC");
                 }
             }
         }
@@ -1022,18 +1038,15 @@ namespace PastebookApp.PastebookService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="GetFriendsList_Result", Namespace="http://schemas.datacontract.org/2004/07/PastebookModel")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="GetPostLikes_Result", Namespace="http://schemas.datacontract.org/2004/07/PastebookModel")]
     [System.SerializableAttribute()]
-    public partial class GetFriendsList_Result : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+    public partial class GetPostLikes_Result : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string FIRST_NAMEField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int IDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string LAST_NAMEField;
@@ -1045,6 +1058,89 @@ namespace PastebookApp.PastebookService {
             }
             set {
                 this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string FIRST_NAME {
+            get {
+                return this.FIRST_NAMEField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FIRST_NAMEField, value) != true)) {
+                    this.FIRST_NAMEField = value;
+                    this.RaisePropertyChanged("FIRST_NAME");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string LAST_NAME {
+            get {
+                return this.LAST_NAMEField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.LAST_NAMEField, value) != true)) {
+                    this.LAST_NAMEField = value;
+                    this.RaisePropertyChanged("LAST_NAME");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="GetFriendsList_Result", Namespace="http://schemas.datacontract.org/2004/07/PastebookModel")]
+    [System.SerializableAttribute()]
+    public partial class GetFriendsList_Result : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ABOUT_MEField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FIRST_NAMEField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string LAST_NAMEField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private byte[] PROFILE_PICField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ABOUT_ME {
+            get {
+                return this.ABOUT_MEField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ABOUT_MEField, value) != true)) {
+                    this.ABOUT_MEField = value;
+                    this.RaisePropertyChanged("ABOUT_ME");
+                }
             }
         }
         
@@ -1083,6 +1179,19 @@ namespace PastebookApp.PastebookService {
                 if ((object.ReferenceEquals(this.LAST_NAMEField, value) != true)) {
                     this.LAST_NAMEField = value;
                     this.RaisePropertyChanged("LAST_NAME");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public byte[] PROFILE_PIC {
+            get {
+                return this.PROFILE_PICField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PROFILE_PICField, value) != true)) {
+                    this.PROFILE_PICField = value;
+                    this.RaisePropertyChanged("PROFILE_PIC");
                 }
             }
         }
@@ -1585,9 +1694,6 @@ namespace PastebookApp.PastebookService {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int StartRangeField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int accountIDField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
@@ -1597,19 +1703,6 @@ namespace PastebookApp.PastebookService {
             }
             set {
                 this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int StartRange {
-            get {
-                return this.StartRangeField;
-            }
-            set {
-                if ((this.StartRangeField.Equals(value) != true)) {
-                    this.StartRangeField = value;
-                    this.RaisePropertyChanged("StartRange");
-                }
             }
         }
         
@@ -1732,51 +1825,6 @@ namespace PastebookApp.PastebookService {
                     this.LIKED_BYField = value;
                     this.RaisePropertyChanged("LIKED_BY");
                 }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int POST_ID {
-            get {
-                return this.POST_IDField;
-            }
-            set {
-                if ((this.POST_IDField.Equals(value) != true)) {
-                    this.POST_IDField = value;
-                    this.RaisePropertyChanged("POST_ID");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="GetPostLikesRequest", Namespace="http://schemas.datacontract.org/2004/07/PastebookService")]
-    [System.SerializableAttribute()]
-    public partial class GetPostLikesRequest : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int POST_IDField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
             }
         }
         
@@ -2320,23 +2368,11 @@ namespace PastebookApp.PastebookService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/LikePost", ReplyAction="http://tempuri.org/IService1/LikePostResponse")]
         System.Threading.Tasks.Task<PastebookApp.PastebookService.StatusResponse> LikePostAsync(PastebookApp.PastebookService.LikePostRequest request);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetPostLikes", ReplyAction="http://tempuri.org/IService1/GetPostLikesResponse")]
-        PastebookApp.PastebookService.GetPostLikesResponse GetPostLikes(PastebookApp.PastebookService.GetPostLikesRequest request);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetPostLikes", ReplyAction="http://tempuri.org/IService1/GetPostLikesResponse")]
-        System.Threading.Tasks.Task<PastebookApp.PastebookService.GetPostLikesResponse> GetPostLikesAsync(PastebookApp.PastebookService.GetPostLikesRequest request);
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CommentOnPost", ReplyAction="http://tempuri.org/IService1/CommentOnPostResponse")]
         PastebookApp.PastebookService.CommentOnPostResponse CommentOnPost(PastebookApp.PastebookService.CommentOnPostRequest request);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CommentOnPost", ReplyAction="http://tempuri.org/IService1/CommentOnPostResponse")]
         System.Threading.Tasks.Task<PastebookApp.PastebookService.CommentOnPostResponse> CommentOnPostAsync(PastebookApp.PastebookService.CommentOnPostRequest request);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetPostComments", ReplyAction="http://tempuri.org/IService1/GetPostCommentsResponse")]
-        PastebookApp.PastebookService.GetPostCommentsResponse GetPostComments(PastebookApp.PastebookService.GetPostLikesRequest request);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetPostComments", ReplyAction="http://tempuri.org/IService1/GetPostCommentsResponse")]
-        System.Threading.Tasks.Task<PastebookApp.PastebookService.GetPostCommentsResponse> GetPostCommentsAsync(PastebookApp.PastebookService.GetPostLikesRequest request);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/RequestFriendship", ReplyAction="http://tempuri.org/IService1/RequestFriendshipResponse")]
         PastebookApp.PastebookService.FriendResponse RequestFriendship(PastebookApp.PastebookService.FriendRequest request);
@@ -2480,28 +2516,12 @@ namespace PastebookApp.PastebookService {
             return base.Channel.LikePostAsync(request);
         }
         
-        public PastebookApp.PastebookService.GetPostLikesResponse GetPostLikes(PastebookApp.PastebookService.GetPostLikesRequest request) {
-            return base.Channel.GetPostLikes(request);
-        }
-        
-        public System.Threading.Tasks.Task<PastebookApp.PastebookService.GetPostLikesResponse> GetPostLikesAsync(PastebookApp.PastebookService.GetPostLikesRequest request) {
-            return base.Channel.GetPostLikesAsync(request);
-        }
-        
         public PastebookApp.PastebookService.CommentOnPostResponse CommentOnPost(PastebookApp.PastebookService.CommentOnPostRequest request) {
             return base.Channel.CommentOnPost(request);
         }
         
         public System.Threading.Tasks.Task<PastebookApp.PastebookService.CommentOnPostResponse> CommentOnPostAsync(PastebookApp.PastebookService.CommentOnPostRequest request) {
             return base.Channel.CommentOnPostAsync(request);
-        }
-        
-        public PastebookApp.PastebookService.GetPostCommentsResponse GetPostComments(PastebookApp.PastebookService.GetPostLikesRequest request) {
-            return base.Channel.GetPostComments(request);
-        }
-        
-        public System.Threading.Tasks.Task<PastebookApp.PastebookService.GetPostCommentsResponse> GetPostCommentsAsync(PastebookApp.PastebookService.GetPostLikesRequest request) {
-            return base.Channel.GetPostCommentsAsync(request);
         }
         
         public PastebookApp.PastebookService.FriendResponse RequestFriendship(PastebookApp.PastebookService.FriendRequest request) {

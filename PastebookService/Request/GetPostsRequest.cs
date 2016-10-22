@@ -11,8 +11,5 @@ namespace PastebookService
     {
         [DataMember]
         public int accountID { get; set; }
-
-        [DataMember]
-        public int StartRange { get; set; }
     }
 }

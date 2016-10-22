@@ -63,23 +63,11 @@
   <wsdl:message name="IService1_LikePost_OutputMessage">
     <wsdl:part name="parameters" element="tns:LikePostResponse" />
   </wsdl:message>
-  <wsdl:message name="IService1_GetPostLikes_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetPostLikes" />
-  </wsdl:message>
-  <wsdl:message name="IService1_GetPostLikes_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetPostLikesResponse" />
-  </wsdl:message>
   <wsdl:message name="IService1_CommentOnPost_InputMessage">
     <wsdl:part name="parameters" element="tns:CommentOnPost" />
   </wsdl:message>
   <wsdl:message name="IService1_CommentOnPost_OutputMessage">
     <wsdl:part name="parameters" element="tns:CommentOnPostResponse" />
-  </wsdl:message>
-  <wsdl:message name="IService1_GetPostComments_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetPostComments" />
-  </wsdl:message>
-  <wsdl:message name="IService1_GetPostComments_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetPostCommentsResponse" />
   </wsdl:message>
   <wsdl:message name="IService1_RequestFriendship_InputMessage">
     <wsdl:part name="parameters" element="tns:RequestFriendship" />
@@ -160,17 +148,9 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/LikePost" message="tns:IService1_LikePost_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService1/LikePostResponse" message="tns:IService1_LikePost_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetPostLikes">
-      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetPostLikes" message="tns:IService1_GetPostLikes_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetPostLikesResponse" message="tns:IService1_GetPostLikes_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="CommentOnPost">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/CommentOnPost" message="tns:IService1_CommentOnPost_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService1/CommentOnPostResponse" message="tns:IService1_CommentOnPost_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetPostComments">
-      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetPostComments" message="tns:IService1_GetPostComments_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetPostCommentsResponse" message="tns:IService1_GetPostComments_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="RequestFriendship">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/RequestFriendship" message="tns:IService1_RequestFriendship_InputMessage" />
@@ -284,26 +264,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetPostLikes">
-      <soap:operation soapAction="http://tempuri.org/IService1/GetPostLikes" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="CommentOnPost">
       <soap:operation soapAction="http://tempuri.org/IService1/CommentOnPost" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetPostComments">
-      <soap:operation soapAction="http://tempuri.org/IService1/GetPostComments" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

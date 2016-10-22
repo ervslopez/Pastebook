@@ -40,17 +40,11 @@ namespace PastebookService
         //Like Related Service
         [OperationContract]
         StatusResponse LikePost(LikePostRequest request);
-
-        [OperationContract]
-        GetPostLikesResponse GetPostLikes(GetPostLikesRequest request);
-
+        
         //Comment Related Services
         [OperationContract]
         CommentOnPostResponse CommentOnPost(CommentOnPostRequest request);
-
-        [OperationContract]
-        GetPostCommentsResponse GetPostComments(GetPostLikesRequest request);
-
+        
         //Friend Related Services
         [OperationContract]
         FriendResponse RequestFriendship(FriendRequest request);

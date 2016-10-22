@@ -119,7 +119,6 @@
   <xs:element name="Post" nillable="true" type="tns:Post" />
   <xs:complexType name="GetPostsRequest">
     <xs:sequence>
-      <xs:element minOccurs="0" name="StartRange" type="xs:int" />
       <xs:element minOccurs="0" name="accountID" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
@@ -128,12 +127,26 @@
     <xs:complexContent mixed="false">
       <xs:extension base="tns:StatusResponse">
         <xs:sequence>
-          <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/PastebookModel" minOccurs="0" name="postList" nillable="true" type="q2:ArrayOfGetNewsfeed_Result" />
+          <xs:element minOccurs="0" name="postList" nillable="true" type="tns:ArrayOfCompletePost" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="GetPostListResponse" nillable="true" type="tns:GetPostListResponse" />
+  <xs:complexType name="ArrayOfCompletePost">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="CompletePost" nillable="true" type="tns:CompletePost" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCompletePost" nillable="true" type="tns:ArrayOfCompletePost" />
+  <xs:complexType name="CompletePost">
+    <xs:sequence>
+      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/PastebookModel" minOccurs="0" name="comments" nillable="true" type="q2:ArrayOfGetPostComments_Result" />
+      <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/PastebookModel" minOccurs="0" name="likes" nillable="true" type="q3:ArrayOfGetPostLikes_Result" />
+      <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/PastebookModel" minOccurs="0" name="post" nillable="true" type="q4:GetNewsfeed_Result" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CompletePost" nillable="true" type="tns:CompletePost" />
   <xs:complexType name="LikePostRequest">
     <xs:sequence>
       <xs:element minOccurs="0" name="like" nillable="true" type="tns:Like" />
@@ -148,22 +161,6 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Like" nillable="true" type="tns:Like" />
-  <xs:complexType name="GetPostLikesRequest">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="POST_ID" type="xs:int" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="GetPostLikesRequest" nillable="true" type="tns:GetPostLikesRequest" />
-  <xs:complexType name="GetPostLikesResponse">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:StatusResponse">
-        <xs:sequence>
-          <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/PastebookModel" minOccurs="0" name="likeList" nillable="true" type="q3:ArrayOfGetPostLikes_Result" />
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:element name="GetPostLikesResponse" nillable="true" type="tns:GetPostLikesResponse" />
   <xs:complexType name="CommentOnPostRequest">
     <xs:sequence>
       <xs:element minOccurs="0" name="comment" nillable="true" type="tns:Comment" />
@@ -190,16 +187,6 @@
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="CommentOnPostResponse" nillable="true" type="tns:CommentOnPostResponse" />
-  <xs:complexType name="GetPostCommentsResponse">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:StatusResponse">
-        <xs:sequence>
-          <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/PastebookModel" minOccurs="0" name="commentsList" nillable="true" type="q4:ArrayOfGetPostComments_Result" />
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:element name="GetPostCommentsResponse" nillable="true" type="tns:GetPostCommentsResponse" />
   <xs:complexType name="FriendRequest">
     <xs:sequence>
       <xs:element minOccurs="0" name="friend" nillable="true" type="tns:Friend" />

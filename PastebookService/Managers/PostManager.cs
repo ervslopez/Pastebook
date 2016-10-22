@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PastebookModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -37,11 +38,21 @@ namespace PastebookService
         public GetPostListResponse GetNewsfeed(GetPostsRequest request)
         {
             GetPostListResponse resp = new GetPostListResponse();
+
             try
             {
                 if (accountDataAccess.UserIDExists(request.accountID))
                 {
-                    resp.postList = postDataAccess.GetNewsfeed(request.accountID, request.StartRange);
+                    resp.Status = true;
+                    foreach (var item in postDataAccess.GetNewsfeed(request.accountID))
+                    {
+                        resp.postList.Add(new CompletePost()
+                        {
+                            post = item,
+                            comments = GetPostComments(item.ID),
+                            likes = GetPostLikes(item.ID)
+                        });
+                    }
                 }
                 else
                 {
@@ -62,8 +73,15 @@ namespace PastebookService
             {
                 if (accountDataAccess.UserIDExists(request.accountID))
                 {
-                    resp.postList = PostMapper.toGetNewsfeed_Result(postDataAccess
-                        .GetAccountRelatedPosts(request.accountID, request.StartRange).ToList());
+                    foreach (var item in postDataAccess.GetAccountRelatedPosts(request.accountID))
+                    {
+                        resp.postList.Add(new CompletePost()
+                        {
+                            post = item,
+                            comments = GetPostComments(item.ID),
+                            likes = GetPostLikes(item.ID)
+                        });
+                    }
                 }
                 else
                 {
@@ -99,25 +117,9 @@ namespace PastebookService
             return resp;
         }
 
-        public GetPostLikesResponse GetPostLikes(GetPostLikesRequest request)
-        {
-            GetPostLikesResponse resp = new GetPostLikesResponse();
-            try
-            {
-                if (postDataAccess.PostExists(request.POST_ID))
-                {
-                    resp.likeList = postDataAccess.GetPostLikes(request.POST_ID);
-                }
-                else
-                {
-                    resp.Status = false;
-                }
-            }
-            catch (Exception e)
-            {
-                resp.errorList.Add(e.ToString());
-            }
-            return resp;
+        public List<GetPostLikes_Result> GetPostLikes(int ID)
+        {     
+            return postDataAccess.GetPostLikes(ID); 
         }
 
         //  "COMMENT" SERVICES
@@ -129,7 +131,7 @@ namespace PastebookService
                 if (postDataAccess.PostExists(request.comment.POST_ID))
                 {
                     resp.commentDateTime = request.comment.DATE_CREATED = DateTime.Now;
-                    if(postDataAccess.CommentOnPost(request.comment)>0)
+                    if (postDataAccess.CommentOnPost(request.comment) > 0)
                     {
                         resp.Status = true;
                     }
@@ -146,25 +148,9 @@ namespace PastebookService
             return resp;
         }
 
-        public GetPostCommentsResponse GetPostComments(GetPostLikesRequest request)
+        public List<GetPostComments_Result> GetPostComments(int ID)
         {
-            GetPostCommentsResponse resp = new GetPostCommentsResponse();
-            try
-            {
-                if (postDataAccess.PostExists(request.POST_ID))
-                {
-                    resp.commentsList = postDataAccess.GetPostComments(request.POST_ID);
-                }
-                else
-                {
-                    resp.Status = false;
-                }
-            }
-            catch (Exception e)
-            {
-                resp.errorList.Add(e.ToString());
-            }
-            return resp;
+            return postDataAccess.GetPostComments(ID);
         }
 
         public int GetPostOwnerID(int postID)

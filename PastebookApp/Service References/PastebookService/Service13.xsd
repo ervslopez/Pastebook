@@ -1,36 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/PastebookModel" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/PastebookModel" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:complexType name="ArrayOfGetNewsfeed_Result">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="GetNewsfeed_Result" nillable="true" type="tns:GetNewsfeed_Result" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfGetNewsfeed_Result" nillable="true" type="tns:ArrayOfGetNewsfeed_Result" />
-  <xs:complexType name="GetNewsfeed_Result">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="CONTENT" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CREATED_DATE" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="Comment_Count" nillable="true" type="xs:int" />
-      <xs:element minOccurs="0" name="ID" type="xs:int" />
-      <xs:element minOccurs="0" name="Like_Count" nillable="true" type="xs:int" />
-      <xs:element minOccurs="0" name="POSTER_ID" type="xs:int" />
-      <xs:element minOccurs="0" name="PROFILE_OWNER_ID" type="xs:int" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="GetNewsfeed_Result" nillable="true" type="tns:GetNewsfeed_Result" />
-  <xs:complexType name="ArrayOfGetPostLikes_Result">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="GetPostLikes_Result" nillable="true" type="tns:GetPostLikes_Result" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfGetPostLikes_Result" nillable="true" type="tns:ArrayOfGetPostLikes_Result" />
-  <xs:complexType name="GetPostLikes_Result">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="FIRST_NAME" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="LAST_NAME" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="GetPostLikes_Result" nillable="true" type="tns:GetPostLikes_Result" />
   <xs:complexType name="ArrayOfGetPostComments_Result">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="GetPostComments_Result" nillable="true" type="tns:GetPostComments_Result" />
@@ -46,6 +15,34 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="GetPostComments_Result" nillable="true" type="tns:GetPostComments_Result" />
+  <xs:complexType name="ArrayOfGetPostLikes_Result">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="GetPostLikes_Result" nillable="true" type="tns:GetPostLikes_Result" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfGetPostLikes_Result" nillable="true" type="tns:ArrayOfGetPostLikes_Result" />
+  <xs:complexType name="GetPostLikes_Result">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="FIRST_NAME" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LAST_NAME" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GetPostLikes_Result" nillable="true" type="tns:GetPostLikes_Result" />
+  <xs:complexType name="GetNewsfeed_Result">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CONTENT" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CREATED_DATE" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Comment_Count" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="FIRST_NAME" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID" type="xs:int" />
+      <xs:element minOccurs="0" name="LAST_NAME" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Like_Count" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="POSTER_ID" type="xs:int" />
+      <xs:element minOccurs="0" name="PROFILE_OWNER_ID" type="xs:int" />
+      <xs:element minOccurs="0" name="PROFILE_PIC" nillable="true" type="xs:base64Binary" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GetNewsfeed_Result" nillable="true" type="tns:GetNewsfeed_Result" />
   <xs:complexType name="ArrayOfGetFriendsList_Result">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="GetFriendsList_Result" nillable="true" type="tns:GetFriendsList_Result" />
@@ -54,9 +51,11 @@
   <xs:element name="ArrayOfGetFriendsList_Result" nillable="true" type="tns:ArrayOfGetFriendsList_Result" />
   <xs:complexType name="GetFriendsList_Result">
     <xs:sequence>
+      <xs:element minOccurs="0" name="ABOUT_ME" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FIRST_NAME" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ID" type="xs:int" />
       <xs:element minOccurs="0" name="LAST_NAME" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PROFILE_PIC" nillable="true" type="xs:base64Binary" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="GetFriendsList_Result" nillable="true" type="tns:GetFriendsList_Result" />

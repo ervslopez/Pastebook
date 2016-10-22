@@ -331,9 +331,6 @@
       <End Role="PB_REF_COUNTRY" EntitySet="PB_REF_COUNTRY" />
       <End Role="PB_USER" EntitySet="PB_USER" />
     </AssociationSet>
-    <FunctionImport Name="GetFriendsList" ReturnType="Collection(DB_PASTEBOOKModel.GetFriendsList_Result)">
-      <Parameter Name="USER_ID" Mode="In" Type="Int32" />
-    </FunctionImport>
     <FunctionImport Name="GetPostComments" ReturnType="Collection(DB_PASTEBOOKModel.GetPostComments_Result)">
       <Parameter Name="POST_ID" Mode="In" Type="Int32" />
     </FunctionImport>
@@ -382,14 +379,11 @@
     </FunctionImport>
     <FunctionImport Name="GetNewsfeed" ReturnType="Collection(DB_PASTEBOOKModel.GetNewsfeed_Result)">
       <Parameter Name="USERID" Mode="In" Type="Int32" />
-      <Parameter Name="START_RANGE" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetFriendsList" ReturnType="Collection(DB_PASTEBOOKModel.GetFriendsList_Result)">
+      <Parameter Name="USER_ID" Mode="In" Type="Int32" />
     </FunctionImport>
   </EntityContainer>
-  <ComplexType Name="GetFriendsList_Result">
-    <Property Type="String" Name="FIRST_NAME" Nullable="false" MaxLength="50" />
-    <Property Type="String" Name="LAST_NAME" Nullable="false" MaxLength="50" />
-    <Property Type="Int32" Name="ID" Nullable="false" />
-  </ComplexType>
   <ComplexType Name="GetPostComments_Result">
     <Property Type="String" Name="FIRST_NAME" Nullable="false" MaxLength="50" />
     <Property Type="String" Name="LAST_NAME" Nullable="false" MaxLength="50" />
@@ -440,5 +434,15 @@
     <Property Type="Int32" Name="PROFILE_OWNER_ID" Nullable="false" />
     <Property Type="Int32" Name="Like_Count" Nullable="true" />
     <Property Type="Int32" Name="Comment_Count" Nullable="true" />
+    <Property Type="String" Name="FIRST_NAME" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="LAST_NAME" Nullable="false" MaxLength="50" />
+    <Property Type="Binary" Name="PROFILE_PIC" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="GetFriendsList_Result">
+    <Property Type="String" Name="FIRST_NAME" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="LAST_NAME" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="ABOUT_ME" Nullable="true" MaxLength="2000" />
+    <Property Type="Binary" Name="PROFILE_PIC" Nullable="true" />
   </ComplexType>
 </Schema>

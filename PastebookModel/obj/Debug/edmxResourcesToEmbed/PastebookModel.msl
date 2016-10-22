@@ -97,15 +97,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <FunctionImportMapping FunctionImportName="GetFriendsList" FunctionName="DB_PASTEBOOKModel.Store.GetFriendsList">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="DB_PASTEBOOKModel.GetFriendsList_Result">
-          <ScalarProperty Name="FIRST_NAME" ColumnName="FIRST_NAME" />
-          <ScalarProperty Name="LAST_NAME" ColumnName="LAST_NAME" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="GetPostComments" FunctionName="DB_PASTEBOOKModel.Store.GetPostComments">
       <ResultMapping>
         <ComplexTypeMapping TypeName="DB_PASTEBOOKModel.GetPostComments_Result">
@@ -191,6 +182,20 @@
           <ScalarProperty Name="PROFILE_OWNER_ID" ColumnName="PROFILE_OWNER_ID" />
           <ScalarProperty Name="Like_Count" ColumnName="Like Count" />
           <ScalarProperty Name="Comment_Count" ColumnName="Comment Count" />
+          <ScalarProperty Name="FIRST_NAME" ColumnName="FIRST_NAME" />
+          <ScalarProperty Name="LAST_NAME" ColumnName="LAST_NAME" />
+          <ScalarProperty Name="PROFILE_PIC" ColumnName="PROFILE_PIC" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetFriendsList" FunctionName="DB_PASTEBOOKModel.Store.GetFriendsList">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DB_PASTEBOOKModel.GetFriendsList_Result">
+          <ScalarProperty Name="FIRST_NAME" ColumnName="FIRST_NAME" />
+          <ScalarProperty Name="LAST_NAME" ColumnName="LAST_NAME" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ABOUT_ME" ColumnName="ABOUT_ME" />
+          <ScalarProperty Name="PROFILE_PIC" ColumnName="PROFILE_PIC" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>

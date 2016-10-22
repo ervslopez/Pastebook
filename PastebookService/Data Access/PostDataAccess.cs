@@ -26,31 +26,37 @@ namespace PastebookService
             return result;
         }
 
-        public List<GetNewsfeed_Result> GetNewsfeed(int accountID, int startRange)
+        public List<GetNewsfeed_Result> GetNewsfeed(int accountID)
         {
-            List<GetNewsfeed_Result> likersList = new List<GetNewsfeed_Result>();
+            List<GetNewsfeed_Result> newsfeed = new List<GetNewsfeed_Result>();
             try
             {
                 using (var context = new DB_PASTEBOOKEntities())
                 {
-                    likersList = context.GetNewsfeed(accountID, startRange).ToList();
+                    newsfeed = context.GetNewsfeed(accountID).Distinct().OrderByDescending(x => x.CREATED_DATE).ToList();
+                    //var feeds = context.PB_POST.Include("PB_COMMENT.PB_USER").Include("PB_LIKE.PB_USER")
+                    //    .Where(p=>p.POSTER_ID == accountID || p.PROFILE_OWNER_ID == accountID 
+                    //    || p.POSTER_ID == context.PB_FRIEND.Where(f=>f.USER_ID == accountID 
+                    //    && f.REQUEST == "N" && f.IsBLOCKED == "N").Select(f=>f.FRIEND_ID).SingleOrDefault()).ToList();
+                    //var feeds = context.PB_USER.Include("PB_FRIEND.PB_POST.PB_COMMENT").Include("PB_FRIEND.PB_POST.PB_LIKE");
+
                 }
             }
             catch (Exception ex)
             {
                 listOfException.Add(ex);
             }
-            return likersList;
+            return newsfeed;
         }
 
-        public List<GetAccountRelatedPosts_Result> GetAccountRelatedPosts(int accountID, int startRange)
+        public List<GetNewsfeed_Result> GetAccountRelatedPosts(int accountID)
         {
-            List<GetAccountRelatedPosts_Result> postList = new List<GetAccountRelatedPosts_Result>();
+            List<GetNewsfeed_Result> postList = new List<GetNewsfeed_Result>();
             try
             {
                 using (var context = new DB_PASTEBOOKEntities())
                 {
-                    postList = context.GetAccountRelatedPosts(accountID, startRange).ToList();
+                    postList = PostMapper.ToNewsfeed(context.GetAccountRelatedPosts(accountID, 1).ToList());
                 }
             }
             catch (Exception ex)
@@ -85,7 +91,10 @@ namespace PastebookService
             {
                 using (var context = new DB_PASTEBOOKEntities())
                 {
-                    likersList = context.GetPostLikes(postID).ToList();
+                    var likerslist = context.PB_USER
+                        .Where(user => context.PB_LIKE.Any(like =>like.LIKED_BY == user.ID && like.POST_ID == postID))
+                        .Select(x=> new GetPostLikes_Result { FIRST_NAME = x.FIRST_NAME, LAST_NAME = x.LAST_NAME})
+                        .ToList();
                 }
             }
             catch (Exception ex)
@@ -120,7 +129,7 @@ namespace PastebookService
             {
                 using (var context = new DB_PASTEBOOKEntities())
                 {
-                    commentsList = context.GetPostComments(postID).ToList();
+                    commentsList = context.GetPostComments(postID).OrderByDescending(x => x.DATE_CREATED).ToList();
                 }
             }
             catch (Exception ex)

@@ -168,29 +168,6 @@
         var LoginAccountUrl = '@Url.Action("ValidateAccount", "Pastebook")';
 
         $(document).ready(function () {
-            @* $('#btnLogin').on('click', function () {
-                var data = {
-                    email: $('#loginEmail').val(),
-                    password: $('#loginPassword').val()
-                }
-                $.ajax({
-                    url: LoginAccountUrl,
-                    data: data,
-                    success: function (data) {
-                        SuccessLogin(data)
-                    },
-                    error: function () {
-                        alert("Somethin Went Wrong");
-                    }
-                });
-
-                function SuccessLogin(data) {
-                    if (data.Status.toString().length > 0) {
-                        $H
-                    } else {
-                        $('#registerSuccess').text("Login unsuccessful.");
-                    }
-                };*@
             $("#ImagePath").on('change', function () {
 
                 if (typeof (FileReader) != "undefined") {

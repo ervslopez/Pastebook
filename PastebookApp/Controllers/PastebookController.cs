@@ -1,5 +1,6 @@
 ﻿using PastebookApp.Managers;
 using PastebookApp.Models;
+using PastebookApp.PastebookService;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,6 +13,7 @@ namespace PastebookApp.Controllers
     public class PastebookController : Controller
     {
         SignupManager signupManager = new SignupManager();
+        PostManager postManager = new PostManager();
 
         [HttpGet]
         public ActionResult Index()
@@ -20,10 +22,12 @@ namespace PastebookApp.Controllers
             model.countryList = signupManager.GetCountries();
             return View(model);
         }
-        
+
         public ActionResult Home(string username)
         {
             UserModel model = signupManager.GetAccount(username);
+            Session["username"] = model.USER_NAME;
+            Session["id"] = model.ID;
             return View(model);
         }
 
@@ -32,13 +36,13 @@ namespace PastebookApp.Controllers
             ViewBag.Message = "Your application description page.";
             return View();
         }
-        
+
         public ActionResult ValidateAccount(SignupViewModel model)
         {
             UserModel user = new UserModel();
-            if(signupManager.ValidateAccount(model.login.email, model.login.password, out user))
+            if (signupManager.ValidateAccount(model.login.email, model.login.password, out user))
             {
-                return RedirectToAction("Home", "Pastebook", new { username = user.USER_NAME});
+                return RedirectToAction("Home", "Pastebook", new { username = user.USER_NAME });
             }
             return RedirectToAction("Index");
         }
@@ -58,8 +62,38 @@ namespace PastebookApp.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult ViewPosts(string username)
+        public ActionResult ViewPosts(int ID)
         {
+            List<CompletePost> postList = new List<CompletePost>();
+            postList = postManager.GetNewsfeed(ID);
+            return PartialView("ViewPosts", postList);
+        }
+
+        public ActionResult PublishPost(int posterId, string postString)
+        {
+            return Json(new { Status = postManager.PublishNewPost(posterId, postString) }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult CommentOnPost(int postID, string comment)
+        {
+            int posterID = (int)Session["id"];
+            return Json(new { Status = postManager.CommentOnPost(posterID, postID, comment) }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult LikePost(int postID)
+        {
+            int likedBy = (int)Session["id"];
+            return Json(new { Status = postManager.LikePost(postID, likedBy) }, JsonRequestBehavior.AllowGet);
+        }
+
+        //public ActionResult GetNotifications()
+        //{
+
+        //}
+
+        public ActionResult GetFriendList()
+        {
+            int posterID = (int)Session["id"];
 
             return null;
         }

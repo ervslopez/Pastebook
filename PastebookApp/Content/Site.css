@@ -47,6 +47,8 @@ form-control {
     width: 100%;
 }
 
+
+/* For the sign up and register page*/
 .signupContent {
     position: center;
     /*width: 40%;
@@ -74,10 +76,6 @@ form-control {
     opacity: 0.9;
 }
 
-#profilePicture{
-     outline: 3px solid #2E0854;
-}
-
 #ImagePath{
     padding-top: 10px;
 }
@@ -93,8 +91,60 @@ form-control {
     width:150px;
 }
 
-
-img{
+.mainProfilePic{
     height:200px;
     width:200px;
+}
+
+#postTxt{
+    width: 85%;
+    margin:0px;
+    height: 90px;
+}
+
+#btnPost{
+    height:35px;
+    width:100px;
+    margin-right:20px;
+    color: #000;
+}
+
+#postProfilePic{
+    height:100px;
+    width:100px;
+    margin-left:0px;
+    margin-right:0px;
+    padding-left:0px;
+    padding-right:0px;
+}
+
+.commentBox{
+    margin:0px;
+    width: 100%;
+}
+
+/*#btnLike{
+    color:transparent;
+}*/
+
+.glyphicon:hover{
+    color:brown;
+}
+
+
+/*Home Page*/
+/*Post*/
+
+#postHeader, #commentHeader, #profileHeader{
+     background-color: #c1add6;
+     /*outline: 3px solid #2E0854;*/
+}
+
+.glyphicon{
+    font-size:25px;
+    color: #0000EE;
+}
+
+.info{
+    font-size:large;
 }

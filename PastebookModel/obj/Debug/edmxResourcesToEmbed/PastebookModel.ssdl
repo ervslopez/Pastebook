@@ -236,7 +236,6 @@
   </Function>
   <Function Name="GetNewsfeed" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="USERID" Type="int" Mode="In" />
-    <Parameter Name="START_RANGE" Type="int" Mode="In" />
   </Function>
   <Function Name="GetPostComments" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="POST_ID" Type="int" Mode="In" />

@@ -32,43 +32,42 @@ namespace PastebookService
             };
         }
 
-        public static List<GetNewsfeed_Result> toGetNewsfeed_Result(List<GetAccountRelatedPosts_Result> postResult)
+        public static List<GetNewsfeed_Result> ToNewsfeed(List<GetAccountRelatedPosts_Result> post)
         {
-            List<GetNewsfeed_Result> resultList = new List<GetNewsfeed_Result>();
-            foreach (var result in postResult)
+            List<GetNewsfeed_Result> newsfeed = new List<GetNewsfeed_Result>();
+            foreach (var result in post)
             {
-                resultList.Add(new GetNewsfeed_Result()
+                newsfeed.Add(new GetNewsfeed_Result()
                 {
-                    ID = result.ID,
-                    CONTENT = result.CONTENT,
-                    POSTER_ID = result.POSTER_ID,
-                    PROFILE_OWNER_ID = result.PROFILE_OWNER_ID,
-                    Like_Count = result.Like_Count,
                     Comment_Count = result.Comment_Count,
-                    CREATED_DATE = result.CREATED_DATE
+                    CONTENT = result.CONTENT,
+                    CREATED_DATE = result.CREATED_DATE,
+                    ID = result.ID,
+                    Like_Count = result.Like_Count,
+                    POSTER_ID = result.POSTER_ID,
+                    PROFILE_OWNER_ID = result.PROFILE_OWNER_ID
                 });
             }
-            return resultList;
+            return newsfeed;
         }
 
-        public static List<GetAccountRelatedPosts_Result> toGetNewsfeed_Result(List<GetNewsfeed_Result> postResult)
+        public static List<GetAccountRelatedPosts_Result> ToAccountrRelatedPost(List<GetNewsfeed_Result> post)
         {
-            List<GetAccountRelatedPosts_Result> resultList = new List<GetAccountRelatedPosts_Result>();
-            foreach (var result in postResult)
+            List<GetAccountRelatedPosts_Result> newsfeed = new List<GetAccountRelatedPosts_Result>();
+            foreach (var result in post)
             {
-                resultList.Add(new GetAccountRelatedPosts_Result()
+                newsfeed.Add(new GetAccountRelatedPosts_Result()
                 {
-                    ID = result.ID,
-                    CONTENT = result.CONTENT,
-                    POSTER_ID = result.POSTER_ID,
-                    PROFILE_OWNER_ID = result.PROFILE_OWNER_ID,
-                    Like_Count = result.Like_Count,
                     Comment_Count = result.Comment_Count,
-                    CREATED_DATE = result.CREATED_DATE
+                    CONTENT = result.CONTENT,
+                    CREATED_DATE = result.CREATED_DATE,
+                    ID = result.ID,
+                    Like_Count = result.Like_Count,
+                    POSTER_ID = result.POSTER_ID,
+                    PROFILE_OWNER_ID = result.PROFILE_OWNER_ID
                 });
             }
-            return resultList;
+            return newsfeed;
         }
-
     }
 }
