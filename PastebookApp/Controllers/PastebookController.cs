@@ -14,6 +14,7 @@ namespace PastebookApp.Controllers
     {
         SignupManager signupManager = new SignupManager();
         PostManager postManager = new PostManager();
+        FriendManager friendManager = new FriendManager();
 
         [HttpGet]
         public ActionResult Index()
@@ -22,18 +23,21 @@ namespace PastebookApp.Controllers
             model.countryList = signupManager.GetCountries();
             return View(model);
         }
-
-        public ActionResult Home(string username)
+        
+        public ActionResult Home()
         {
-            UserModel model = signupManager.GetAccount(username);
-            Session["username"] = model.USER_NAME;
-            Session["id"] = model.ID;
+            UserModel model = signupManager.GetAccount((string)Session["username"]);
             return View(model);
+        }
+        
+        public ActionResult ViewFriendList()
+        {
+            List<GetFriendsList_Result> friendsList = friendManager.GetFriendList((int)Session["id"]);
+            return View(friendsList);
         }
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
             return View();
         }
 
@@ -42,6 +46,8 @@ namespace PastebookApp.Controllers
             UserModel user = new UserModel();
             if (signupManager.ValidateAccount(model.login.email, model.login.password, out user))
             {
+                Session["username"] = user.USER_NAME;
+                Session["id"] = user.ID;
                 return RedirectToAction("Home", "Pastebook", new { username = user.USER_NAME });
             }
             return RedirectToAction("Index");
@@ -61,17 +67,31 @@ namespace PastebookApp.Controllers
             }
             return RedirectToAction("Index");
         }
-
+        
+        public ActionResult ViewProfile(string username)
+        {
+            UserModel model;
+            if (username != null)
+            {
+                model = signupManager.GetAccount(username);
+            }else
+            {
+                model = signupManager.GetAccount((string)Session["username"]);
+            }
+            return View(model);
+        }
+        // post related functions
         public ActionResult ViewPosts(int ID)
         {
-            List<CompletePost> postList = new List<CompletePost>();
-            postList = postManager.GetNewsfeed(ID);
-            return PartialView("ViewPosts", postList);
+            ViewPostsModel model = new ViewPostsModel();
+            model.postList = postManager.GetNewsfeed(ID);
+            model.user = signupManager.GetAccount((string)Session["username"]);
+            return PartialView("ViewPosts", model);
         }
 
-        public ActionResult PublishPost(int posterId, string postString)
+        public ActionResult PublishPost(string postString)
         {
-            return Json(new { Status = postManager.PublishNewPost(posterId, postString) }, JsonRequestBehavior.AllowGet);
+            return Json(new { Status = postManager.PublishNewPost((int)Session["id"], postString) }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult CommentOnPost(int postID, string comment)
@@ -85,6 +105,7 @@ namespace PastebookApp.Controllers
             int likedBy = (int)Session["id"];
             return Json(new { Status = postManager.LikePost(postID, likedBy) }, JsonRequestBehavior.AllowGet);
         }
+        // end of post related functions
 
         //public ActionResult GetNotifications()
         //{

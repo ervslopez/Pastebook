@@ -121,7 +121,26 @@ namespace PastebookService
             {
                 using (var context = new DB_PASTEBOOKEntities())
                 {
-                    //friendList = context.PB_USER.Include("PB_FRIEND").Where(x=>x.);
+                    //var list = context.PB_USER.Include(u => u.PB_FRIEND1
+                    //                .Where(f => f.IsBLOCKED == "N" && f.REQUEST == "N")
+                    //                .Select(f => f.PB_USER1))
+                    //                .Where(u => u.ID == ID).FirstOrDefault();
+
+                    var list = context.PB_FRIEND
+                                    .Where(f => f.IsBLOCKED == "N" && f.REQUEST == "N" && (f.FRIEND_ID == ID || f.USER_ID == ID))
+                                    .Select(f => f.PB_USER.ID == ID? f.PB_USER1: f.PB_USER)
+                                    .ToList();
+
+                    foreach (var item in list)
+                    {
+                        friendList.Add(new GetFriendsList_Result() {
+                            USER_NAME = item.USER_NAME,
+                            FIRST_NAME = item.FIRST_NAME,
+                            LAST_NAME = item.LAST_NAME,
+                            PROFILE_PIC =item.PROFILE_PIC,
+                            ABOUT_ME = item.ABOUT_ME
+                        });
+                    }
                 }
             }
             catch (Exception ex)

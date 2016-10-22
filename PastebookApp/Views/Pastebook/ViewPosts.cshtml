@@ -1,7 +1,27 @@
-﻿@model IEnumerable<PastebookApp.PastebookService.CompletePost>
+﻿@model PastebookApp.Models.ViewPostsModel
 
+<div class="panel panel-default">
+    <div class="panel-heading" id="postHeader">
+        <div>
+            <span>
+                @DateTime.Now;
+            </span>
+        </div>
+    </div>
+    <div class="panel-body">
+        @{
+            var base64 = Convert.ToBase64String(Model.user.PROFILE_PIC);
+            var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+        }
+        <img src="@imgSrc" alt="Profile Picture" id="postProfilePic" class="img-circle col-md-3" />
+        <textarea class="form-control col-md-6" id="postTxt"></textarea>
+    </div>
+    <div class="panel-footer">
+        <button type="button" class="btn btn-success pull-right" onclick="newPost()" id="btnPost">Publish</button>
+    </div>
+</div>
 
-@foreach (var item in Model)
+@foreach (var item in Model.postList)
 {
     <div>
         <div class="panel panel-default">
@@ -14,10 +34,10 @@
                         <div>
                             <span>
                                 @{
-                                    var base64 = Convert.ToBase64String(@item.post.PROFILE_PIC);
-                                    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                                    var Base64 = Convert.ToBase64String(@item.post.PROFILE_PIC);
+                                    var ImgSrc = String.Format("data:image/gif;base64,{0}", base64);
                                 }
-                                <img src="@imgSrc" alt="Profile Picture" id="postProfilePic" class="img-circle" />
+                                <img src="@ImgSrc" alt="Profile Picture" id="postProfilePic" class="img-circle" />
                             </span>
                             <span>
                                 @item.post.FIRST_NAME @item.post.LAST_NAME
@@ -29,13 +49,13 @@
                     </div>
                     <div class="panel-body">
                         <span>
-                            <button type="button" class="glyphicon glyphicon-apple" id="btnLike" onclick="likePost(@item.post.ID)"></button>
+                            <span class="glyphicon glyphicon-apple" id="btnLike" onclick="likePost(@item.post.ID)"></span>
                         </span>
                         <span>
                             @item.post.Like_Count Likes
                         </span>
                         <span>
-                            <button type="button" class="glyphicon glyphicon-comment" id="btnViewComment" onclick=""></button>
+                            <span class="glyphicon glyphicon-comment" id="btnViewComment" onclick=""></span>
                         </span>
                         <span>
                             @item.post.Comment_Count Comments
@@ -46,26 +66,32 @@
 
 
             <div class="panel-body">
-                <textarea class="form-control commentBox" id="@item.post.ID"></textarea>
-                <button type="button" class="glyphicon glyphicon-comment pull-right" id="btnComment" onclick="commentOnPost(@item.post.ID)"></button>
-                @foreach (var comment in item.comments)
+                <div>
+                    <textarea class="form-control commentBox" id="@item.post.ID"></textarea>
+                    <span class="glyphicon glyphicon-comment pull-right" id="btnComment" onclick="commentOnPost(@item.post.ID)"></span>
+
+                </div>
+                <div>
+                    @foreach (var comment in item.comments)
                 {
-                    <div class="panel panel-info">
-                        <div class="panel-heading" id="commentHeader">
-                            <span>
-                                @comment.DATE_CREATED
-                            </span>
-                            <span>
-                                @comment.FIRST_NAME @comment.LAST_NAME
-                            </span>
+                        <div class="panel panel-info">
+                            <div class="panel-heading" id="commentHeader">
+                                <span>
+                                    @comment.DATE_CREATED
+                                </span>
+                                <span>
+                                    @comment.FIRST_NAME @comment.LAST_NAME
+                                </span>
+                            </div>
+                            <div class="panel-footer">
+                                <p>
+                                    @comment.CONTENT
+                                </p>
+                            </div>
                         </div>
-                        <div class="panel-footer">
-                            <p>
-                                @comment.CONTENT
-                            </p>
-                        </div>
-                    </div>
-                }
+                    }
+                </div>
+
             </div>
         </div>
     </div>

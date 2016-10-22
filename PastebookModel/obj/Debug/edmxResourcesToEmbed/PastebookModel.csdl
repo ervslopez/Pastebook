@@ -441,7 +441,7 @@
   <ComplexType Name="GetFriendsList_Result">
     <Property Type="String" Name="FIRST_NAME" Nullable="false" MaxLength="50" />
     <Property Type="String" Name="LAST_NAME" Nullable="false" MaxLength="50" />
-    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="Int32" Name="USER_NAME" Nullable="false" />
     <Property Type="String" Name="ABOUT_ME" Nullable="true" MaxLength="2000" />
     <Property Type="Binary" Name="PROFILE_PIC" Nullable="true" />
   </ComplexType>

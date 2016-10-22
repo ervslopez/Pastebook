@@ -1,0 +1,120 @@
+﻿@model PastebookApp.Models.UserModel
+
+
+    @Html.Partial("EditProfile")
+
+<div class="container">
+    <div>
+       
+        <div class="Banner" style="background-color:rgba(155, 73, 73, 0.86)">
+            <div id="profilePicture">
+                @{
+                    var base64 = Convert.ToBase64String(Model.PROFILE_PIC);
+                    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                }
+                <img src="@imgSrc" alt="Profile Picture" class="mainProfilePic img-circle" />
+            </div>
+            <div>
+                <button type="button" onclick="EditProfile()" value="Edit Profile" class="pull-right"><span class="glyphicon glyphicon-edit"></span></button>
+            </div>
+        </div>
+    </div>
+   
+    <div class="row">
+        <div class="col-md-4" style="background-color:rgba(76, 255, 0, 0.44)">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.USER_NAME)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.USER_NAME)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.FIRST_NAME)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.FIRST_NAME)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.LAST_NAME)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.LAST_NAME)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.EMAIL)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.EMAIL)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.BIRTHDAY)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.BIRTHDAY)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.COUNTRY_ID)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.COUNTRY_ID)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.MOBILE_NO)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.MOBILE_NO)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.GENDER)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.GENDER)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.ABOUT_ME)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.ABOUT_ME)
+                </dd>
+
+            </dl>
+        </div>
+        <div class="col-md-8" style="background-color:rgba(255, 216, 0, 0.48)">
+            @{
+                Html.RenderAction("ViewPosts", "Pastebook", new { ID = Model.ID });
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        var postUrl = '@Url.Action("PublishPost", "Pastebook")';
+    
+        var reloadUrl = '@Url.Action("ViewPosts", "Pastebook", new { ID = Model.ID })';
+
+        function EditProfile() {
+            $('#editProfileModal').modal('show');
+        }
+
+    </script>
+}

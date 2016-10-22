@@ -1113,13 +1113,13 @@ namespace PastebookApp.PastebookService {
         private string FIRST_NAMEField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int IDField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string LAST_NAMEField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private byte[] PROFILE_PICField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string USER_NAMEField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -1158,19 +1158,6 @@ namespace PastebookApp.PastebookService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int ID {
-            get {
-                return this.IDField;
-            }
-            set {
-                if ((this.IDField.Equals(value) != true)) {
-                    this.IDField = value;
-                    this.RaisePropertyChanged("ID");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
         public string LAST_NAME {
             get {
                 return this.LAST_NAMEField;
@@ -1192,6 +1179,19 @@ namespace PastebookApp.PastebookService {
                 if ((object.ReferenceEquals(this.PROFILE_PICField, value) != true)) {
                     this.PROFILE_PICField = value;
                     this.RaisePropertyChanged("PROFILE_PIC");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string USER_NAME {
+            get {
+                return this.USER_NAMEField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.USER_NAMEField, value) != true)) {
+                    this.USER_NAMEField = value;
+                    this.RaisePropertyChanged("USER_NAME");
                 }
             }
         }

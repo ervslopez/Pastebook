@@ -163,6 +163,7 @@
     <Compile Include="Models\PostModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Models\SignupViewModel.cs" />
+    <Compile Include="Models\ViewPostsModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service References\PastebookService\Reference.cs">
       <AutoGen>True</AutoGen>
@@ -286,7 +287,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Pastebook\About.cshtml" />
     <Content Include="Views\Pastebook\Index.cshtml" />
     <None Include="Service References\PastebookService\Service1.wsdl" />
     <None Include="Service References\PastebookService\Service1.xsd">
@@ -308,6 +308,9 @@
     <Content Include="Views\Shared\Login.cshtml" />
     <Content Include="Views\Pastebook\ViewPosts.cshtml" />
     <Content Include="Views\Pastebook\GetFriendList.cshtml" />
+    <Content Include="Views\Pastebook\ViewProfile.cshtml" />
+    <Content Include="Views\Pastebook\EditProfile.cshtml" />
+    <Content Include="Views\Pastebook\ViewFriendList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

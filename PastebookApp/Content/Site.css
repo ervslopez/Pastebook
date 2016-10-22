@@ -123,9 +123,6 @@ form-control {
     width: 100%;
 }
 
-/*#btnLike{
-    color:transparent;
-}*/
 
 .glyphicon:hover{
     color:brown;
@@ -137,7 +134,6 @@ form-control {
 
 #postHeader, #commentHeader, #profileHeader{
      background-color: #c1add6;
-     /*outline: 3px solid #2E0854;*/
 }
 
 .glyphicon{
@@ -147,4 +143,10 @@ form-control {
 
 .info{
     font-size:large;
+}
+
+.modal-dialog{
+    margin-left:0px;
+    padding-left:0px;
+    background-position-x:inherit;
 }

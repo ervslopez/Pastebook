@@ -29,22 +29,6 @@
 
 <div class="col-md-8">
 
-    <div class="panel panel-default">
-        <div class="panel-heading" id="postHeader">
-            <div>
-                <span>
-                    @DateTime.Now;
-                </span>
-            </div>
-        </div>
-        <div class="panel-body">
-            <img src="@imgSrc" alt="Profile Picture" id="postProfilePic" class="img-circle col-md-3" />
-            <textarea class="form-control col-md-6" id="postTxt"></textarea>
-        </div>
-        <div class="panel-footer">
-            <button type="button" class="btn btn-success pull-right" onclick="newPost()" id="btnPost">Publish</button>
-        </div>
-    </div>
     <div id="postsPage">
         @{
             Html.RenderAction("ViewPosts", "Pastebook", new { ID = Model.ID });
@@ -63,6 +47,7 @@
 
         function newPost() {
             var postString = $("#postTxt").val();
+           
             if (postString.length > 0) {
                 var data = {
                     posterId:@Model.ID,

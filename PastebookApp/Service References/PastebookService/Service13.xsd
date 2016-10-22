@@ -53,9 +53,9 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="ABOUT_ME" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FIRST_NAME" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ID" type="xs:int" />
       <xs:element minOccurs="0" name="LAST_NAME" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PROFILE_PIC" nillable="true" type="xs:base64Binary" />
+      <xs:element minOccurs="0" name="USER_NAME" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="GetFriendsList_Result" nillable="true" type="tns:GetFriendsList_Result" />

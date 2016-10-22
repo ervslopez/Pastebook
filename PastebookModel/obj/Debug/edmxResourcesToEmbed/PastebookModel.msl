@@ -193,7 +193,7 @@
         <ComplexTypeMapping TypeName="DB_PASTEBOOKModel.GetFriendsList_Result">
           <ScalarProperty Name="FIRST_NAME" ColumnName="FIRST_NAME" />
           <ScalarProperty Name="LAST_NAME" ColumnName="LAST_NAME" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="USER_NAME" ColumnName="USER_NAME" />
           <ScalarProperty Name="ABOUT_ME" ColumnName="ABOUT_ME" />
           <ScalarProperty Name="PROFILE_PIC" ColumnName="PROFILE_PIC" />
         </ComplexTypeMapping>

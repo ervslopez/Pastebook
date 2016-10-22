@@ -777,7 +777,7 @@
         <ComplexType Name="GetFriendsList_Result">
           <Property Type="String" Name="FIRST_NAME" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="LAST_NAME" Nullable="false" MaxLength="50" />
-          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="Int32" Name="USER_NAME" Nullable="false" />
           <Property Type="String" Name="ABOUT_ME" Nullable="true" MaxLength="2000" />
           <Property Type="Binary" Name="PROFILE_PIC" Nullable="true" />
         </ComplexType>
@@ -979,7 +979,7 @@
               <ComplexTypeMapping TypeName="DB_PASTEBOOKModel.GetFriendsList_Result">
                 <ScalarProperty Name="FIRST_NAME" ColumnName="FIRST_NAME" />
                 <ScalarProperty Name="LAST_NAME" ColumnName="LAST_NAME" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="USER_NAME" ColumnName="USER_NAME" />
                 <ScalarProperty Name="ABOUT_ME" ColumnName="ABOUT_ME" />
                 <ScalarProperty Name="PROFILE_PIC" ColumnName="PROFILE_PIC" />
               </ComplexTypeMapping>
