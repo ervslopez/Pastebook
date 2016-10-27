@@ -34,13 +34,29 @@ namespace PastebookService
 
         public EditUserResponse EditUserPasswordOrEmail(EditPasswordOrEmailRequest request)
         {
-            return accountManager.UpdatePasswordOrEmail(request); 
+            return accountManager.UpdatePasswordOrEmail(request);
         }
 
         public GetAccountProfileResponse GetAccountProfile(GetAccountProfileRequest request)
         {
             return accountManager.GetAccountProfile(request);
         }
+
+        public StatusResponse ConfirmOldPassword(ConfirmOldPasswordRequest request)
+        {
+            return new StatusResponse()
+            {
+                Status = accountManager.ConfirmOldPassword(request.userID, request.oldPassword)
+            };
+        }
+
+        public SearchUsersResponse SearchUsers(SearchUsersRequest request)
+        {
+            SearchUsersResponse resp = new SearchUsersResponse();
+            resp.userList = accountManager.SearchUsers(request.name);
+            return resp;
+        }
+
         //Post Related Services
         PostManager postManager = new PostManager();
 
@@ -58,15 +74,19 @@ namespace PastebookService
         {
             return postManager.GetAccountRelatedPosts(request);
         }
-        
+
+        public GetPostResponse GetPost(GetPostRequest request)
+        {
+            return postManager.GetPost(request);
+        }
         //Like Related Services
 
         public StatusResponse LikePost(LikePostRequest request)
         {
             StatusResponse stat = postManager.LikePost(request);
-            if(stat.Status && stat.errorList.Count == 0)
+            if (stat.Status && stat.errorList.Count == 0)
             {
-                if (!notificationManager.LikeNotification(request.like.POST_ID, request.like.LIKED_BY, 
+                if (!notificationManager.LikeNotification(request.like.POST_ID, request.like.LIKED_BY,
                                                     postManager.GetPostOwnerID(request.like.POST_ID)))
                 {
                     stat.errorList.Add("Like Notification Failed To Send");
@@ -74,7 +94,7 @@ namespace PastebookService
             }
             return stat;
         }
-        
+
         //Comment Related Services
 
         public CommentOnPostResponse CommentOnPost(CommentOnPostRequest request)
@@ -82,10 +102,10 @@ namespace PastebookService
             CommentOnPostResponse stat = postManager.CommentOnPost(request);
             if (stat.Status && stat.errorList.Count == 0)
             {
-                if (!notificationManager.CommentNotification(request.comment.POST_ID, 
-                                                            request.comment.POSTER_ID, 
+                if (!notificationManager.CommentNotification(request.comment.POST_ID,
+                                                            request.comment.POSTER_ID,
                                                             postManager.GetPostOwnerID(request.comment.POST_ID),
-                                                            postManager.getCommentID( request.comment.POSTER_ID,
+                                                            postManager.getCommentID(request.comment.POSTER_ID,
                                                             stat.commentDateTime)))
                 {
                     stat.errorList.Add("Comment Notification Failed To Send");
@@ -93,7 +113,7 @@ namespace PastebookService
             }
             return stat;
         }
-        
+
         //Friend Related Services
 
         FriendManager friendManager = new FriendManager();
@@ -131,17 +151,17 @@ namespace PastebookService
         {
             return notificationManager.GetRecentNotifications(request.userID);
         }
-
-        public GetAllNotificationsResponse SearchAccount(GetAllNotificationsRequest request)
-        {
-            throw new NotImplementedException();
-        }
-
+        
         //Utilities
 
         public GetCountriesResponse GetCountries()
         {
             return accountManager.GetCountries();
+        }
+
+        public EditUserResponse UpdateUserPassword(UserRequest request)
+        {
+            return accountManager.UpdateUserPassword(request);
         }
     }
 }

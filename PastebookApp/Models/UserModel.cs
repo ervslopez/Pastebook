@@ -11,67 +11,68 @@ namespace PastebookApp.Models
     {
         public int ID;
 
-        [DisplayName("User Name:")]
-        [StringLength(50, ErrorMessage = "Less than 50 characters only")]
-        [RegularExpression(@"^[a-zA-Z'. d\s]{1,40}$", ErrorMessage = "Special Characters not allowed")]
+        [Required(ErrorMessage = "Username is required")]
+        [DisplayName("User Name")]
+        [StringLength(50, ErrorMessage = "Username should be less than 50 characters only")]
+        [RegularExpression(@"^((([_.]?)[a-zA-Z0-9]+)+([_.]?)*)$", ErrorMessage = "Invalid format for username")]
         public string USER_NAME { get; set; }
 
-        [Required(ErrorMessage = "FirstName Required:")]
-        [DisplayName("First Name:")]
-        [RegularExpression(@"^[a-zA-Z'.\s]{1,40}$", ErrorMessage = "Special Characters not allowed")]
-        [StringLength(50, ErrorMessage = "Less than 50 characters only")]
+        [Required(ErrorMessage = "FirstName is required")]
+        [DisplayName("First Name")]
+        [RegularExpression(@"^((\s*[ '.-]?\s*[a-zA-Z0-9]+)+[ '.-]?\s*)$", ErrorMessage = "Invalid format for first name")]
+        [StringLength(50, ErrorMessage = "First name should be less than 50 characters only")]
         public string FIRST_NAME { get; set; }
 
-        [Required(ErrorMessage = "LastName Required:")]
-        [RegularExpression(@"^[a-zA-Z'.\s]{1,40}$", ErrorMessage = "Special Characters not allowed")]
-        [DisplayName("Last Name:")]
-        [StringLength(50, ErrorMessage = "Less than 50 characters only")]
+        [Required(ErrorMessage = "LastName is required")]
+        [RegularExpression(@"^((\s*[ '.-]?\s*[a-zA-Z0-9]+)+[ '.-]?\s*)$", ErrorMessage = "Invalid format for last name")]
+        [DisplayName("Last Name")]
+        [StringLength(50, ErrorMessage = "Last name should be less than 50 characters only")]
         public string LAST_NAME { get; set; }
 
-        [Required(ErrorMessage = "Email Required:")]
-        [DisplayName("Email:")]
-        [RegularExpression(@"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$", ErrorMessage = "Email Format is wrong")]
-        [StringLength(50, ErrorMessage = "Less than 50 characters only")]
+        [Required(ErrorMessage = "Email Required")]
+        [DisplayName("Email")]
+        [DataType(DataType.EmailAddress)]
+        [StringLength(50, ErrorMessage = "Email address should be less than 50 characters only")]
         public string EMAIL { get; set; }
 
-        [Required(ErrorMessage = "Password Required:")]
+        [Required(ErrorMessage = "Password Required")]
         [DataType(DataType.Password)]
-        [DisplayName("Password:")]
-        [StringLength(30, ErrorMessage = "Less than 30 characters only")]
+        [DisplayName("Password")]
+        [StringLength(30, ErrorMessage = "Password should be less than 30 characters only")]
         public string PASSWORD { get; set; }
 
-        [Required(ErrorMessage = "Confirm Password Required:")]
+        [Required(ErrorMessage = "Confirm Password field is Required")]
         [DataType(DataType.Password)]
         [Compare("Password", ErrorMessage = "Confirm Password not matched.")]
         [Display(Name = "Confirm password:")]
         [StringLength(30, ErrorMessage = "Less than 30 characters only")]
         public string CONFIRM_PASSWORD { get; set; }
 
-        [Required(ErrorMessage = "Birthday Required:")]
+        [Required(ErrorMessage = "Birthday is Required")]
         [DataType(DataType.Date)]
-        [DisplayName("Birthday:")]
+        [DisplayName("Birthday")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime BIRTHDAY { get; set; }
-
-        [DisplayName("Country:")]
+        
+        [DisplayName("Country")]
         public int COUNTRY_ID { get; set; }
 
-        [RegularExpression("^[0-9]+$", ErrorMessage = "Numbers only")]
+        [DisplayName("Phone Number")]
+        [DataType(DataType.PhoneNumber, ErrorMessage = "Invalid Mobile number format")]
+        [Phone(ErrorMessage = "Invalid Mobile number format")]
         [StringLength(20, ErrorMessage = "Less than 20 digits only")]
-        [DisplayName("Phone Number:")]
         public string MOBILE_NO { get; set; }
 
-        [DisplayName("Gender:")]
+        [DisplayName("Gender")]
         public char GENDER { get; set; }
         
         public DateTime DATE_CREATED { get; set; }
 
         [StringLength(2000, ErrorMessage = "Less than 2000 characters only")]
-        [DisplayName("About me:")]
+        [DisplayName("About me")]
         public string ABOUT_ME { get; set; }
 
-        [DisplayName("Profile Picture:")]
+        [DisplayName("Profile Picture")]
         public byte[] PROFILE_PIC { get; set; }
     }
-
-
 }

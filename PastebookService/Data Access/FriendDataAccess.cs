@@ -133,11 +133,12 @@ namespace PastebookService
 
                     foreach (var item in list)
                     {
-                        friendList.Add(new GetFriendsList_Result() {
+                        friendList.Add(new GetFriendsList_Result()
+                        {
                             USER_NAME = item.USER_NAME,
                             FIRST_NAME = item.FIRST_NAME,
                             LAST_NAME = item.LAST_NAME,
-                            PROFILE_PIC =item.PROFILE_PIC,
+                            PROFILE_PIC = item.PROFILE_PIC,
                             ABOUT_ME = item.ABOUT_ME
                         });
                     }

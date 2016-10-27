@@ -85,6 +85,27 @@ namespace PastebookService
             return user;
         }
 
+        public List<User> SearchUsers(string name)
+        {
+            List<User> retVal = new List<User>();
+            try
+            {
+                using (var context = new DB_PASTEBOOKEntities())
+                {
+                    var users = context.PB_USER.Where(x=>x.FIRST_NAME.Contains(name) || x.LAST_NAME.Contains(name));
+                    foreach (var item in users)
+                    {
+                        retVal.Add(UserMapper.ToUser(item));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                listOfException.Add(ex);
+            }
+            return retVal;
+        }
+
         public int UpdateUserAccount(User user)
         {
             int result = 0;

@@ -4,128 +4,68 @@
     <div class="modal fade" id="editProfileModal" tabindex="-1" role="dialog" aria-labelledby="editProfileModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <h4 class="modal-title" id="editProfileModalLabel">Edit Your Account Profile</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="form-horizontal">
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.USER_NAME, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.USER_NAME, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.USER_NAME, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.FIRST_NAME, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.FIRST_NAME, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.FIRST_NAME, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.LAST_NAME, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.LAST_NAME, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.LAST_NAME, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.EMAIL, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.EMAIL, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.EMAIL, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.PASSWORD, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.PASSWORD, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.PASSWORD, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.CONFIRM_PASSWORD, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.CONFIRM_PASSWORD, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.CONFIRM_PASSWORD, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.BIRTHDAY, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.BIRTHDAY, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.BIRTHDAY, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.COUNTRY_ID, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.COUNTRY_ID, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.COUNTRY_ID, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.MOBILE_NO, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.MOBILE_NO, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.MOBILE_NO, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.GENDER, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.GENDER, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.GENDER, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.DATE_CREATED, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.DATE_CREATED, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.DATE_CREATED, "", new { @class = "text-danger" })
+                @using (Html.BeginForm("EditProfile", "Pastebook", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="editProfileModalLabel">Edit Your Account Profile</h4>
+                    </div>
+                    <div class="modal-body" id="footerModalEdit">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.PROFILE_PIC, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-8">
+                                    <div class="wrapper">
+                                        @{
+                                            var imgSrc = "";
+                                            if (Model.PROFILE_PIC != null)
+                                            {
+                                                var base64 = Convert.ToBase64String(Model.PROFILE_PIC);
+                                                imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                                            }
+                                            else
+                                            {
+                                                imgSrc = "../../Content/Images/default_Male.png";
+                                            }
+                                        }
+                                        <img id="imagePreview" src="@imgSrc" alt="Profile Picture" class="mainProfilePic img-circle" />
+                                    </div>
+                                    <div id="inputFile">
+                                        <input id="EditImagePath" type="file" name="file" accept="image/jpeg, image/png, image/jpg" />
+                                    </div>
+                                </div>
+                                @Html.ValidationMessageFor(model => model.PROFILE_PIC, "", new { @class = "text-danger", id = "errorValidation" })
                             </div>
                         </div>
 
                         <div class="form-group">
                             @Html.LabelFor(model => model.ABOUT_ME, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
-                                @Html.EditorFor(model => model.ABOUT_ME, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.TextAreaFor(model => model.ABOUT_ME, new { htmlAttributes = new { @class = "form-control", id = "txtAreaAbout" } })
                                 @Html.ValidationMessageFor(model => model.ABOUT_ME, "", new { @class = "text-danger" })
                             </div>
                         </div>
-
-                        <div class="form-group">
-                            <div class="col-md-offset-2 col-md-10">
-                                <input type="submit" value="Save" class="btn btn-default" />
-                            </div>
-                        </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary editFooter" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary editFooter">Save changes</button>
+                    </div>
+                    @Html.HiddenFor(model => model.BIRTHDAY);
+                                            @Html.HiddenFor(model => model.COUNTRY_ID);
+                                            @Html.HiddenFor(model => model.DATE_CREATED);
+                                            @Html.HiddenFor(model => model.EMAIL);
+                                            @Html.HiddenFor(model => model.FIRST_NAME);
+                                            @Html.HiddenFor(model => model.GENDER);
+                                            @Html.HiddenFor(model => model.ID);
+                                            @Html.HiddenFor(model => model.LAST_NAME);
+                                            @Html.HiddenFor(model => model.MOBILE_NO);
+                                            @Html.HiddenFor(model => model.PASSWORD);
+                                            @Html.HiddenFor(model => model.USER_NAME);
+                                            @Html.HiddenFor(model => model.PROFILE_PIC);
+                                            }
             </div>
         </div>
     </div>
 </div>
-
-
-
-
-

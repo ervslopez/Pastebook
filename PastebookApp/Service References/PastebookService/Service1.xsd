@@ -101,6 +101,35 @@
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="GetAccountProfileResponse" nillable="true" type="tns:GetAccountProfileResponse" />
+  <xs:complexType name="ConfirmOldPasswordRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="oldPassword" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="userID" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ConfirmOldPasswordRequest" nillable="true" type="tns:ConfirmOldPasswordRequest" />
+  <xs:complexType name="SearchUsersRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="name" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SearchUsersRequest" nillable="true" type="tns:SearchUsersRequest" />
+  <xs:complexType name="SearchUsersResponse">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:StatusResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="userList" nillable="true" type="tns:ArrayOfUser" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="SearchUsersResponse" nillable="true" type="tns:SearchUsersResponse" />
+  <xs:complexType name="ArrayOfUser">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="User" nillable="true" type="tns:User" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfUser" nillable="true" type="tns:ArrayOfUser" />
   <xs:complexType name="PostRequest">
     <xs:sequence>
       <xs:element minOccurs="0" name="post" nillable="true" type="tns:Post" />
@@ -147,6 +176,22 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="CompletePost" nillable="true" type="tns:CompletePost" />
+  <xs:complexType name="GetPostRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="postID" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GetPostRequest" nillable="true" type="tns:GetPostRequest" />
+  <xs:complexType name="GetPostResponse">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:StatusResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="post" nillable="true" type="tns:CompletePost" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="GetPostResponse" nillable="true" type="tns:GetPostResponse" />
   <xs:complexType name="LikePostRequest">
     <xs:sequence>
       <xs:element minOccurs="0" name="like" nillable="true" type="tns:Like" />

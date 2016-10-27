@@ -45,15 +45,6 @@ namespace PastebookModel
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetPostComments_Result>("GetPostComments", pOST_IDParameter);
         }
     
-        public virtual ObjectResult<GetPostLikes_Result> GetPostLikes(Nullable<int> pOST_ID)
-        {
-            var pOST_IDParameter = pOST_ID.HasValue ?
-                new ObjectParameter("POST_ID", pOST_ID) :
-                new ObjectParameter("POST_ID", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetPostLikes_Result>("GetPostLikes", pOST_IDParameter);
-        }
-    
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {
             var diagramnameParameter = diagramname != null ?
@@ -175,17 +166,13 @@ namespace PastebookModel
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetLikesNotif_Result>("GetLikesNotif", uSER_IDParameter);
         }
     
-        public virtual ObjectResult<GetAccountRelatedPosts_Result> GetAccountRelatedPosts(Nullable<int> uSER_ID, Nullable<int> sTART_RANGE)
+        public virtual ObjectResult<GetPost_Result> GetPost(Nullable<int> pOST_ID)
         {
-            var uSER_IDParameter = uSER_ID.HasValue ?
-                new ObjectParameter("USER_ID", uSER_ID) :
-                new ObjectParameter("USER_ID", typeof(int));
+            var pOST_IDParameter = pOST_ID.HasValue ?
+                new ObjectParameter("POST_ID", pOST_ID) :
+                new ObjectParameter("POST_ID", typeof(int));
     
-            var sTART_RANGEParameter = sTART_RANGE.HasValue ?
-                new ObjectParameter("START_RANGE", sTART_RANGE) :
-                new ObjectParameter("START_RANGE", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAccountRelatedPosts_Result>("GetAccountRelatedPosts", uSER_IDParameter, sTART_RANGEParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetPost_Result>("GetPost", pOST_IDParameter);
         }
     
         public virtual ObjectResult<GetNewsfeed_Result> GetNewsfeed(Nullable<int> uSERID)
@@ -197,6 +184,24 @@ namespace PastebookModel
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetNewsfeed_Result>("GetNewsfeed", uSERIDParameter);
         }
     
+        public virtual ObjectResult<GetPostLikes_Result> GetPostLikes(Nullable<int> pOST_ID)
+        {
+            var pOST_IDParameter = pOST_ID.HasValue ?
+                new ObjectParameter("POST_ID", pOST_ID) :
+                new ObjectParameter("POST_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetPostLikes_Result>("GetPostLikes", pOST_IDParameter);
+        }
+    
+        public virtual ObjectResult<GetAccountRelatedPosts_Result> GetAccountRelatedPosts(Nullable<int> uSER_ID)
+        {
+            var uSER_IDParameter = uSER_ID.HasValue ?
+                new ObjectParameter("USER_ID", uSER_ID) :
+                new ObjectParameter("USER_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAccountRelatedPosts_Result>("GetAccountRelatedPosts", uSER_IDParameter);
+        }
+    
         public virtual ObjectResult<GetFriendsList_Result> GetFriendsList(Nullable<int> uSER_ID)
         {
             var uSER_IDParameter = uSER_ID.HasValue ?
@@ -204,6 +209,15 @@ namespace PastebookModel
                 new ObjectParameter("USER_ID", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetFriendsList_Result>("GetFriendsList", uSER_IDParameter);
+        }
+    
+        public virtual ObjectResult<GetFriendsPost_Result> GetFriendsPost(Nullable<int> uSER_ID)
+        {
+            var uSER_IDParameter = uSER_ID.HasValue ?
+                new ObjectParameter("USER_ID", uSER_ID) :
+                new ObjectParameter("USER_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetFriendsPost_Result>("GetFriendsPost", uSER_IDParameter);
         }
     }
 }

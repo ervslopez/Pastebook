@@ -51,6 +51,7 @@ namespace PastebookService
                     {
                         resp.passwordMatched = true;
                         resp.Status = true;
+                        resp.user.PASSWORD = request.password;
                     }
                     else
                     {
@@ -79,26 +80,81 @@ namespace PastebookService
                 {
                     resp.emailExists = true;
                     resp.user = GetUser(request.user.EMAIL);
-                    if (PasswordMatch(request.user.PASSWORD, resp.user.SALT, resp.user.PASSWORD))
+                    request.user.ID = resp.user.ID;
+                    resp.passwordMatched = true;
+                    request.user.ID = resp.user.ID;
+                    request.user.PASSWORD = resp.user.PASSWORD;
+                    request.user.SALT = resp.user.SALT;
+                    if (resp.Status = dataAccess.UpdateUserAccount(request.user) > 0)
                     {
-                        resp.passwordMatched = true;
-                        request.user.ID = resp.user.ID;
-                        request.user.PASSWORD = resp.user.PASSWORD;
-                        request.user.SALT = resp.user.SALT;
-                        if (resp.Status = dataAccess.UpdateUserAccount(request.user) > 0)
-                        {
-                            resp.user = GetUser(request.user.EMAIL);
-                        }
-                    }
-                    else
-                    {
-                        resp.passwordMatched = false;
-                        resp.user = new User();
+                        resp.user = GetUser(request.user.EMAIL);
                     }
                 }
                 else
                 {
+                    resp.passwordMatched = false;
                     resp.emailExists = false;
+                    resp.user = new User();
+                }
+            }
+            catch (Exception e)
+            {
+                resp.errorList.Add(e.ToString());
+            }
+            return resp;
+        }
+
+        public EditUserResponse UpdateUserPassword(UserRequest request)
+        {
+            EditUserResponse resp = new EditUserResponse();
+            try
+            {
+                if (EmailExists(request.user.EMAIL))
+                {
+                    resp.emailExists = true;
+                    resp.user = GetUser(request.user.EMAIL);
+                    resp.passwordMatched = true;
+                    request.user.ID = resp.user.ID;
+                    if(request.user.PASSWORD.Length>0)
+                    {
+                        String salt;
+                        request.user.PASSWORD = passwordManager.GeneratePasswordHash(request.user.PASSWORD, out salt);
+                        request.user.SALT = salt;
+                    }
+                    else
+                    {
+                        request.user.PASSWORD = resp.user.PASSWORD;
+                        request.user.SALT = resp.user.SALT;
+                    }
+
+                    if (resp.Status = dataAccess.UpdateUserAccount(request.user) > 0)
+                    {
+                        resp.user = GetUser(request.user.EMAIL);
+                    }
+                }
+                else
+                {
+                    resp.passwordMatched = false;
+                    resp.emailExists = false;
+                    
+                    resp.user = GetUserUsingUN(request.user.USER_NAME);
+                    request.user.ID = resp.user.ID;
+                    if (request.user.PASSWORD.Length > 0)
+                    {
+                        String salt;
+                        request.user.PASSWORD = passwordManager.GeneratePasswordHash(request.user.PASSWORD, out salt);
+                        request.user.SALT = salt;
+                    }
+                    else
+                    {
+                        request.user.PASSWORD = resp.user.PASSWORD;
+                        request.user.SALT = resp.user.SALT;
+                    }
+
+                    if (resp.Status = dataAccess.UpdateUserAccount(request.user) > 0)
+                    {
+                        resp.user = GetUser(request.user.EMAIL);
+                    }
                 }
             }
             catch (Exception e)
@@ -177,6 +233,16 @@ namespace PastebookService
             return dataAccess.GetUserAccount(email);
         }
 
+        public User GetUserUsingUN(string username)
+        {
+            return dataAccess.GetUserAccountUsingUsername(username);
+        }
+
+        public List<User> SearchUsers(string name)
+        {
+            return dataAccess.SearchUsers(name);
+        }
+
         public bool EmailExists(string email)
         {
             return dataAccess.EmailExists(email);
@@ -190,6 +256,16 @@ namespace PastebookService
         public bool PasswordMatch(string password, string salt, string hash)
         {
             return passwordManager.PasswordMatch(password, salt, hash);
+        }
+
+        public bool ConfirmOldPassword(int userID, string oldPassword)
+        {
+            User user = GetAccountProfile(new GetAccountProfileRequest()
+            {
+                accountID = userID
+            }).user;
+
+            return PasswordMatch(oldPassword, user.SALT, user.PASSWORD);
         }
 
         public GetCountriesResponse GetCountries()

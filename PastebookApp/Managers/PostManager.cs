@@ -15,7 +15,7 @@ namespace PastebookApp.Managers
         public List<CompletePost> GetNewsfeed(int accountID)
         {
             List<CompletePost> model = new List<CompletePost>();
-
+            
             GetPostListResponse resp = service.GetNewsfeed(new GetPostsRequest() {
                 accountID = accountID
             });
@@ -27,12 +27,37 @@ namespace PastebookApp.Managers
             return model;
         }
 
-        public bool PublishNewPost(int id, string post)
+        public List<CompletePost> UserTimeline(int accountID)
+        {
+            List<CompletePost> model = new List<CompletePost>();
+
+            var resp = service.GetAccountRelatedPosts(new GetPostsRequest() {
+                accountID = accountID
+            });
+            
+
+            if (resp.errorList.ToList().Count == 0)
+            {
+                model = resp.postList.ToList();
+            }
+            return model;
+        }
+
+        public CompletePost GetPost(int postID)
+        {
+            CompletePost post = new CompletePost();
+            post = service.GetPost(new GetPostRequest() {
+                postID = postID
+            }).post;
+            return post;
+        }
+
+        public bool PublishNewPost(int posterID, int profileOwner, string post)
         {
             return service.CreatePost(new PostRequest() {
                 post = new Post() {
-                    POSTER_ID = id,
-                    PROFILE_OWNER_ID = id,
+                    POSTER_ID = posterID,
+                    PROFILE_OWNER_ID = profileOwner,
                     CONTENT = post
                 }
             }).Status;

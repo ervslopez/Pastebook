@@ -12,111 +12,252 @@ namespace PastebookApp.Controllers
 {
     public class PastebookController : Controller
     {
-        SignupManager signupManager = new SignupManager();
+        AccountManager accountManager = new AccountManager();
         PostManager postManager = new PostManager();
         FriendManager friendManager = new FriendManager();
 
-        [HttpGet]
+        [HttpGet] 
         public ActionResult Index()
         {
             SignupViewModel model = new SignupViewModel();
-            model.countryList = signupManager.GetCountries();
+            model.countryList = accountManager.GetCountries();
             return View(model);
+        }
+        
+        public JsonResult ValidateAccount(string email, string password)
+        {
+            UserModel user = new UserModel();
+            bool status = false;
+            if (status = accountManager.ValidateAccount(email, password, out user))
+            {
+                Session["username"] = user.USER_NAME;
+                Session["id"] = user.ID;
+            }
+            return Json(new { Status = status }, JsonRequestBehavior.AllowGet);
         }
         
         public ActionResult Home()
         {
-            UserModel model = signupManager.GetAccount((string)Session["username"]);
-            return View(model);
+            if (Session["username"] != null)
+            {
+                UserModel model = accountManager.GetAccount((string)Session["username"]);
+                return View(model);
+            }
+            return RedirectToAction("Index", "Pastebook");
         }
         
+        public ActionResult Logout()
+        {
+            Session.Abandon();
+            return RedirectToAction("Index", "Pastebook");
+        }
+
+        [HttpPost] 
+        public ActionResult RegisterAccount(SignupViewModel model)
+        {
+            UserModel userModel = model.signup;
+
+            if (accountManager.RegisterAccount(ref userModel))
+            {
+                model.signup = userModel;
+                Session["username"] = userModel.USER_NAME;
+                Session["id"] = userModel.ID;
+                return RedirectToAction("Home", "Pastebook");
+            }
+            return RedirectToAction("Index");
+        }
+        
+        //[Route("Pastebook/friends/")]
         public ActionResult ViewFriendList()
         {
-            List<GetFriendsList_Result> friendsList = friendManager.GetFriendList((int)Session["id"]);
-            return View(friendsList);
-        }
-
-        public ActionResult About()
-        {
-            return View();
-        }
-
-        public ActionResult ValidateAccount(SignupViewModel model)
-        {
-            UserModel user = new UserModel();
-            if (signupManager.ValidateAccount(model.login.email, model.login.password, out user))
+            if (Session["username"] != null)
             {
-                Session["username"] = user.USER_NAME;
-                Session["id"] = user.ID;
-                return RedirectToAction("Home", "Pastebook", new { username = user.USER_NAME });
+                List<GetFriendsList_Result> friendsList = friendManager.GetFriendList((int)Session["id"]);
+                return View(friendsList);
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Pastebook");
         }
 
-        public ActionResult RegisterAccount(SignupViewModel model, HttpPostedFileBase file)
+        [HttpPost]
+        public ActionResult EditProfile(UserModel model, HttpPostedFileBase file)
         {
-            using (MemoryStream ms = new MemoryStream())
+            if (Session["username"] != null)
             {
-                file.InputStream.CopyTo(ms);
-                model.signup.PROFILE_PIC = ms.GetBuffer();
-            }
+                if (file != null && file.ContentLength < 30000)
+                {
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        file.InputStream.CopyTo(ms);
+                        model.PROFILE_PIC = ms.GetBuffer();
+                    }
+                }
+                if (accountManager.EditAccount(ref model))
+                {
+                    model = accountManager.GetAccount(model.USER_NAME);
+                    Session["username"] = model.USER_NAME;
+                    return RedirectToAction("ViewProfile", "Pastebook", new { username = model.USER_NAME });
+                }
 
-            if (signupManager.RegisterAccount(model.signup))
-            {
-                return RedirectToAction("Home", "Pastebook", new { username = model.signup.USER_NAME });
+                return RedirectToAction("Home");
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Pastebook");
         }
-        
+
+        [HttpPost]
+        public ActionResult UpdatAccount(SettingsViewModel model)
+        {
+            if (Session["username"] != null)
+            {
+                UserModel user = model.signup;
+                if (accountManager.EditAccount(ref user))
+                {
+                    user = accountManager.GetAccount(user.USER_NAME);
+                    return RedirectToAction("ViewProfile", "Pastebook", new { username = user.USER_NAME });
+                }
+                return RedirectToAction("Home");
+            }
+            return RedirectToAction("Index", "Pastebook");
+        }
+
+        public ActionResult UpdatAccount(string email, string password)
+        {
+            if (Session["username"] != null)
+            {
+                UserModel model = accountManager.GetAccount((string)Session["username"]);
+                model.EMAIL = email;
+                model.PASSWORD = password;
+                if (accountManager.EditAccountPassword(ref model))
+                {
+                    model = accountManager.GetAccount(model.USER_NAME);
+                    return RedirectToAction("Home", "Pastebook");
+                }
+
+                return RedirectToAction("Home");
+            }
+            return RedirectToAction("Index", "Pastebook");
+        }
+
+        //[Route("Pastebook/{username}")]
         public ActionResult ViewProfile(string username)
         {
-            UserModel model;
-            if (username != null)
+            if (Session["username"] != null)
             {
-                model = signupManager.GetAccount(username);
-            }else
-            {
-                model = signupManager.GetAccount((string)Session["username"]);
+                UserModel model;
+                if (username != null)
+                {
+                    model = accountManager.GetAccount(username);
+                }
+                else
+                {
+                    model = accountManager.GetAccount((string)Session["username"]);
+                }
+                Session["country"] = accountManager.GetCountry(model.COUNTRY_ID);
+                return View(model);
             }
-            return View(model);
+            return RedirectToAction("Index", "Pastebook");
         }
-        // post related functions
+        
+        public ActionResult Settings()
+        {
+            if (Session["username"] != null)
+            {
+                SettingsViewModel mainModel = new SettingsViewModel();
+                mainModel.countryList = accountManager.GetCountries();
+                mainModel.signup = accountManager.GetAccount((string)Session["username"]);
+                return View(mainModel);
+            }
+            return RedirectToAction("Index", "Pastebook");
+        }
+
+        public JsonResult ConfirmOldPassword(string password)
+        {
+            return Json(new { Status = accountManager.ConfirmOldPassword((int)Session["id"], password) }, JsonRequestBehavior.AllowGet);
+        }
+        
         public ActionResult ViewPosts(int ID)
         {
-            ViewPostsModel model = new ViewPostsModel();
-            model.postList = postManager.GetNewsfeed(ID);
-            model.user = signupManager.GetAccount((string)Session["username"]);
-            return PartialView("ViewPosts", model);
+            if (Session["username"] != null)
+            {
+                ViewPostsModel model = new ViewPostsModel();
+                if(Session["page"].ToString() == "Home")
+                {
+                    model.postList = postManager.GetNewsfeed(ID);
+                }else
+                {
+                    model.postList = postManager.UserTimeline(ID);
+                }
+                
+                model.user = accountManager.GetAccount((string)Session["username"]);
+                return PartialView("ViewPosts", model);
+            }
+            return RedirectToAction("Index", "Pastebook");
         }
-
-        public ActionResult PublishPost(string postString)
+        
+        //[Route("Pastebook/posts/{postID}")]
+        public ActionResult PreviewPost(int postID)
         {
-            return Json(new { Status = postManager.PublishNewPost((int)Session["id"], postString) }, JsonRequestBehavior.AllowGet);
+            if (Session["username"] != null)
+            {
+                CompletePost model = postManager.GetPost(postID);
+                model.post.ID = postID;
+                return View("PreviewPost", model);
+            }
+            return RedirectToAction("Index", "Pastebook");
         }
-
+        
+        public ActionResult PublishPost(string postString, int profileOwner)
+        {
+            if (Session["username"] != null)
+            {
+                return Json(new { Status = postManager.PublishNewPost((int)Session["id"], profileOwner, postString) }, JsonRequestBehavior.AllowGet);
+            }
+            return RedirectToAction("Index", "Pastebook");
+        }
+        
         public ActionResult CommentOnPost(int postID, string comment)
         {
-            int posterID = (int)Session["id"];
-            return Json(new { Status = postManager.CommentOnPost(posterID, postID, comment) }, JsonRequestBehavior.AllowGet);
+            if (Session["username"] != null)
+            {
+                int posterID = (int)Session["id"];
+                return Json(new { Status = postManager.CommentOnPost(posterID, postID, comment) }, JsonRequestBehavior.AllowGet);
+            }
+            return RedirectToAction("Index", "Pastebook");
         }
-
+        
         public ActionResult LikePost(int postID)
         {
-            int likedBy = (int)Session["id"];
-            return Json(new { Status = postManager.LikePost(postID, likedBy) }, JsonRequestBehavior.AllowGet);
+            if (Session["username"] != null)
+            {
+                int likedBy = (int)Session["id"];
+                return Json(new { Status = postManager.LikePost(postID, likedBy) }, JsonRequestBehavior.AllowGet);
+            }
+            return RedirectToAction("Index", "Pastebook");
         }
-        // end of post related functions
-
-        //public ActionResult GetNotifications()
-        //{
-
-        //}
-
-        public ActionResult GetFriendList()
+        
+        public JsonResult GetAllNotifications()
         {
-            int posterID = (int)Session["id"];
+            NotificationManager notifManager = new NotificationManager();
 
-            return null;
+            List<NotificationViewModel> model = notifManager.GetNotification((int)Session["id"]);
+            return Json(new { Status = model.Count }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Notifications()
+        {
+            NotificationManager notifManager = new NotificationManager();
+            List<NotificationViewModel> model = notifManager.GetNotification((int)Session["id"]);
+            return PartialView("Notifications", model);
+        }
+
+        [HttpPost]
+        public ActionResult SearchUsers(string name)
+        {
+            if (Session["username"] != null)
+            {
+                List<User> userList = accountManager.SearchAccount(name);
+                return View(userList.ToList());
+            }
+            return RedirectToAction("Index", "Pastebook");
         }
     }
 }

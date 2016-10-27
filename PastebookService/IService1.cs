@@ -22,10 +22,19 @@ namespace PastebookService
         EditUserResponse EditUserProfile(UserRequest request);
 
         [OperationContract]
+        EditUserResponse UpdateUserPassword(UserRequest request);
+
+        [OperationContract]
         EditUserResponse EditUserPasswordOrEmail(EditPasswordOrEmailRequest request);
 
         [OperationContract]
-        GetAccountProfileResponse GetAccountProfile(GetAccountProfileRequest request);       //not yet done
+        GetAccountProfileResponse GetAccountProfile(GetAccountProfileRequest request);       
+
+        [OperationContract]
+        StatusResponse ConfirmOldPassword(ConfirmOldPasswordRequest request);
+
+        [OperationContract]
+        SearchUsersResponse SearchUsers(SearchUsersRequest request);
 
         //Post Related Services
         [OperationContract]
@@ -36,6 +45,9 @@ namespace PastebookService
 
         [OperationContract]
         GetPostListResponse GetAccountRelatedPosts(GetPostsRequest request);
+
+        [OperationContract]
+        GetPostResponse GetPost(GetPostRequest request);
 
         //Like Related Service
         [OperationContract]
@@ -61,11 +73,7 @@ namespace PastebookService
         //Notification Related Services
         [OperationContract]
         GetAllNotificationsResponse GetAllNotifications(GetAllNotificationsRequest request);
-
-        //Notification Related Services
-        [OperationContract]
-        GetAllNotificationsResponse SearchAccount(GetAllNotificationsRequest request);
-
+        
         //Utilities
         [OperationContract]
         GetCountriesResponse GetCountries();

@@ -34,6 +34,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -150,6 +151,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\PastebookController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -157,10 +159,12 @@
     <Compile Include="Managers\FriendManager.cs" />
     <Compile Include="Managers\NotificationManager.cs" />
     <Compile Include="Managers\PostManager.cs" />
-    <Compile Include="Managers\SignupManager.cs" />
+    <Compile Include="Managers\AccountManager.cs" />
+    <Compile Include="Mapper\NotifMapper.cs" />
     <Compile Include="Mapper\UserMapper.cs" />
-    <Compile Include="Models\LoginCredentials.cs" />
+    <Compile Include="Models\NotificationViewModel.cs" />
     <Compile Include="Models\PostModel.cs" />
+    <Compile Include="Models\SettingsViewModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Models\SignupViewModel.cs" />
     <Compile Include="Models\ViewPostsModel.cs" />
@@ -177,9 +181,15 @@
     <Content Include="Content\font-awesome\css\font-awesome.css" />
     <Content Include="Content\font-awesome\css\font-awesome.min.css" />
     <Content Include="Content\font-awesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\Images\background.jpg" />
+    <Content Include="Content\Images\default_Female.png" />
+    <Content Include="Content\Images\default_Male.png" />
+    <Content Include="Content\Images\default_Man.jpg" />
+    <Content Include="Content\Images\default_Woman.jpg" />
     <Content Include="Content\Images\login.png" />
     <Content Include="Content\Images\PastebookLogo.png" />
     <Content Include="Content\Images\signup.jpg" />
+    <Content Include="Content\Style.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -232,7 +242,9 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\LoginSignup.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\Post.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
@@ -269,6 +281,12 @@
     <Content Include="Service References\PastebookService\PastebookApp.PastebookService.GetCountriesResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
+    <Content Include="Service References\PastebookService\PastebookApp.PastebookService.GetPostResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\PastebookService\PastebookApp.PastebookService.SearchUsersResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
     <None Include="Service References\PastebookService\Service1.disco" />
     <None Include="Service References\PastebookService\configuration91.svcinfo" />
     <None Include="Service References\PastebookService\configuration.svcinfo" />
@@ -285,7 +303,7 @@
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Error\Global.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Pastebook\Index.cshtml" />
     <None Include="Service References\PastebookService\Service1.wsdl" />
@@ -305,12 +323,15 @@
       <SubType>Designer</SubType>
     </None>
     <Content Include="Views\Pastebook\Home.cshtml" />
-    <Content Include="Views\Shared\Login.cshtml" />
     <Content Include="Views\Pastebook\ViewPosts.cshtml" />
-    <Content Include="Views\Pastebook\GetFriendList.cshtml" />
     <Content Include="Views\Pastebook\ViewProfile.cshtml" />
     <Content Include="Views\Pastebook\EditProfile.cshtml" />
     <Content Include="Views\Pastebook\ViewFriendList.cshtml" />
+    <Content Include="Views\Pastebook\Settings.cshtml" />
+    <Content Include="Views\Pastebook\Notifications.cshtml" />
+    <Content Include="Views\Pastebook\PreviewPost.cshtml" />
+    <Content Include="Views\Pastebook\SearchUsers.cshtml" />
+    <Content Include="Views\Error\Error404.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

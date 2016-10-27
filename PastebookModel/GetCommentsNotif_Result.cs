@@ -13,10 +13,10 @@ namespace PastebookModel
     
     public partial class GetCommentsNotif_Result
     {
-        public int ID { get; set; }
+        public int POST_ID { get; set; }
         public string FIRST_NAME { get; set; }
         public string LAST_NAME { get; set; }
-        public string CONTENT { get; set; }
-        public System.DateTime DATE_CREATED { get; set; }
+        public int NOTIF_ID { get; set; }
+        public string NOTIF_TYPE { get; set; }
     }
 }

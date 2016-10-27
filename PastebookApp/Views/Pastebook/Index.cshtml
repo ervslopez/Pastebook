@@ -1,116 +1,79 @@
 ﻿@model PastebookApp.Models.SignupViewModel
 
-@{
-    ViewBag.Title = "Index";
-}
-
 @Html.AntiForgeryToken()
-
+@{
+    Session["page"] = "Index";
+}
 <div class="container">
     <div class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
         <div class="mainContent">
             @*LOGIN*@
-            @using (Html.BeginForm("ValidateAccount", "Pastebook", FormMethod.Post))
-            {
-                        <div class="loginContent col-md-4 well well-lg">
-                                <label  class="loginAndSignupHeader">Log in</label>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <div class="col-md-12">
-                                        @Html.EditorFor(model => model.login.email, new { htmlAttributes = new { @class = "form-control", id = "loginEmail", placeholder = "johndoe@google.com" } })
-                                        @Html.ValidationMessageFor(model => model.login.email, "", new { @class = "text-danger", id = "loginPassword" })
-                                    </div>
-                                </div>
 
-                                <div class="form-group">
-                                    <div class="col-md-12">
-                                        @Html.EditorFor(model => model.login.password, new { htmlAttributes = new { @class = "form-control", placeholder = "Password" } })
-                                        @Html.ValidationMessageFor(model => model.login.password, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-                            </div>
-                           <div class="col-md-offset-7">
-                               <div class="form-group">
-                                   <div class="col-md-10 pull-right">
-                                       <input type="submit" value="Log In" class="btn-lg btn-primary" id="btnLogin" />
-                                   </div>
-                               </div>
-                           </div>
-
-                           
-                        </div>
-
+            @section RightSide{
+                <ul class="nav navbar-nav">
+                    <li class="login">
+                        @Html.ValidationMessage( "", new { @class = "text-danger", id = "loginPasswordError" })
+                    </li>
+                    <li class="login">
+                        <input type="text" class = "form-control" id = "loginEmail" placeholder = "johndoe@google.com" />
+                    </li>
+                    <li class="login">
+                        <input type="password" class = "form-control" id = "loginPassword" placeholder = "Password" />
+                    </li>
+                    <li class="login">
+                        <button type="button" class="btn btn-primary" id="btnLogin" onclick="Login()">Log in</button>
+                    </li>
+                </ul>
             }
 
-
             @*REGISTER*@
-            @using (Html.BeginForm("RegisterAccount", "Pastebook", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+            @using (Html.BeginForm("RegisterAccount", "Pastebook", FormMethod.Post))
             {
+                <div class="col-md-5 pull-left">
+                    PASTEBOOK
+                </div>
                 <div class="signupContent col-md-7 well well-lg pull-right">
                     <label class="loginAndSignupHeader">Sign Up</label>
                     <div class="col-md-12">
-
-                        <div id="profilePicture">
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.signup.PROFILE_PIC, htmlAttributes: new { @class = "control-label col-md-2" })
-                                <div class="col-md-10">
-                                    <div class="wrapper">
-                                        <div class="col-md-4">
-                                            <div id="imageHolder"> </div>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <input id="ImagePath" title="Upload an Image" type="file" name="file" />
-                                        </div>
-                                    </div>
-                                    @Html.ValidationMessageFor(model => model.signup.PROFILE_PIC, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                        </div>
-                        
                         <div class="form-group">
                             <div class="col-md-12">
                                 @Html.EditorFor(model => model.signup.USER_NAME, new { htmlAttributes = new { @class = "form-control", placeholder = "User Name" } })
                                 @Html.ValidationMessageFor(model => model.signup.USER_NAME, "", new { @class = "text-danger" })
                             </div>
                         </div>
-
                         <div class="form-group">
                             <div class="col-md-6">
                                 @Html.EditorFor(model => model.signup.FIRST_NAME, new { htmlAttributes = new { @class = "form-control", placeholder = "First Name" } })
                                 @Html.ValidationMessageFor(model => model.signup.FIRST_NAME, "", new { @class = "text-danger" })
                             </div>
-
                             <div class="col-md-6">
                                 @Html.EditorFor(model => model.signup.LAST_NAME, new { htmlAttributes = new { @class = "form-control", placeholder = "Last Name" } })
                                 @Html.ValidationMessageFor(model => model.signup.LAST_NAME, "", new { @class = "text-danger" })
                             </div>
                         </div>
-
                         <div class="form-group">
                             <div class="col-md-12">
-                                @Html.EditorFor(model => model.signup.EMAIL, new { htmlAttributes = new { @class = "form-control", placeholder = "johndoe@google.com" } })
+                                @Html.EditorFor(model => model.signup.EMAIL, new { htmlAttributes = new { @class = "form-control emailSignup", placeholder = "johndoe@google.com"} })
                                 @Html.ValidationMessageFor(model => model.signup.EMAIL, "", new { @class = "text-danger" })
                             </div>
                         </div>
-
                         <div class="form-group">
                             <div class="col-md-6">
-                                @Html.EditorFor(model => model.signup.PASSWORD, new { htmlAttributes = new { @class = "form-control", placeholder = "Password" } })
+                                @Html.EditorFor(model => model.signup.PASSWORD, new { htmlAttributes = new { @class = "form-control", placeholder = "Password" , @id= "txtPass" } })
                                 @Html.ValidationMessageFor(model => model.signup.PASSWORD, "", new { @class = "text-danger" })
                             </div>
-
                             <div class="col-md-6">
-                                @Html.EditorFor(model => model.signup.BIRTHDAY, new { htmlAttributes = new { @class = "form-control", placeholder = "Birthday" } })
+                                @Html.EditorFor(model => model.signup.BIRTHDAY, new { htmlAttributes = new { @class = "form-control", placeholder = "Birthday", @type = "date", @max=string.Format("{0:yyyy-MM-dd}", DateTime.Now)} })
                                 @Html.ValidationMessageFor(model => model.signup.BIRTHDAY, "", new { @class = "text-danger" })
                             </div>
                         </div>
-
                         <div class="form-group">
                             <div class="col-md-6">
-                                @Html.EditorFor(model => model.signup.CONFIRM_PASSWORD, new { htmlAttributes = new { @class = "form-control", placeholder = "Confirm Password" } })
-                                @Html.ValidationMessageFor(model => model.signup.CONFIRM_PASSWORD, "", new { @class = "text-danger" })
+                                @Html.EditorFor(model => model.signup.CONFIRM_PASSWORD, new { htmlAttributes = new { @class = "form-control", placeholder = "Confirm Password", @id= "txtConfirmPass" } })
+                                @Html.ValidationMessageFor(model => model.signup.CONFIRM_PASSWORD, "", new { @class = "text-danger", id="validationConPass"})
+                                @Html.Display( "", new { @class = "text-info", id = "validationConPass2" })
                             </div>
 
                             <div class="col-md-6">
@@ -118,13 +81,11 @@
                                 @Html.ValidationMessageFor(model => model.signup.COUNTRY_ID, "", new { @class = "text-danger" })
                             </div>
                         </div>
-
                         <div class="form-group">
                             <div class="col-md-6">
                                 @Html.EditorFor(model => model.signup.MOBILE_NO, new { htmlAttributes = new { @class = "form-control", placeholder = "Phone Number" } })
                                 @Html.ValidationMessageFor(model => model.signup.MOBILE_NO, "", new { @class = "text-danger" })
                             </div>
-
                             <div class="col-md-6">
                                 <div>
                                     @Html.RadioButtonFor(model => model.signup.GENDER, 'M') @Html.Label("Male")
@@ -138,13 +99,6 @@
                                 @Html.ValidationMessageFor(model => model.signup.GENDER, "", new { @class = "text-danger" })
                             </div>
                         </div>
-
-                        <div class="form-group">
-                            <div class="col-md-10">
-                                @Html.TextAreaFor(model => model.signup.ABOUT_ME, new { htmlAttributes = new { @class = "form-control", @maxlength = 5, @placeholder = "About me", @id="textArea" } })
-                                @Html.ValidationMessageFor(model => model.signup.ABOUT_ME, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
                     </div>
                     <div class="col-md-offset-9">
                         <div class="form-group">
@@ -153,9 +107,6 @@
                             </div>
                         </div>
                     </div>
-                    
-
-                   
                 </div>
             }
         </div>
@@ -163,31 +114,13 @@
 </div>
 
 @section Scripts {
+
     @Scripts.Render("~/bundles/jqueryval")
+
     <script>
         var LoginAccountUrl = '@Url.Action("ValidateAccount", "Pastebook")';
-
-        $(document).ready(function () {
-            $("#ImagePath").on('change', function () {
-
-                if (typeof (FileReader) != "undefined") {
-
-                    var image_holder = $("#imageHolder");
-                    image_holder.empty();
-
-                    var reader = new FileReader();
-                    reader.onload = function (e) {
-                        $("<img />", {
-                            "src": e.target.result,
-                            "class": "thumb-image"
-                        }).appendTo(image_holder);
-                    }
-                    image_holder.show();
-                    reader.readAsDataURL($(this)[0].files[0]);
-                } else {
-                    alert("This browser does not support FileReader.");
-                }
-            });
-        });
+        var HomeUrl = '@Url.Action("Home", "Pastebook")';
     </script>
+    
+    <script type="text/javascript" src="~/Scripts/LoginSignup.js"></script>
 }

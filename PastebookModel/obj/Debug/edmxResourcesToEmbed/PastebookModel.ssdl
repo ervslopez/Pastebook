@@ -223,7 +223,6 @@
   <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
   <Function Name="GetAccountRelatedPosts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="USER_ID" Type="int" Mode="In" />
-    <Parameter Name="START_RANGE" Type="int" Mode="In" />
   </Function>
   <Function Name="GetCommentsNotif" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="USER_ID" Type="int" Mode="In" />
@@ -231,11 +230,17 @@
   <Function Name="GetFriendsList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="USER_ID" Type="int" Mode="In" />
   </Function>
+  <Function Name="GetFriendsPost" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="USER_ID" Type="int" Mode="In" />
+  </Function>
   <Function Name="GetLikesNotif" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="USER_ID" Type="int" Mode="In" />
   </Function>
   <Function Name="GetNewsfeed" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="USERID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="GetPost" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="POST_ID" Type="int" Mode="In" />
   </Function>
   <Function Name="GetPostComments" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="POST_ID" Type="int" Mode="In" />

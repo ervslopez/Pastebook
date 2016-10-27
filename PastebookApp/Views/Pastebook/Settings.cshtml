@@ -1,0 +1,180 @@
+﻿@model PastebookApp.Models.SettingsViewModel
+
+@{
+    Session["page"] = "Settings";
+}
+@using (Html.BeginForm("UpdatAccount", "Pastebook", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal" id="editCredentials">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.signup.USER_NAME, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.signup.USER_NAME, new { htmlAttributes = new { @class = "form-control" , id="usernameSU"} })
+                        @Html.ValidationMessageFor(model => model.signup.USER_NAME, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.signup.FIRST_NAME, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.signup.FIRST_NAME, new { htmlAttributes = new { @class = "form-control" , id="firstNameSU"} })
+                        @Html.ValidationMessageFor(model => model.signup.FIRST_NAME, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.signup.LAST_NAME, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.signup.LAST_NAME, new { htmlAttributes = new { @class = "form-control", id="lastNameSU" } })
+                        @Html.ValidationMessageFor(model => model.signup.LAST_NAME, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.signup.BIRTHDAY, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.signup.BIRTHDAY, new { htmlAttributes = new { @class = "form-control", id = "dpBirthday" , @max = string.Format("{0:yyyy-MM-dd}", DateTime.Now) } })
+                        @Html.ValidationMessageFor(model => model.signup.BIRTHDAY, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.signup.COUNTRY_ID, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(n => n.signup.COUNTRY_ID, Model.countryList, "--SELECT COUNTRY--", htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.signup.COUNTRY_ID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.signup.MOBILE_NO, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.signup.MOBILE_NO, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.signup.MOBILE_NO, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.signup.GENDER, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <div>
+                            @Html.RadioButtonFor(model => model.signup.GENDER, 'M') @Html.Label("Male")
+                        </div>
+                        <div>
+                            @Html.RadioButtonFor(model => model.signup.GENDER, 'F') @Html.Label("Female")
+                        </div>
+                        <div>
+                            @Html.RadioButtonFor(model => model.signup.GENDER, 'U') @Html.Label("Unspecified")
+                        </div>
+                        @Html.ValidationMessageFor(model => model.signup.GENDER, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 well well-lg" id="emailPasswordEdit">
+                <div class="col-md-9">
+                    <div>
+                        <label class="info">
+                            @Html.DisplayNameFor(model => model.signup.EMAIL)
+                        </label>
+                        @Html.DisplayFor(model => model.signup.EMAIL)
+                    </div>
+                    <div>
+                        <label class="info">
+                            @Html.DisplayNameFor(model => model.signup.PASSWORD)
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div>
+                        <button type="button" onclick="EditEmailPassword()"><span class="glyphicon glyphicon-edit"> EDIT</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @Html.HiddenFor(model => model.signup.ID)
+        @Html.HiddenFor(model => model.signup.ABOUT_ME)
+        @Html.HiddenFor(model => model.signup.PROFILE_PIC)
+        @Html.HiddenFor(model => model.signup.DATE_CREATED)
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <div class="modal fade" id="editEmailPassModal" tabindex="-1" role="dialog" aria-labelledby="editEmailPassModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="editEmailPassModalLabel">Update Account</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-horizontal">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.signup.EMAIL, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.signup.EMAIL, new { htmlAttributes = new { @class = "form-control" , id="emailSU"} })
+                                    @Html.ValidationMessageFor(model => model.signup.EMAIL, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            @{ 
+                                Model.signup.PASSWORD = "";
+                            }
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.signup.PASSWORD, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.signup.PASSWORD, new { htmlAttributes = new { @class = "form-control" , placeholder="Enter new password if you want to change the existing", id= "newPass" } })
+                                    @Html.ValidationMessageFor(model => model.signup.PASSWORD, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.signup.CONFIRM_PASSWORD, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.signup.CONFIRM_PASSWORD, new { htmlAttributes = new { @class = "form-control", placeholder="Confirm new Password" , id="confNewPass"} })
+                                    @Html.ValidationMessageFor(model => model.signup.CONFIRM_PASSWORD, "", new { @class = "text-danger", id = "errorMessage2" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.Label("Old Password", htmlAttributes: new { @class = "control-label col-md-2"})
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.OldPassword, new { htmlAttributes = new { @class = "form-control", id = "oldPassword" } })
+                                    @Html.ValidationMessageFor(model => model.OldPassword, "", new { @class = "text-danger", id="errorMessage"})
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" onclick="CheckCredentials()">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+
+@section Scripts{
+
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        var checkOldPasswordUrl = '@Url.Action("ConfirmOldPassword", "Pastebook")';
+        var EditAccountInfoUrl = '@Url.Action("UpdatAccount", "Pastebook")';
+
+    </script>
+    <script type="text/javascript" src="~/Scripts/LoginSignup.js"></script>
+}

@@ -27,6 +27,12 @@
   <wsdl:message name="IService1_EditUserProfile_OutputMessage">
     <wsdl:part name="parameters" element="tns:EditUserProfileResponse" />
   </wsdl:message>
+  <wsdl:message name="IService1_UpdateUserPassword_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateUserPassword" />
+  </wsdl:message>
+  <wsdl:message name="IService1_UpdateUserPassword_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateUserPasswordResponse" />
+  </wsdl:message>
   <wsdl:message name="IService1_EditUserPasswordOrEmail_InputMessage">
     <wsdl:part name="parameters" element="tns:EditUserPasswordOrEmail" />
   </wsdl:message>
@@ -38,6 +44,18 @@
   </wsdl:message>
   <wsdl:message name="IService1_GetAccountProfile_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetAccountProfileResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_ConfirmOldPassword_InputMessage">
+    <wsdl:part name="parameters" element="tns:ConfirmOldPassword" />
+  </wsdl:message>
+  <wsdl:message name="IService1_ConfirmOldPassword_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ConfirmOldPasswordResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_SearchUsers_InputMessage">
+    <wsdl:part name="parameters" element="tns:SearchUsers" />
+  </wsdl:message>
+  <wsdl:message name="IService1_SearchUsers_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SearchUsersResponse" />
   </wsdl:message>
   <wsdl:message name="IService1_CreatePost_InputMessage">
     <wsdl:part name="parameters" element="tns:CreatePost" />
@@ -56,6 +74,12 @@
   </wsdl:message>
   <wsdl:message name="IService1_GetAccountRelatedPosts_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetAccountRelatedPostsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetPost_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPost" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetPost_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPostResponse" />
   </wsdl:message>
   <wsdl:message name="IService1_LikePost_InputMessage">
     <wsdl:part name="parameters" element="tns:LikePost" />
@@ -99,12 +123,6 @@
   <wsdl:message name="IService1_GetAllNotifications_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetAllNotificationsResponse" />
   </wsdl:message>
-  <wsdl:message name="IService1_SearchAccount_InputMessage">
-    <wsdl:part name="parameters" element="tns:SearchAccount" />
-  </wsdl:message>
-  <wsdl:message name="IService1_SearchAccount_OutputMessage">
-    <wsdl:part name="parameters" element="tns:SearchAccountResponse" />
-  </wsdl:message>
   <wsdl:message name="IService1_GetCountries_InputMessage">
     <wsdl:part name="parameters" element="tns:GetCountries" />
   </wsdl:message>
@@ -124,6 +142,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/EditUserProfile" message="tns:IService1_EditUserProfile_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService1/EditUserProfileResponse" message="tns:IService1_EditUserProfile_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="UpdateUserPassword">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/UpdateUserPassword" message="tns:IService1_UpdateUserPassword_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/UpdateUserPasswordResponse" message="tns:IService1_UpdateUserPassword_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="EditUserPasswordOrEmail">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/EditUserPasswordOrEmail" message="tns:IService1_EditUserPasswordOrEmail_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService1/EditUserPasswordOrEmailResponse" message="tns:IService1_EditUserPasswordOrEmail_OutputMessage" />
@@ -131,6 +153,14 @@
     <wsdl:operation name="GetAccountProfile">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetAccountProfile" message="tns:IService1_GetAccountProfile_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetAccountProfileResponse" message="tns:IService1_GetAccountProfile_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ConfirmOldPassword">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/ConfirmOldPassword" message="tns:IService1_ConfirmOldPassword_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/ConfirmOldPasswordResponse" message="tns:IService1_ConfirmOldPassword_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SearchUsers">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/SearchUsers" message="tns:IService1_SearchUsers_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/SearchUsersResponse" message="tns:IService1_SearchUsers_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="CreatePost">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/CreatePost" message="tns:IService1_CreatePost_InputMessage" />
@@ -143,6 +173,10 @@
     <wsdl:operation name="GetAccountRelatedPosts">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetAccountRelatedPosts" message="tns:IService1_GetAccountRelatedPosts_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetAccountRelatedPostsResponse" message="tns:IService1_GetAccountRelatedPosts_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPost">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetPost" message="tns:IService1_GetPost_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetPostResponse" message="tns:IService1_GetPost_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="LikePost">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/LikePost" message="tns:IService1_LikePost_InputMessage" />
@@ -171,10 +205,6 @@
     <wsdl:operation name="GetAllNotifications">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetAllNotifications" message="tns:IService1_GetAllNotifications_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetAllNotificationsResponse" message="tns:IService1_GetAllNotifications_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="SearchAccount">
-      <wsdl:input wsaw:Action="http://tempuri.org/IService1/SearchAccount" message="tns:IService1_SearchAccount_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IService1/SearchAccountResponse" message="tns:IService1_SearchAccount_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetCountries">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetCountries" message="tns:IService1_GetCountries_InputMessage" />
@@ -210,6 +240,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="UpdateUserPassword">
+      <soap:operation soapAction="http://tempuri.org/IService1/UpdateUserPassword" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="EditUserPasswordOrEmail">
       <soap:operation soapAction="http://tempuri.org/IService1/EditUserPasswordOrEmail" style="document" />
       <wsdl:input>
@@ -221,6 +260,24 @@
     </wsdl:operation>
     <wsdl:operation name="GetAccountProfile">
       <soap:operation soapAction="http://tempuri.org/IService1/GetAccountProfile" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConfirmOldPassword">
+      <soap:operation soapAction="http://tempuri.org/IService1/ConfirmOldPassword" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchUsers">
+      <soap:operation soapAction="http://tempuri.org/IService1/SearchUsers" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -248,6 +305,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetAccountRelatedPosts">
       <soap:operation soapAction="http://tempuri.org/IService1/GetAccountRelatedPosts" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPost">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetPost" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -311,15 +377,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetAllNotifications">
       <soap:operation soapAction="http://tempuri.org/IService1/GetAllNotifications" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="SearchAccount">
-      <soap:operation soapAction="http://tempuri.org/IService1/SearchAccount" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

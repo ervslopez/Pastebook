@@ -32,6 +32,19 @@ namespace PastebookService
             };
         }
 
+        public static GetNewsfeed_Result toNewsfeedResult(GetPost_Result result)
+        {
+            return new GetNewsfeed_Result() {
+                CONTENT = result.CONTENT,
+                CREATED_DATE = result.CREATED_DATE,
+                FIRST_NAME = result.Poster_FN,
+                LAST_NAME = result.Poster_LN,
+                POSTER_ID = result.Poster_ID,
+                PROFILE_OWNER_ID = result.ProfileOwnerID,
+                PROFILE_PIC = result.PROFILE_PIC
+            };
+        }
+
         public static List<GetNewsfeed_Result> ToNewsfeed(List<GetAccountRelatedPosts_Result> post)
         {
             List<GetNewsfeed_Result> newsfeed = new List<GetNewsfeed_Result>();
@@ -45,7 +58,34 @@ namespace PastebookService
                     ID = result.ID,
                     Like_Count = result.Like_Count,
                     POSTER_ID = result.POSTER_ID,
-                    PROFILE_OWNER_ID = result.PROFILE_OWNER_ID
+                    PROFILE_OWNER_ID = result.PROFILE_OWNER_ID,
+                    FIRST_NAME = result.FIRST_NAME,
+                    LAST_NAME = result.LAST_NAME,
+                    PROFILE_PIC = result.PROFILE_PIC,
+                    USER_NAME = result.USER_NAME
+                });
+            }
+            return newsfeed;
+        }
+
+        public static List<GetNewsfeed_Result> ToNewsfeed(List<GetFriendsPost_Result> post)
+        {
+            List<GetNewsfeed_Result> newsfeed = new List<GetNewsfeed_Result>();
+            foreach (var result in post)
+            {
+                newsfeed.Add(new GetNewsfeed_Result()
+                {
+                    Comment_Count = result.Comment_Count,
+                    CONTENT = result.CONTENT,
+                    CREATED_DATE = result.CREATED_DATE,
+                    ID = result.ID,
+                    Like_Count = result.Like_Count,
+                    POSTER_ID = result.POSTER_ID,
+                    PROFILE_OWNER_ID = result.PROFILE_OWNER_ID,
+                    FIRST_NAME = result.FIRST_NAME,
+                    LAST_NAME = result.LAST_NAME,
+                    PROFILE_PIC = result.PROFILE_PIC,
+                    USER_NAME = result.USER_NAME
                 });
             }
             return newsfeed;

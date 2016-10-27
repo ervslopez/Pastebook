@@ -20,6 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -60,6 +61,9 @@
     <Compile Include="GetFriendsList_Result.cs">
       <DependentUpon>PastebookModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="GetFriendsPost_Result.cs">
+      <DependentUpon>PastebookModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="GetLikesNotif_Result.cs">
       <DependentUpon>PastebookModel.tt</DependentUpon>
     </Compile>
@@ -70,6 +74,9 @@
       <DependentUpon>PastebookModel.tt</DependentUpon>
     </Compile>
     <Compile Include="GetPostLikes_Result.cs">
+      <DependentUpon>PastebookModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetPost_Result.cs">
       <DependentUpon>PastebookModel.tt</DependentUpon>
     </Compile>
     <Compile Include="PastebookModel.Context.cs">

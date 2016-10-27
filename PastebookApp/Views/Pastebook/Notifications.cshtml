@@ -1,0 +1,25 @@
+﻿@model IEnumerable<PastebookApp.Models.NotificationViewModel>
+
+@foreach (var item in Model)
+{
+    if (item.notifType == 'L')
+    {
+        <li>
+            <a role="button" href="#" onclick="location.href='@Url.Action("PreviewPost", "Pastebook", new { postID = @item.postID})'">
+                <strong>@item.name</strong> 
+                <p>has liked one of your posts.</p>
+            </a>
+        </li>
+        <hr />
+    }
+    else
+    {
+        <li>
+            <a role="button" href="#" onclick="location.href='@Url.Action("PreviewPost", "Pastebook", new { postID = @item.postID})'">
+                <strong>@item.name</strong> 
+                <p>has commented on one of your posts.</p>
+            </a>
+        </li>
+        <hr />
+    }
+}

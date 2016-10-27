@@ -1,61 +1,84 @@
 ﻿@model PastebookApp.Models.ViewPostsModel
 
 <div class="panel panel-default">
-    <div class="panel-heading" id="postHeader">
+    <div class="panel-body">
+        <span class="pull-right">
+            @DateTime.Now.ToString("MMM dd, yyyy")
+        </span>
         <div>
+            @{
+                var imgSrc = "";
+                if (Model.user.PROFILE_PIC != null)
+                {
+                    var base64 = Convert.ToBase64String(Model.user.PROFILE_PIC);
+                    imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                }
+                else
+                {
+                    imgSrc = "../../Content/Images/default_Male.png";
+                }
+            }
+            <img src="@imgSrc" alt="Profile Picture" id="postMainProfilePic" class="img-circle col-md-3" />
+            <textarea class="form-control col-md-6" id="postTxt"></textarea>
             <span>
-                @DateTime.Now;
+                @Html.ValidationMessage("", new { @class = "text-danger", id = "publishPostError" })
             </span>
         </div>
-    </div>
-    <div class="panel-body">
-        @{
-            var base64 = Convert.ToBase64String(Model.user.PROFILE_PIC);
-            var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-        }
-        <img src="@imgSrc" alt="Profile Picture" id="postProfilePic" class="img-circle col-md-3" />
-        <textarea class="form-control col-md-6" id="postTxt"></textarea>
-    </div>
-    <div class="panel-footer">
-        <button type="button" class="btn btn-success pull-right" onclick="newPost()" id="btnPost">Publish</button>
+        <div>
+            <button type="button" class="btn btn-success pull-right" onclick="newPost(@Model.user.ID)" id="btnPost">Publish</button>
+        </div>
     </div>
 </div>
+<div id="showLikes">
 
+</div>
 @foreach (var item in Model.postList)
 {
+
     <div>
         <div class="panel panel-default">
             <div class="panel-heading">
                 <div class="panel panel-default">
-                    <div class="panel-heading" id="postHeader">
-                        <span>
-                            @item.post.CREATED_DATE
-                        </span>
-                        <div>
-                            <span>
+                    <div class="panel-heading postHeader">
+                        <div class="container containerPost">
+                            <div class="col-md-1 profilePicHolder">
                                 @{
-                                    var Base64 = Convert.ToBase64String(@item.post.PROFILE_PIC);
-                                    var ImgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                                    var ImgSrc = "";
+                                    if (@item.post.PROFILE_PIC != null)
+                                    {
+                                        var Base64 = Convert.ToBase64String(@item.post.PROFILE_PIC);
+                                        ImgSrc = String.Format("data:image/gif;base64,{0}", Base64);
+                                    }
+                                    else
+                                    {
+                                        ImgSrc = "../../Content/Images/default_Male.png";
+                                    }
                                 }
-                                <img src="@ImgSrc" alt="Profile Picture" id="postProfilePic" class="img-circle" />
-                            </span>
-                            <span>
-                                @item.post.FIRST_NAME @item.post.LAST_NAME
-                            </span>
+                                <img src="@ImgSrc" alt="Profile Picture" class="img-circle postProfilePic" onclick="location.href='@Url.Action("ViewProfile", "Pastebook", new { username = item.post.USER_NAME})'" />
+                            </div>
+                            <div class="col-md-9 postContent">
+                                <div>
+                                    @item.post.CREATED_DATE.ToString("MMM dd, yyyy hh:mm tt")
+                                </div>
+                                <div>
+                                    <strong>@item.post.FIRST_NAME @item.post.LAST_NAME</strong>
+                                </div>
+                                <div class="col-md-offset-1 mainPost">
+                                    @item.post.CONTENT
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="panel-heading">
-                        @item.post.CONTENT
-                    </div>
+
                     <div class="panel-body">
                         <span>
-                            <span class="glyphicon glyphicon-apple" id="btnLike" onclick="likePost(@item.post.ID)"></span>
+                            <span role="button" class="glyphicon glyphicon-apple" onclick="likePost(@item.post.ID)"></span>
                         </span>
                         <span>
                             @item.post.Like_Count Likes
                         </span>
                         <span>
-                            <span class="glyphicon glyphicon-comment" id="btnViewComment" onclick=""></span>
+                            <span role="button" class="glyphicon glyphicon-eye-open" data-toggle="modal" data-target="#modal_@item.post.ID"></span>
                         </span>
                         <span>
                             @item.post.Comment_Count Comments
@@ -64,26 +87,53 @@
                 </div>
             </div>
 
+            <div id="modal_@item.post.ID" class="modal fade" role="dialog">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">People who liked this post</h4>
+                        </div>
+                        <div class="modal-body">
+                            @foreach (var like in @item.likes)
+                {
+                                <div>
+                                    <strong role="button" onclick="location.href='@Url.Action("ViewProfile", "Pastebook", new { username = like.USER_NAME})'">@like.FIRST_NAME @like.LAST_NAME</strong>
+                                </div>
+                            }
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
 
             <div class="panel-body">
                 <div>
                     <textarea class="form-control commentBox" id="@item.post.ID"></textarea>
-                    <span class="glyphicon glyphicon-comment pull-right" id="btnComment" onclick="commentOnPost(@item.post.ID)"></span>
-
+                    <span>
+                        @Html.ValidationMessage("", new { @class = "text-danger", id = "commentOnPostError" + @item.post.ID.ToString() })
+                    </span>
+                    <span>
+                        <span role="button" class="glyphicon glyphicon-comment pull-right" onclick="commentOnPost(@item.post.ID)"></span>
+                    </span>
                 </div>
-                <div>
+                <div id="posts">
                     @foreach (var comment in item.comments)
                 {
                         <div class="panel panel-info">
                             <div class="panel-heading" id="commentHeader">
                                 <span>
-                                    @comment.DATE_CREATED
-                                </span>
-                                <span>
                                     @comment.FIRST_NAME @comment.LAST_NAME
                                 </span>
+                                <span class="pull-right">
+                                    @comment.DATE_CREATED.ToString("MMM dd, yyyy hh:mm tt")
+                                </span>
                             </div>
-                            <div class="panel-footer">
+                            <div class="panel-footer commentCont">
                                 <p>
                                     @comment.CONTENT
                                 </p>
@@ -91,7 +141,6 @@
                         </div>
                     }
                 </div>
-
             </div>
         </div>
     </div>

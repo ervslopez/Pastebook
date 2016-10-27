@@ -25,6 +25,7 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="FIRST_NAME" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="LAST_NAME" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="USER_NAME" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="GetPostLikes_Result" nillable="true" type="tns:GetPostLikes_Result" />
@@ -40,6 +41,7 @@
       <xs:element minOccurs="0" name="POSTER_ID" type="xs:int" />
       <xs:element minOccurs="0" name="PROFILE_OWNER_ID" type="xs:int" />
       <xs:element minOccurs="0" name="PROFILE_PIC" nillable="true" type="xs:base64Binary" />
+      <xs:element minOccurs="0" name="USER_NAME" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="GetNewsfeed_Result" nillable="true" type="tns:GetNewsfeed_Result" />
@@ -67,11 +69,11 @@
   <xs:element name="ArrayOfGetCommentsNotif_Result" nillable="true" type="tns:ArrayOfGetCommentsNotif_Result" />
   <xs:complexType name="GetCommentsNotif_Result">
     <xs:sequence>
-      <xs:element minOccurs="0" name="CONTENT" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="DATE_CREATED" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FIRST_NAME" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ID" type="xs:int" />
       <xs:element minOccurs="0" name="LAST_NAME" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NOTIF_ID" type="xs:int" />
+      <xs:element minOccurs="0" name="NOTIF_TYPE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="POST_ID" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="GetCommentsNotif_Result" nillable="true" type="tns:GetCommentsNotif_Result" />
@@ -84,8 +86,10 @@
   <xs:complexType name="GetLikesNotif_Result">
     <xs:sequence>
       <xs:element minOccurs="0" name="FIRST_NAME" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ID" type="xs:int" />
       <xs:element minOccurs="0" name="LAST_NAME" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NOTIF_ID" type="xs:int" />
+      <xs:element minOccurs="0" name="NOTIF_TYPE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="POST_ID" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="GetLikesNotif_Result" nillable="true" type="tns:GetLikesNotif_Result" />

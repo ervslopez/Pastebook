@@ -20,5 +20,9 @@ namespace PastebookModel
         public int PROFILE_OWNER_ID { get; set; }
         public Nullable<int> Like_Count { get; set; }
         public Nullable<int> Comment_Count { get; set; }
+        public string FIRST_NAME { get; set; }
+        public string LAST_NAME { get; set; }
+        public byte[] PROFILE_PIC { get; set; }
+        public string USER_NAME { get; set; }
     }
 }

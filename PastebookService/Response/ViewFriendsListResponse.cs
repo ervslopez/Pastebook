@@ -11,7 +11,7 @@ namespace PastebookService
     public class ViewFriendsListResponse : StatusResponse
     {
         [DataMember]
-        public List<GetFriendsList_Result> friends { get; set; }
+        public List<GetFriendsList_Result> friends;
 
         public ViewFriendsListResponse()
         {

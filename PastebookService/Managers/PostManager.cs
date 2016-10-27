@@ -44,7 +44,7 @@ namespace PastebookService
                 if (accountDataAccess.UserIDExists(request.accountID))
                 {
                     resp.Status = true;
-                    foreach (var item in postDataAccess.GetNewsfeed(request.accountID))
+                    foreach (var item in postDataAccess.GetFriendsPost(request.accountID).ToList())
                     {
                         resp.postList.Add(new CompletePost()
                         {
@@ -53,6 +53,18 @@ namespace PastebookService
                             likes = GetPostLikes(item.ID)
                         });
                     }
+
+                    foreach (var item in postDataAccess.GetAccountRelatedPosts(request.accountID).ToList())
+                    {
+                        resp.postList.Add(new CompletePost()
+                        {
+                            post = item,
+                            comments = GetPostComments(item.ID),
+                            likes = GetPostLikes(item.ID)
+                        });
+                    }
+
+                    resp.postList.OrderByDescending(x => x.post.CREATED_DATE).ToList();
                 }
                 else
                 {
@@ -95,15 +107,45 @@ namespace PastebookService
             return resp;
         }
 
+        public GetPostResponse GetPost(GetPostRequest request)
+        {
+            GetPostResponse resp = new GetPostResponse();
+            CompletePost result = new CompletePost();
+            try
+            {
+                if (postDataAccess.PostExists(request.postID))
+                {
+                    result.post = PostMapper.toNewsfeedResult(postDataAccess.GetPost(request.postID));
+                    result.likes = GetPostLikes(request.postID);
+                    result.comments = GetPostComments(request.postID);
+                    result.post.Comment_Count = result.comments.Count;
+                    result.post.Like_Count = result.likes.Count;
+                    resp.post = result;
+                }
+            }
+            catch (Exception e)
+            {
+                resp.errorList.Add(e.ToString());
+            }
+            return resp;
+        }
+
         //  "LIKE" SERVICES
         public StatusResponse LikePost(LikePostRequest request)
         {
             StatusResponse resp = new StatusResponse();
             try
             {
-                if (postDataAccess.PostExists(request.like.POST_ID) && !PostLiked(request.like.POST_ID, request.like.LIKED_BY))
+                if (postDataAccess.PostExists(request.like.POST_ID))
                 {
-                    resp.Status = postDataAccess.LikePost(request.like) > 0 ? true : false;
+                    if (!PostLiked(request.like.POST_ID, request.like.LIKED_BY))
+                    {
+                        resp.Status = postDataAccess.LikePost(request.like) > 0 ? true : false;
+                    }
+                    else
+                    {
+                        resp.Status = postDataAccess.UnlikePost(request.like) > 0 ? true : false;
+                    }
                 }
                 else
                 {
@@ -118,8 +160,8 @@ namespace PastebookService
         }
 
         public List<GetPostLikes_Result> GetPostLikes(int ID)
-        {     
-            return postDataAccess.GetPostLikes(ID); 
+        {
+            return postDataAccess.GetPostLikes(ID);
         }
 
         //  "COMMENT" SERVICES

@@ -1,4 +1,6 @@
-﻿using PastebookApp.PastebookService;
+﻿using PastebookApp.Mapper;
+using PastebookApp.Models;
+using PastebookApp.PastebookService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,17 +12,14 @@ namespace PastebookApp.Managers
     {
         Service1Client service = new Service1Client();
 
-        public void GetNotification(int userID)
+        public List<NotificationViewModel> GetNotification(int userID)
         {
+            List<NotificationViewModel> notifList = new List<NotificationViewModel>();
             GetAllNotificationsResponse resp = service.GetAllNotifications(new GetAllNotificationsRequest() {
                 userID = userID
             });
-
-            if(resp.Status && resp.errorList.ToList().Count == 0)
-            {
-                var likesNotif = resp.likesNotif.ToList();
-                var commentsNotif = resp.commentsNotif.ToList();
-            }
+            notifList = NotifMapper.toNotif(resp.likesNotif.ToList()).Concat(NotifMapper.toNotif(resp.commentsNotif.ToList())).OrderBy(x=>x.notifID).ToList();
+            return notifList;
         }
     }
 }
