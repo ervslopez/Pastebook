@@ -166,24 +166,6 @@ namespace PastebookModel
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetLikesNotif_Result>("GetLikesNotif", uSER_IDParameter);
         }
     
-        public virtual ObjectResult<GetPost_Result> GetPost(Nullable<int> pOST_ID)
-        {
-            var pOST_IDParameter = pOST_ID.HasValue ?
-                new ObjectParameter("POST_ID", pOST_ID) :
-                new ObjectParameter("POST_ID", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetPost_Result>("GetPost", pOST_IDParameter);
-        }
-    
-        public virtual ObjectResult<GetNewsfeed_Result> GetNewsfeed(Nullable<int> uSERID)
-        {
-            var uSERIDParameter = uSERID.HasValue ?
-                new ObjectParameter("USERID", uSERID) :
-                new ObjectParameter("USERID", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetNewsfeed_Result>("GetNewsfeed", uSERIDParameter);
-        }
-    
         public virtual ObjectResult<GetPostLikes_Result> GetPostLikes(Nullable<int> pOST_ID)
         {
             var pOST_IDParameter = pOST_ID.HasValue ?
@@ -191,15 +173,6 @@ namespace PastebookModel
                 new ObjectParameter("POST_ID", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetPostLikes_Result>("GetPostLikes", pOST_IDParameter);
-        }
-    
-        public virtual ObjectResult<GetAccountRelatedPosts_Result> GetAccountRelatedPosts(Nullable<int> uSER_ID)
-        {
-            var uSER_IDParameter = uSER_ID.HasValue ?
-                new ObjectParameter("USER_ID", uSER_ID) :
-                new ObjectParameter("USER_ID", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAccountRelatedPosts_Result>("GetAccountRelatedPosts", uSER_IDParameter);
         }
     
         public virtual ObjectResult<GetFriendsList_Result> GetFriendsList(Nullable<int> uSER_ID)
@@ -211,6 +184,33 @@ namespace PastebookModel
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetFriendsList_Result>("GetFriendsList", uSER_IDParameter);
         }
     
+        public virtual int SetNotificationsToSeen(Nullable<int> uSER_ID)
+        {
+            var uSER_IDParameter = uSER_ID.HasValue ?
+                new ObjectParameter("USER_ID", uSER_ID) :
+                new ObjectParameter("USER_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SetNotificationsToSeen", uSER_IDParameter);
+        }
+    
+        public virtual ObjectResult<GetFriendRequestNotif_Result> GetFriendRequestNotif(Nullable<int> uSER_ID)
+        {
+            var uSER_IDParameter = uSER_ID.HasValue ?
+                new ObjectParameter("USER_ID", uSER_ID) :
+                new ObjectParameter("USER_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetFriendRequestNotif_Result>("GetFriendRequestNotif", uSER_IDParameter);
+        }
+    
+        public virtual ObjectResult<GetAccountRelatedPosts_Result> GetAccountRelatedPosts(Nullable<int> uSER_ID)
+        {
+            var uSER_IDParameter = uSER_ID.HasValue ?
+                new ObjectParameter("USER_ID", uSER_ID) :
+                new ObjectParameter("USER_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAccountRelatedPosts_Result>("GetAccountRelatedPosts", uSER_IDParameter);
+        }
+    
         public virtual ObjectResult<GetFriendsPost_Result> GetFriendsPost(Nullable<int> uSER_ID)
         {
             var uSER_IDParameter = uSER_ID.HasValue ?
@@ -218,6 +218,24 @@ namespace PastebookModel
                 new ObjectParameter("USER_ID", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetFriendsPost_Result>("GetFriendsPost", uSER_IDParameter);
+        }
+    
+        public virtual ObjectResult<GetNewsfeed_Result> GetNewsfeed(Nullable<int> uSERID)
+        {
+            var uSERIDParameter = uSERID.HasValue ?
+                new ObjectParameter("USERID", uSERID) :
+                new ObjectParameter("USERID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetNewsfeed_Result>("GetNewsfeed", uSERIDParameter);
+        }
+    
+        public virtual ObjectResult<GetPost_Result> GetPost(Nullable<int> pOST_ID)
+        {
+            var pOST_IDParameter = pOST_ID.HasValue ?
+                new ObjectParameter("POST_ID", pOST_ID) :
+                new ObjectParameter("POST_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetPost_Result>("GetPost", pOST_IDParameter);
         }
     }
 }

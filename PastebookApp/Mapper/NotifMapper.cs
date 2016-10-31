@@ -41,5 +41,22 @@ namespace PastebookApp.Mapper
             }
             return notifList;
         }
+
+        public static List<NotificationViewModel> toNotif(List<GetFriendRequestNotif_Result> result)
+        {
+            List<NotificationViewModel> notifList = new List<NotificationViewModel>();
+
+            foreach (var item in result)
+            {
+                notifList.Add(new NotificationViewModel()
+                {
+                    name = item.FIRST_NAME + item.LAST_NAME,
+                    notifID = item.NOTIF_ID,
+                    username = item.USER_NAME,
+                    notifType = item.NOTIF_TYPE[0]
+                });
+            }
+            return notifList;
+        }
     }
 }

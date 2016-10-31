@@ -13,7 +13,7 @@
 
             @section RightSide{
                 <ul class="nav navbar-nav">
-                    <li class="login">
+                    <li class="login" id="errorTxtLogin">
                         @Html.ValidationMessage( "", new { @class = "text-danger", id = "loginPasswordError" })
                     </li>
                     <li class="login">
@@ -27,12 +27,12 @@
                     </li>
                 </ul>
             }
-
+            
             @*REGISTER*@
             @using (Html.BeginForm("RegisterAccount", "Pastebook", FormMethod.Post))
             {
                 <div class="col-md-5 pull-left">
-                    PASTEBOOK
+                    
                 </div>
                 <div class="signupContent col-md-7 well well-lg pull-right">
                     <label class="loginAndSignupHeader">Sign Up</label>
@@ -59,34 +59,32 @@
                                 @Html.ValidationMessageFor(model => model.signup.EMAIL, "", new { @class = "text-danger" })
                             </div>
                         </div>
-                        <div class="form-group">
-                            <div class="col-md-6">
+
+                        <div class="col-md-6">
+                            <div class="form-group passwordSignUp">
                                 @Html.EditorFor(model => model.signup.PASSWORD, new { htmlAttributes = new { @class = "form-control", placeholder = "Password" , @id= "txtPass" } })
                                 @Html.ValidationMessageFor(model => model.signup.PASSWORD, "", new { @class = "text-danger" })
                             </div>
-                            <div class="col-md-6">
-                                @Html.EditorFor(model => model.signup.BIRTHDAY, new { htmlAttributes = new { @class = "form-control", placeholder = "Birthday", @type = "date", @max=string.Format("{0:yyyy-MM-dd}", DateTime.Now)} })
-                                @Html.ValidationMessageFor(model => model.signup.BIRTHDAY, "", new { @class = "text-danger" })
+                            <div class="form-group passwordSignUp">
+                                @Html.EditorFor(model => model.signup.CONFIRM_PASSWORD, new { htmlAttributes = new { @class = "form-control", placeholder = "Confirm Password", @id = "txtConfirmPass" } })
+                                @Html.ValidationMessageFor(model => model.signup.CONFIRM_PASSWORD, "", new { @class = "text-danger", id = "validationConPass" })
+                                @Html.Display("", new { @class = "text-info", id = "validationConPass2" })
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-md-6">
-                                @Html.EditorFor(model => model.signup.CONFIRM_PASSWORD, new { htmlAttributes = new { @class = "form-control", placeholder = "Confirm Password", @id= "txtConfirmPass" } })
-                                @Html.ValidationMessageFor(model => model.signup.CONFIRM_PASSWORD, "", new { @class = "text-danger", id="validationConPass"})
-                                @Html.Display( "", new { @class = "text-info", id = "validationConPass2" })
-                            </div>
-
-                            <div class="col-md-6">
-                                @Html.DropDownListFor(n => n.signup.COUNTRY_ID, Model.countryList, "--SELECT COUNTRY--", htmlAttributes: new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.signup.COUNTRY_ID, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-md-6">
+                            <div class="form-group passwordSignUp">
                                 @Html.EditorFor(model => model.signup.MOBILE_NO, new { htmlAttributes = new { @class = "form-control", placeholder = "Phone Number" } })
                                 @Html.ValidationMessageFor(model => model.signup.MOBILE_NO, "", new { @class = "text-danger" })
                             </div>
-                            <div class="col-md-6">
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group otherSignup">
+                                @Html.EditorFor(model => model.signup.BIRTHDAY, new { htmlAttributes = new { @class = "form-control signupRight", placeholder = "Birthday", @type = "date", @max = string.Format("{0:yyyy-MM-dd}", DateTime.Now) } })
+                                @Html.ValidationMessageFor(model => model.signup.BIRTHDAY, "", new { @class = "text-danger signupRight" })
+                            </div>
+                            <div class="form-group otherSignup">
+                                @Html.DropDownListFor(n => n.signup.COUNTRY_ID, Model.countryList, "--SELECT COUNTRY--", htmlAttributes: new { @class = "form-control signupRight" })
+                                @Html.ValidationMessageFor(model => model.signup.COUNTRY_ID, "", new { @class = "text-danger signupRight" })
+                            </div>
+                            <div class="form-group otherSignup">
                                 <div>
                                     @Html.RadioButtonFor(model => model.signup.GENDER, 'M') @Html.Label("Male")
                                 </div>

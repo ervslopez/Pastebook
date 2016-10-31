@@ -34,7 +34,7 @@ namespace PastebookService
             {
                 using (var context = new DB_PASTEBOOKEntities())
                 {
-                    var friendPost = context.GetFriendsPost(accountID).ToList();
+                    newsfeed = PostMapper.ToNewsfeed(context.GetFriendsPost(accountID).ToList());
                 }
             }
             catch (Exception ex)
@@ -157,7 +157,7 @@ namespace PastebookService
             {
                 using (var context = new DB_PASTEBOOKEntities())
                 {
-                    commentsList = context.GetPostComments(postID).OrderByDescending(x => x.DATE_CREATED).ToList();
+                    commentsList = context.GetPostComments(postID).OrderBy(x => x.DATE_CREATED).ToList();
                 }
             }
             catch (Exception ex)

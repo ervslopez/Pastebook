@@ -16,10 +16,14 @@ namespace PastebookService
         [DataMember]
         public List<GetCommentsNotif_Result> commentsNotif;
 
+        [DataMember]
+        public List<GetFriendRequestNotif_Result> friendRequestsNotif;
+
         public GetAllNotificationsResponse()
         {
             likesNotif = new List<GetLikesNotif_Result>();
             commentsNotif = new List<GetCommentsNotif_Result>();
+            friendRequestsNotif = new List<GetFriendRequestNotif_Result>();
         }
     }
 }

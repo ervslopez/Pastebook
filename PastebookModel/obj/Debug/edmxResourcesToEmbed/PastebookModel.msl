@@ -153,44 +153,35 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="GetPost" FunctionName="DB_PASTEBOOKModel.Store.GetPost">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="DB_PASTEBOOKModel.GetPost_Result">
-          <ScalarProperty Name="CONTENT" ColumnName="CONTENT" />
-          <ScalarProperty Name="CREATED_DATE" ColumnName="CREATED_DATE" />
-          <ScalarProperty Name="Poster_FN" ColumnName="Poster FN" />
-          <ScalarProperty Name="Poster_LN" ColumnName="Poster LN" />
-          <ScalarProperty Name="Owner_FN" ColumnName="Owner FN" />
-          <ScalarProperty Name="Owner_LN" ColumnName="Owner LN" />
-          <ScalarProperty Name="PROFILE_PIC" ColumnName="PROFILE_PIC" />
-          <ScalarProperty Name="Poster_ID" ColumnName="Poster ID" />
-          <ScalarProperty Name="ProfileOwnerID" ColumnName="ProfileOwnerID" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="GetNewsfeed" FunctionName="DB_PASTEBOOKModel.Store.GetNewsfeed">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="DB_PASTEBOOKModel.GetNewsfeed_Result">
-          <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="CONTENT" ColumnName="CONTENT" />
-          <ScalarProperty Name="POSTER_ID" ColumnName="POSTER_ID" />
-          <ScalarProperty Name="CREATED_DATE" ColumnName="CREATED_DATE" />
-          <ScalarProperty Name="PROFILE_OWNER_ID" ColumnName="PROFILE_OWNER_ID" />
-          <ScalarProperty Name="Like_Count" ColumnName="Like Count" />
-          <ScalarProperty Name="Comment_Count" ColumnName="Comment Count" />
-          <ScalarProperty Name="FIRST_NAME" ColumnName="FIRST_NAME" />
-          <ScalarProperty Name="LAST_NAME" ColumnName="LAST_NAME" />
-          <ScalarProperty Name="PROFILE_PIC" ColumnName="PROFILE_PIC" />
-          <ScalarProperty Name="USER_NAME" ColumnName="USER_NAME" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="GetPostLikes" FunctionName="DB_PASTEBOOKModel.Store.GetPostLikes">
       <ResultMapping>
         <ComplexTypeMapping TypeName="DB_PASTEBOOKModel.GetPostLikes_Result">
           <ScalarProperty Name="FIRST_NAME" ColumnName="FIRST_NAME" />
           <ScalarProperty Name="LAST_NAME" ColumnName="LAST_NAME" />
           <ScalarProperty Name="USER_NAME" ColumnName="USER_NAME" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetFriendsList" FunctionName="DB_PASTEBOOKModel.Store.GetFriendsList">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DB_PASTEBOOKModel.GetFriendsList_Result">
+          <ScalarProperty Name="FIRST_NAME" ColumnName="FIRST_NAME" />
+          <ScalarProperty Name="LAST_NAME" ColumnName="LAST_NAME" />
+          <ScalarProperty Name="USER_NAME" ColumnName="USER_NAME" />
+          <ScalarProperty Name="ABOUT_ME" ColumnName="ABOUT_ME" />
+          <ScalarProperty Name="PROFILE_PIC" ColumnName="PROFILE_PIC" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SetNotificationsToSeen" FunctionName="DB_PASTEBOOKModel.Store.SetNotificationsToSeen" />
+    <FunctionImportMapping FunctionImportName="GetFriendRequestNotif" FunctionName="DB_PASTEBOOKModel.Store.GetFriendRequestNotif">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DB_PASTEBOOKModel.GetFriendRequestNotif_Result">
+          <ScalarProperty Name="USER_NAME" ColumnName="USER_NAME" />
+          <ScalarProperty Name="FIRST_NAME" ColumnName="FIRST_NAME" />
+          <ScalarProperty Name="LAST_NAME" ColumnName="LAST_NAME" />
+          <ScalarProperty Name="NOTIF_ID" ColumnName="NOTIF_ID" />
+          <ScalarProperty Name="NOTIF_TYPE" ColumnName="NOTIF_TYPE" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
@@ -208,17 +199,8 @@
           <ScalarProperty Name="LAST_NAME" ColumnName="LAST_NAME" />
           <ScalarProperty Name="PROFILE_PIC" ColumnName="PROFILE_PIC" />
           <ScalarProperty Name="USER_NAME" ColumnName="USER_NAME" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="GetFriendsList" FunctionName="DB_PASTEBOOKModel.Store.GetFriendsList">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="DB_PASTEBOOKModel.GetFriendsList_Result">
-          <ScalarProperty Name="FIRST_NAME" ColumnName="FIRST_NAME" />
-          <ScalarProperty Name="LAST_NAME" ColumnName="LAST_NAME" />
-          <ScalarProperty Name="USER_NAME" ColumnName="USER_NAME" />
-          <ScalarProperty Name="ABOUT_ME" ColumnName="ABOUT_ME" />
-          <ScalarProperty Name="PROFILE_PIC" ColumnName="PROFILE_PIC" />
+          <ScalarProperty Name="Profile_FN" ColumnName="Profile FN" />
+          <ScalarProperty Name="Profile_LN" ColumnName="Profile LN" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
@@ -236,6 +218,44 @@
           <ScalarProperty Name="LAST_NAME" ColumnName="LAST_NAME" />
           <ScalarProperty Name="PROFILE_PIC" ColumnName="PROFILE_PIC" />
           <ScalarProperty Name="USER_NAME" ColumnName="USER_NAME" />
+          <ScalarProperty Name="Profile_FN" ColumnName="Profile FN" />
+          <ScalarProperty Name="Profile_LN" ColumnName="Profile LN" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetNewsfeed" FunctionName="DB_PASTEBOOKModel.Store.GetNewsfeed">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DB_PASTEBOOKModel.GetNewsfeed_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="CONTENT" ColumnName="CONTENT" />
+          <ScalarProperty Name="POSTER_ID" ColumnName="POSTER_ID" />
+          <ScalarProperty Name="CREATED_DATE" ColumnName="CREATED_DATE" />
+          <ScalarProperty Name="PROFILE_OWNER_ID" ColumnName="PROFILE_OWNER_ID" />
+          <ScalarProperty Name="Like_Count" ColumnName="Like Count" />
+          <ScalarProperty Name="Comment_Count" ColumnName="Comment Count" />
+          <ScalarProperty Name="FIRST_NAME" ColumnName="FIRST_NAME" />
+          <ScalarProperty Name="LAST_NAME" ColumnName="LAST_NAME" />
+          <ScalarProperty Name="PROFILE_PIC" ColumnName="PROFILE_PIC" />
+          <ScalarProperty Name="USER_NAME" ColumnName="USER_NAME" />
+          <ScalarProperty Name="Profile_FN" ColumnName="Profile FN" />
+          <ScalarProperty Name="Profile_LN" ColumnName="Profile LN" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetPost" FunctionName="DB_PASTEBOOKModel.Store.GetPost">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DB_PASTEBOOKModel.GetPost_Result">
+          <ScalarProperty Name="CONTENT" ColumnName="CONTENT" />
+          <ScalarProperty Name="CREATED_DATE" ColumnName="CREATED_DATE" />
+          <ScalarProperty Name="Poster_FN" ColumnName="Poster FN" />
+          <ScalarProperty Name="Poster_LN" ColumnName="Poster LN" />
+          <ScalarProperty Name="Owner_FN" ColumnName="Owner FN" />
+          <ScalarProperty Name="Owner_LN" ColumnName="Owner LN" />
+          <ScalarProperty Name="PROFILE_PIC" ColumnName="PROFILE_PIC" />
+          <ScalarProperty Name="Poster_ID" ColumnName="Poster ID" />
+          <ScalarProperty Name="ProfileOwnerID" ColumnName="ProfileOwnerID" />
+          <ScalarProperty Name="Profile_FN" ColumnName="Profile FN" />
+          <ScalarProperty Name="Profile_LN" ColumnName="Profile LN" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>

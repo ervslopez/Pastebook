@@ -34,14 +34,17 @@ namespace PastebookService
 
         public static GetNewsfeed_Result toNewsfeedResult(GetPost_Result result)
         {
-            return new GetNewsfeed_Result() {
+            return new GetNewsfeed_Result()
+            {
                 CONTENT = result.CONTENT,
                 CREATED_DATE = result.CREATED_DATE,
                 FIRST_NAME = result.Poster_FN,
                 LAST_NAME = result.Poster_LN,
                 POSTER_ID = result.Poster_ID,
                 PROFILE_OWNER_ID = result.ProfileOwnerID,
-                PROFILE_PIC = result.PROFILE_PIC
+                PROFILE_PIC = result.PROFILE_PIC,
+                Profile_FN = result.Profile_FN,
+                Profile_LN = result.Profile_LN
             };
         }
 
@@ -62,7 +65,9 @@ namespace PastebookService
                     FIRST_NAME = result.FIRST_NAME,
                     LAST_NAME = result.LAST_NAME,
                     PROFILE_PIC = result.PROFILE_PIC,
-                    USER_NAME = result.USER_NAME
+                    USER_NAME = result.USER_NAME,
+                    Profile_FN = result.Profile_FN,
+                    Profile_LN = result.Profile_LN
                 });
             }
             return newsfeed;
@@ -85,7 +90,9 @@ namespace PastebookService
                     FIRST_NAME = result.FIRST_NAME,
                     LAST_NAME = result.LAST_NAME,
                     PROFILE_PIC = result.PROFILE_PIC,
-                    USER_NAME = result.USER_NAME
+                    USER_NAME = result.USER_NAME,
+                    Profile_FN = result.Profile_FN,
+                    Profile_LN = result.Profile_LN
                 });
             }
             return newsfeed;
@@ -104,7 +111,9 @@ namespace PastebookService
                     ID = result.ID,
                     Like_Count = result.Like_Count,
                     POSTER_ID = result.POSTER_ID,
-                    PROFILE_OWNER_ID = result.PROFILE_OWNER_ID
+                    PROFILE_OWNER_ID = result.PROFILE_OWNER_ID,
+                    Profile_FN = result.Profile_FN,
+                    Profile_LN = result.Profile_LN
                 });
             }
             return newsfeed;

@@ -365,6 +365,7 @@ namespace PastebookApp.PastebookService {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(PastebookApp.PastebookService.FriendResponse))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(PastebookApp.PastebookService.ViewFriendsListResponse))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(PastebookApp.PastebookService.GetAllNotificationsResponse))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(PastebookApp.PastebookService.GetNotificationCountResponse))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(PastebookApp.PastebookService.CreateUserResponse))]
     public partial class StatusResponse : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -673,6 +674,9 @@ namespace PastebookApp.PastebookService {
         private PastebookApp.PastebookService.GetCommentsNotif_Result[] commentsNotifField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private PastebookApp.PastebookService.GetFriendRequestNotif_Result[] friendRequestsNotifField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private PastebookApp.PastebookService.GetLikesNotif_Result[] likesNotifField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
@@ -689,6 +693,19 @@ namespace PastebookApp.PastebookService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public PastebookApp.PastebookService.GetFriendRequestNotif_Result[] friendRequestsNotif {
+            get {
+                return this.friendRequestsNotifField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.friendRequestsNotifField, value) != true)) {
+                    this.friendRequestsNotifField = value;
+                    this.RaisePropertyChanged("friendRequestsNotif");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public PastebookApp.PastebookService.GetLikesNotif_Result[] likesNotif {
             get {
                 return this.likesNotifField;
@@ -697,6 +714,29 @@ namespace PastebookApp.PastebookService {
                 if ((object.ReferenceEquals(this.likesNotifField, value) != true)) {
                     this.likesNotifField = value;
                     this.RaisePropertyChanged("likesNotif");
+                }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="GetNotificationCountResponse", Namespace="http://schemas.datacontract.org/2004/07/PastebookService")]
+    [System.SerializableAttribute()]
+    public partial class GetNotificationCountResponse : PastebookApp.PastebookService.StatusResponse {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int countField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int count {
+            get {
+                return this.countField;
+            }
+            set {
+                if ((this.countField.Equals(value) != true)) {
+                    this.countField = value;
+                    this.RaisePropertyChanged("count");
                 }
             }
         }
@@ -842,6 +882,12 @@ namespace PastebookApp.PastebookService {
         private byte[] PROFILE_PICField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string Profile_FNField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string Profile_LNField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string USER_NAMEField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
@@ -980,6 +1026,32 @@ namespace PastebookApp.PastebookService {
                 if ((object.ReferenceEquals(this.PROFILE_PICField, value) != true)) {
                     this.PROFILE_PICField = value;
                     this.RaisePropertyChanged("PROFILE_PIC");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Profile_FN {
+            get {
+                return this.Profile_FNField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.Profile_FNField, value) != true)) {
+                    this.Profile_FNField = value;
+                    this.RaisePropertyChanged("Profile_FN");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Profile_LN {
+            get {
+                return this.Profile_LNField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.Profile_LNField, value) != true)) {
+                    this.Profile_LNField = value;
+                    this.RaisePropertyChanged("Profile_LN");
                 }
             }
         }
@@ -1381,6 +1453,115 @@ namespace PastebookApp.PastebookService {
                 if ((this.POST_IDField.Equals(value) != true)) {
                     this.POST_IDField = value;
                     this.RaisePropertyChanged("POST_ID");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="GetFriendRequestNotif_Result", Namespace="http://schemas.datacontract.org/2004/07/PastebookModel")]
+    [System.SerializableAttribute()]
+    public partial class GetFriendRequestNotif_Result : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FIRST_NAMEField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string LAST_NAMEField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int NOTIF_IDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NOTIF_TYPEField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string USER_NAMEField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string FIRST_NAME {
+            get {
+                return this.FIRST_NAMEField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FIRST_NAMEField, value) != true)) {
+                    this.FIRST_NAMEField = value;
+                    this.RaisePropertyChanged("FIRST_NAME");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string LAST_NAME {
+            get {
+                return this.LAST_NAMEField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.LAST_NAMEField, value) != true)) {
+                    this.LAST_NAMEField = value;
+                    this.RaisePropertyChanged("LAST_NAME");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int NOTIF_ID {
+            get {
+                return this.NOTIF_IDField;
+            }
+            set {
+                if ((this.NOTIF_IDField.Equals(value) != true)) {
+                    this.NOTIF_IDField = value;
+                    this.RaisePropertyChanged("NOTIF_ID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string NOTIF_TYPE {
+            get {
+                return this.NOTIF_TYPEField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NOTIF_TYPEField, value) != true)) {
+                    this.NOTIF_TYPEField = value;
+                    this.RaisePropertyChanged("NOTIF_TYPE");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string USER_NAME {
+            get {
+                return this.USER_NAMEField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.USER_NAMEField, value) != true)) {
+                    this.USER_NAMEField = value;
+                    this.RaisePropertyChanged("USER_NAME");
                 }
             }
         }
@@ -2485,6 +2666,51 @@ namespace PastebookApp.PastebookService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="GetFriendshipStatusResponse", Namespace="http://schemas.datacontract.org/2004/07/PastebookService")]
+    [System.SerializableAttribute()]
+    public partial class GetFriendshipStatusResponse : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string friendshipStatusField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string friendshipStatus {
+            get {
+                return this.friendshipStatusField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.friendshipStatusField, value) != true)) {
+                    this.friendshipStatusField = value;
+                    this.RaisePropertyChanged("friendshipStatus");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="GetAllNotificationsRequest", Namespace="http://schemas.datacontract.org/2004/07/PastebookService")]
     [System.SerializableAttribute()]
     public partial class GetAllNotificationsRequest : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -2673,6 +2899,12 @@ namespace PastebookApp.PastebookService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AcceptFriendship", ReplyAction="http://tempuri.org/IService1/AcceptFriendshipResponse")]
         System.Threading.Tasks.Task<PastebookApp.PastebookService.FriendResponse> AcceptFriendshipAsync(PastebookApp.PastebookService.FriendRequest request);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/DeclineFriendship", ReplyAction="http://tempuri.org/IService1/DeclineFriendshipResponse")]
+        PastebookApp.PastebookService.FriendResponse DeclineFriendship(PastebookApp.PastebookService.FriendRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/DeclineFriendship", ReplyAction="http://tempuri.org/IService1/DeclineFriendshipResponse")]
+        System.Threading.Tasks.Task<PastebookApp.PastebookService.FriendResponse> DeclineFriendshipAsync(PastebookApp.PastebookService.FriendRequest request);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/BlockAccount", ReplyAction="http://tempuri.org/IService1/BlockAccountResponse")]
         PastebookApp.PastebookService.FriendResponse BlockAccount(PastebookApp.PastebookService.FriendRequest request);
         
@@ -2685,11 +2917,23 @@ namespace PastebookApp.PastebookService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/ViewFriendsList", ReplyAction="http://tempuri.org/IService1/ViewFriendsListResponse")]
         System.Threading.Tasks.Task<PastebookApp.PastebookService.ViewFriendsListResponse> ViewFriendsListAsync(PastebookApp.PastebookService.ViewFriendsListRequest request);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetFriendshipStatus", ReplyAction="http://tempuri.org/IService1/GetFriendshipStatusResponse")]
+        PastebookApp.PastebookService.GetFriendshipStatusResponse GetFriendshipStatus(PastebookApp.PastebookService.FriendRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetFriendshipStatus", ReplyAction="http://tempuri.org/IService1/GetFriendshipStatusResponse")]
+        System.Threading.Tasks.Task<PastebookApp.PastebookService.GetFriendshipStatusResponse> GetFriendshipStatusAsync(PastebookApp.PastebookService.FriendRequest request);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetAllNotifications", ReplyAction="http://tempuri.org/IService1/GetAllNotificationsResponse")]
         PastebookApp.PastebookService.GetAllNotificationsResponse GetAllNotifications(PastebookApp.PastebookService.GetAllNotificationsRequest request);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetAllNotifications", ReplyAction="http://tempuri.org/IService1/GetAllNotificationsResponse")]
         System.Threading.Tasks.Task<PastebookApp.PastebookService.GetAllNotificationsResponse> GetAllNotificationsAsync(PastebookApp.PastebookService.GetAllNotificationsRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetNotificationCount", ReplyAction="http://tempuri.org/IService1/GetNotificationCountResponse")]
+        PastebookApp.PastebookService.GetNotificationCountResponse GetNotificationCount(PastebookApp.PastebookService.GetAllNotificationsRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetNotificationCount", ReplyAction="http://tempuri.org/IService1/GetNotificationCountResponse")]
+        System.Threading.Tasks.Task<PastebookApp.PastebookService.GetNotificationCountResponse> GetNotificationCountAsync(PastebookApp.PastebookService.GetAllNotificationsRequest request);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetCountries", ReplyAction="http://tempuri.org/IService1/GetCountriesResponse")]
         PastebookApp.PastebookService.GetCountriesResponse GetCountries();
@@ -2853,6 +3097,14 @@ namespace PastebookApp.PastebookService {
             return base.Channel.AcceptFriendshipAsync(request);
         }
         
+        public PastebookApp.PastebookService.FriendResponse DeclineFriendship(PastebookApp.PastebookService.FriendRequest request) {
+            return base.Channel.DeclineFriendship(request);
+        }
+        
+        public System.Threading.Tasks.Task<PastebookApp.PastebookService.FriendResponse> DeclineFriendshipAsync(PastebookApp.PastebookService.FriendRequest request) {
+            return base.Channel.DeclineFriendshipAsync(request);
+        }
+        
         public PastebookApp.PastebookService.FriendResponse BlockAccount(PastebookApp.PastebookService.FriendRequest request) {
             return base.Channel.BlockAccount(request);
         }
@@ -2869,12 +3121,28 @@ namespace PastebookApp.PastebookService {
             return base.Channel.ViewFriendsListAsync(request);
         }
         
+        public PastebookApp.PastebookService.GetFriendshipStatusResponse GetFriendshipStatus(PastebookApp.PastebookService.FriendRequest request) {
+            return base.Channel.GetFriendshipStatus(request);
+        }
+        
+        public System.Threading.Tasks.Task<PastebookApp.PastebookService.GetFriendshipStatusResponse> GetFriendshipStatusAsync(PastebookApp.PastebookService.FriendRequest request) {
+            return base.Channel.GetFriendshipStatusAsync(request);
+        }
+        
         public PastebookApp.PastebookService.GetAllNotificationsResponse GetAllNotifications(PastebookApp.PastebookService.GetAllNotificationsRequest request) {
             return base.Channel.GetAllNotifications(request);
         }
         
         public System.Threading.Tasks.Task<PastebookApp.PastebookService.GetAllNotificationsResponse> GetAllNotificationsAsync(PastebookApp.PastebookService.GetAllNotificationsRequest request) {
             return base.Channel.GetAllNotificationsAsync(request);
+        }
+        
+        public PastebookApp.PastebookService.GetNotificationCountResponse GetNotificationCount(PastebookApp.PastebookService.GetAllNotificationsRequest request) {
+            return base.Channel.GetNotificationCount(request);
+        }
+        
+        public System.Threading.Tasks.Task<PastebookApp.PastebookService.GetNotificationCountResponse> GetNotificationCountAsync(PastebookApp.PastebookService.GetAllNotificationsRequest request) {
+            return base.Channel.GetNotificationCountAsync(request);
         }
         
         public PastebookApp.PastebookService.GetCountriesResponse GetCountries() {

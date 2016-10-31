@@ -92,7 +92,7 @@ namespace PastebookService
             {
                 using (var context = new DB_PASTEBOOKEntities())
                 {
-                    var users = context.PB_USER.Where(x=>x.FIRST_NAME.Contains(name) || x.LAST_NAME.Contains(name));
+                    var users = context.PB_USER.Where(x=>x.FIRST_NAME == name || x.LAST_NAME == name);
                     foreach (var item in users)
                     {
                         retVal.Add(UserMapper.ToUser(item));

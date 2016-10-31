@@ -29,23 +29,23 @@ namespace PastebookApp.Models
         [StringLength(50, ErrorMessage = "Last name should be less than 50 characters only")]
         public string LAST_NAME { get; set; }
 
-        [Required(ErrorMessage = "Email Required")]
+        [Required(ErrorMessage = "Email is Required")]
         [DisplayName("Email")]
         [DataType(DataType.EmailAddress)]
         [StringLength(50, ErrorMessage = "Email address should be less than 50 characters only")]
         public string EMAIL { get; set; }
 
-        [Required(ErrorMessage = "Password Required")]
+        [Required(ErrorMessage = "Password is Required")]
         [DataType(DataType.Password)]
         [DisplayName("Password")]
         [StringLength(30, ErrorMessage = "Password should be less than 30 characters only")]
         public string PASSWORD { get; set; }
 
-        [Required(ErrorMessage = "Confirm Password field is Required")]
+        [Required(ErrorMessage = "Confirm Password is Required")]
         [DataType(DataType.Password)]
-        [Compare("Password", ErrorMessage = "Confirm Password not matched.")]
-        [Display(Name = "Confirm password:")]
-        [StringLength(30, ErrorMessage = "Less than 30 characters only")]
+        [Compare("PASSWORD", ErrorMessage = "Confirm Password not matched.")]
+        [DisplayName("Confirm Password")]
+        [StringLength(30, ErrorMessage = "Confirm Password should be 8 to 30 characters long", MinimumLength =8)]
         public string CONFIRM_PASSWORD { get; set; }
 
         [Required(ErrorMessage = "Birthday is Required")]
@@ -60,7 +60,7 @@ namespace PastebookApp.Models
         [DisplayName("Phone Number")]
         [DataType(DataType.PhoneNumber, ErrorMessage = "Invalid Mobile number format")]
         [Phone(ErrorMessage = "Invalid Mobile number format")]
-        [StringLength(20, ErrorMessage = "Less than 20 digits only")]
+        [StringLength(20, ErrorMessage = "Mobile Number should be less than 20 digits only")]
         public string MOBILE_NO { get; set; }
 
         [DisplayName("Gender")]
@@ -68,8 +68,8 @@ namespace PastebookApp.Models
         
         public DateTime DATE_CREATED { get; set; }
 
-        [StringLength(2000, ErrorMessage = "Less than 2000 characters only")]
-        [DisplayName("About me")]
+        [StringLength(2000, ErrorMessage = "Description should be less than 2000 characters only")]
+        [DisplayName("About Me")]
         public string ABOUT_ME { get; set; }
 
         [DisplayName("Profile Picture")]

@@ -12,20 +12,20 @@
                 {
                     var base64 = Convert.ToBase64String(Model.user.PROFILE_PIC);
                     imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                    <img src="@imgSrc" alt="Profile Picture" id="postMainProfilePic" class="img-circle col-md-3" />
                 }
                 else
                 {
-                    imgSrc = "../../Content/Images/default_Male.png";
+                    <img src="~/Content/Images/default_Male.png" alt="Profile Picture" id="postMainProfilePic" class="img-circle col-md-3" />
                 }
             }
-            <img src="@imgSrc" alt="Profile Picture" id="postMainProfilePic" class="img-circle col-md-3" />
             <textarea class="form-control col-md-6" id="postTxt"></textarea>
             <span>
                 @Html.ValidationMessage("", new { @class = "text-danger", id = "publishPostError" })
             </span>
         </div>
         <div>
-            <button type="button" class="btn btn-success pull-right" onclick="newPost(@Model.user.ID)" id="btnPost">Publish</button>
+            <button type="button" class="btn btn-primary pull-right" onclick="newPost(@Model.profileOwner.ID)" id="btnPost">Publish</button>
         </div>
     </div>
 </div>
@@ -48,20 +48,25 @@
                                     {
                                         var Base64 = Convert.ToBase64String(@item.post.PROFILE_PIC);
                                         ImgSrc = String.Format("data:image/gif;base64,{0}", Base64);
+                                        <img src=@ImgSrc alt="Profile Picture" class="img-circle postProfilePic" onclick="location.href='@Url.Action("ViewProfile", "Pastebook", new { username = item.post.USER_NAME})'" />
                                     }
                                     else
                                     {
-                                        ImgSrc = "../../Content/Images/default_Male.png";
+                                        <img src="~/Content/Images/default_Male.png" alt="Profile Picture" class="img-circle postProfilePic" onclick="location.href='@Url.Action("ViewProfile", "Pastebook", new { username = item.post.USER_NAME})'" />
                                     }
                                 }
-                                <img src="@ImgSrc" alt="Profile Picture" class="img-circle postProfilePic" onclick="location.href='@Url.Action("ViewProfile", "Pastebook", new { username = item.post.USER_NAME})'" />
                             </div>
                             <div class="col-md-9 postContent">
                                 <div>
-                                    @item.post.CREATED_DATE.ToString("MMM dd, yyyy hh:mm tt")
-                                </div>
-                                <div>
-                                    <strong>@item.post.FIRST_NAME @item.post.LAST_NAME</strong>
+                                    @if(item.post.FIRST_NAME+item.post.LAST_NAME != item.post.Profile_FN+item.post.Profile_LN)
+                                    {
+                                    <strong>@item.post.FIRST_NAME @item.post.LAST_NAME</strong><span>'s post on </span><strong>@item.post.Profile_FN @item.post.Profile_LN</strong><span>'s Wall</span>
+                                    }
+                                    else
+                                    {
+                                    <strong>@item.post.FIRST_NAME @item.post.LAST_NAME</strong><span>'s post</span>
+                                    }
+                                    
                                 </div>
                                 <div class="col-md-offset-1 mainPost">
                                     @item.post.CONTENT
@@ -71,18 +76,18 @@
                     </div>
 
                     <div class="panel-body">
-                        <span>
-                            <span role="button" class="glyphicon glyphicon-apple" onclick="likePost(@item.post.ID)"></span>
-                        </span>
-                        <span>
-                            @item.post.Like_Count Likes
-                        </span>
-                        <span>
-                            <span role="button" class="glyphicon glyphicon-eye-open" data-toggle="modal" data-target="#modal_@item.post.ID"></span>
-                        </span>
-                        <span>
-                            @item.post.Comment_Count Comments
-                        </span>
+                        @if (@item.likes.Any(x => x.USER_NAME == (string)Session["username"]))
+                        {
+                            <span role="button" class="glyphicon glyphicon-thumbs-down" onclick="likePost(@item.post.ID)"></span>
+                        }
+                        else
+                        {
+                            <span role="button" class="glyphicon glyphicon-thumbs-up" onclick="likePost(@item.post.ID)"></span>
+                        }
+                        <span>@item.post.Like_Count</span>
+                        <span><a href="#" data-toggle="modal" data-target="#modal_@item.post.ID" id="likeLink">Likes</a></span>
+                        <span>@item.post.Comment_Count Comments</span>
+                        <span class="pull-right">@item.post.CREATED_DATE.ToString("MMM dd, yyyy hh:mm tt")</span>
                     </div>
                 </div>
             </div>
@@ -92,35 +97,31 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">People who liked this post</h4>
+                            <h4 class="modal-title">People who likes this post</h4>
                         </div>
-                        <div class="modal-body">
-                            @foreach (var like in @item.likes)
-                {
-                                <div>
-                                    <strong role="button" onclick="location.href='@Url.Action("ViewProfile", "Pastebook", new { username = like.USER_NAME})'">@like.FIRST_NAME @like.LAST_NAME</strong>
-                                </div>
+                        <div class="modal-body text-center">
+                            @{
+                                if (item.likes.Count() > 0)
+                                {
+                                    foreach (var like in @item.likes)
+                                    {
+                                        <div class="liker">
+                                            @Html.ActionLink(like.FIRST_NAME + " " + like.LAST_NAME, "ViewProfile", "Pastebook", new { username = like.USER_NAME })
+                                        </div>
+                                    }
+                                }
+                                else
+                                {
+                                    <div>
+                                        <strong>No Likes Yet</strong>
+                                    </div>
+                                }
                             }
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        </div>
                     </div>
-
                 </div>
             </div>
-
-
             <div class="panel-body">
-                <div>
-                    <textarea class="form-control commentBox" id="@item.post.ID"></textarea>
-                    <span>
-                        @Html.ValidationMessage("", new { @class = "text-danger", id = "commentOnPostError" + @item.post.ID.ToString() })
-                    </span>
-                    <span>
-                        <span role="button" class="glyphicon glyphicon-comment pull-right" onclick="commentOnPost(@item.post.ID)"></span>
-                    </span>
-                </div>
                 <div id="posts">
                     @foreach (var comment in item.comments)
                 {
@@ -134,14 +135,23 @@
                                 </span>
                             </div>
                             <div class="panel-footer commentCont">
-                                <p>
+                                <span>
                                     @comment.CONTENT
-                                </p>
+                                </span>
                             </div>
                         </div>
                     }
                 </div>
+                <div>
+                    <textarea class="form-control commentBox" id="@item.post.ID" placeholder="Write a comment..."></textarea>
+                    <span>
+                        @Html.ValidationMessage("", new { @class = "text-danger", id = "commentOnPostError" + @item.post.ID.ToString() })
+                    </span>
+                    <span>
+                        <span role="button" class="btn btn-primary pull-right" id="btnComment" onclick="commentOnPost(@item.post.ID)">Publish Comment</span>
+                    </span>
+                </div>
             </div>
         </div>
     </div>
-                                    }
+                                }

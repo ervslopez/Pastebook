@@ -52,8 +52,21 @@ namespace PastebookApp.Managers
             GetAccountProfileResponse resp = service.GetAccountProfile(new GetAccountProfileRequest()
             {
                 username = username,
-                accountID = 0,
-                email = ""
+                email = "",
+                accountID = 0
+            });
+            model = UserMapper.ToUserModel(resp.user);
+            return model;
+        }
+
+        public UserModel GetAccount(int ID)
+        {
+            UserModel model = new UserModel();
+            GetAccountProfileResponse resp = service.GetAccountProfile(new GetAccountProfileRequest()
+            {
+                accountID = ID,
+                username = "",
+                email = "",
             });
             model = UserMapper.ToUserModel(resp.user);
             return model;
@@ -84,9 +97,7 @@ namespace PastebookApp.Managers
             }).userList.ToList();
             return userList;
         }
-
-       
-
+        
         public bool ConfirmOldPassword(int userID, string password)
         {
             return service.ConfirmOldPassword(new ConfirmOldPasswordRequest() {
@@ -97,8 +108,7 @@ namespace PastebookApp.Managers
 
         public string GetCountry(int countryID)
         {
-            var vare = service.GetCountries().CountryList.Where(x=>x.Key == countryID).SingleOrDefault().Value;
-            return vare;
+            return service.GetCountries().CountryList.Where(x => x.Key == countryID).SingleOrDefault().Value;
         }
     }
 }

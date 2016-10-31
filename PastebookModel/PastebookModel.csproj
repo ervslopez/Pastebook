@@ -58,6 +58,9 @@
     <Compile Include="GetCommentsNotif_Result.cs">
       <DependentUpon>PastebookModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="GetFriendRequestNotif_Result.cs">
+      <DependentUpon>PastebookModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="GetFriendsList_Result.cs">
       <DependentUpon>PastebookModel.tt</DependentUpon>
     </Compile>

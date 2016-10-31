@@ -10,7 +10,7 @@
 
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-inverse navbar-fixed-top" id="mainNavbar">
         <div class="container">
             <div class="navbar-header">
                 @{
@@ -20,7 +20,7 @@
                         page = "Home";
                     }
                 }
-                @Html.ActionLink("Pastebook", @page, "Pastebook", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Pastebook", @page, "Pastebook", new { area = "" }, new { @class = "navbar-brand navLink", id = "navAppName" })
                 <div class="form-inline pull-left">
                     @{
                         if (Session["username"] != null && Session["page"].ToString() != "Index")
@@ -29,53 +29,50 @@
                                 @using (Html.BeginForm("SearchUsers", "Pastebook", FormMethod.Post))
                                 {
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name = "name" placeholder="Find other users here..." id="searchTxt">
+                                        <input type="text" class="form-control" name="name" placeholder="Find other users here..." id="searchTxt">
                                     </div>
-                                    <button type="submit" class="btn btn-default" id="btnSearch">
-                                        <span class="glyphicon glyphicon-search"></span>
-                                    </button>
+                                        <button type="submit" class="btn btn-default" id="btnSearch" onclick="checkInput()">
+                                            <span class="glyphicon glyphicon-search"></span>
+                                        </button>
+                                        <div>
+                                            <span>@Html.ValidationMessage("", new { @class = "text-danger", id = "searchUserError" })</span>
+                                        </div>
                                 }
                             </div>
-                            <ul class="nav navbar-nav">
-                                <li class="homeNav navLink" id="navUser">
-                                    <a class="navbar-brand stringNav">
-                                        <span class="navLink">@Html.ActionLink((string)Session["username"], "ViewProfile", "Pastebook", new { username = (string)Session["username"] }, null)</span>
-                                    </a>
-                                </li>
-                                <li class="homeNav">
-                                    <a class="navbar-brand stringNav navLink" id="navFriends">
-                                        <span >@Html.ActionLink("Friends", "ViewFriendList", "Pastebook")</span>
-                                    </a>
-                                </li>
-                                <li class="homeNav">
-                                    <a class="navbar-brand " href="@Url.Action("Home", "Pastebook")">
-                                        <span class="glyphicon glyphicon-home"></span>
-                                    </a>
-                                </li>
-                                <li class="dropdown homeNav">
-                                    <a class="dropdown-toggle navbar-brand" data-toggle="dropdown" href="#" onclick="showNotif()">
-                                        <span class="glyphicon glyphicon-globe"></span>
-                                        <span class="badge" id="notifBadge"></span>
-                                    </a>
-                                    <ul class="dropdown-menu" id="notifDropdown"></ul>
-                                </li>
-                                <li class="homeNav">
-                                    <a class="navbar-brand" href="@Url.Action("#")">
-                                        <span class="glyphicon glyphicon-user"></span>
-                                        <span class="glyphicon glyphicon-plus" id="addFriend"></span>
-                                    </a>
-                                </li>
-                                <li class="homeNav">
-                                    <a class="navbar-brand" href="@Url.Action("Settings", "Pastebook")">
-                                        <span class="glyphicon glyphicon-cog"></span>
-                                    </a>
-                                </li>
-                            </ul>
-                            <ul class="nav navbar-nav pull-right">
-                                <li class="login">
-                                    <button type="submit" class="btn btn-primary" id="btnLogoutHome" onclick="location.href='@Url.Action("Logout", "Pastebook")'">Log Out</button>
-                                </li>
-                            </ul>
+                                <ul class="nav navbar-nav">
+                                    <li class="homeNav navLink" id="navUser">
+                                        <a class="navbar-brand stringNav">
+                                            <span id="usernameNav" class="navLink">@Html.ActionLink((string)Session["username"], "ViewProfile", "Pastebook", new { username = (string)Session["username"] }, null)</span>
+                                        </a>
+                                    </li>
+                                    <li class="homeNav">
+                                        <a class="navbar-brand" href="@Url.Action("Home", "Pastebook")">
+                                            <span class="glyphicon glyphicon-home"></span>
+                                        </a>
+                                    </li>
+                                    <li class="dropdown homeNav">
+                                        <a class="dropdown-toggle navbar-brand" data-toggle="dropdown" href="#" onclick="showNotif()">
+                                            <span class="glyphicon glyphicon-globe"></span>
+                                            <span class="badge" id="notifBadge"></span>
+                                        </a>
+                                        <ul class="dropdown-menu" id="notifDropdown"></ul>
+                                    </li>
+                                    <li class="homeNav">
+                                        <a class="navbar-brand" href="@Url.Action("ViewFriendList", "Pastebook")">
+                                            <span class="glyphicon glyphicon-user"></span>
+                                        </a>
+                                    </li>
+                                    <li class="homeNav">
+                                        <a class="navbar-brand" href="@Url.Action("Settings", "Pastebook")">
+                                            <span class="glyphicon glyphicon-cog"></span>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav navbar-nav pull-right">
+                                    <li class="login">
+                                        <button type="submit" class="btn btn-primary" id="btnLogoutHome" onclick="location.href='@Url.Action("Logout", "Pastebook")'">Log Out</button>
+                                    </li>
+                                </ul>
                         }
                     }
                 </div>
@@ -101,9 +98,16 @@
     @RenderSection("Scripts", required: false)
     <script>
         var notifUrl = '@Url.Action("Notifications", "Pastebook")';
-        function showNotif() {
-            $("#notifDropdown").load(notifUrl);
+        var notifCountURL = '@Url.Action("GetAllNotifications", "Pastebook")';
+
+        var user = @Session["id"];
+
+        if(user != null)
+        {
+            setInterval(function () { showBadge() }, 3000);
         }
     </script>
+
+    <script type="text/javascript" src="~/Scripts/Pastebook.js"></script>
 </body>
 </html>

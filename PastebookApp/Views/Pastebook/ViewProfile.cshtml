@@ -13,20 +13,46 @@
                 {
                     var base64 = Convert.ToBase64String(Model.PROFILE_PIC);
                     imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                    <img src=@imgSrc alt="Profile Picture" class="viewMainProfile img-thumbnail" />
                 }
                 else
                 {
-                    imgSrc = "../../Content/Images/default_Male.png";
+                    <img src="~/Content/Images/default_Male.png" alt="Profile Picture" class="viewMainProfile img-thumbnail" />
                 }
             }
-            <img src=@imgSrc alt="Profile Picture" class="viewMainProfile img-thumbnail" />
         </div>
     </div>
     <div>
         @{
             if (Model.USER_NAME == Session["username"].ToString())
             {
-                <button type="button" value="Edit Profile" class="pull-right" id="btnEditPic" onclick="EditProfile()"><span class="glyphicon glyphicon-edit">EDIT</span></button>
+                <button type="button" value="Edit Profile" class="btn btn-primary pull-right btnViewProfileOrStatus" onclick="EditProfile()">Edit Profile</button>
+            }
+            else
+            {
+                if (@ViewBag.FriendshipStatus == "Not Friends")
+                {
+                    <button type="button" value="Add Friend" class="btn btn-primary pull-right btnViewProfileOrStatus" onclick="CreateFriendRequest()">Add Friend</button>
+                }
+                else if (@ViewBag.FriendshipStatus == "Pending")
+                {
+                    <button type="button" value="Add Friend" class="btn btn-primary pull-right btnViewProfileOrStatus" disabled="disabled">Pending Request</button>
+                }
+                else if (@ViewBag.FriendshipStatus == "Confirm")
+                {
+                    <div class="dropdown pull-right btnViewProfileOrStatus">
+                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuFriend" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            Respond to Request
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuFriend">
+                            <li><a href="#" onclick="RespondToFriendRequest(@Model.ID, true)"><span class="glyphicon glyphicon-ok"></span>Accept</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#" onclick="RespondToFriendRequest(@Model.ID, false)"><span class="glyphicon glyphicon-remove"></span>Decline</a></li>
+                        </ul>
+                    </div>
+                }
+
             }
         }
     </div>
@@ -39,7 +65,10 @@
                     </strong>
                 </div>
                 <div id="emailView">
-                    @Html.DisplayFor(model => model.EMAIL, new {htmlAttributes = new { @class= "emailSignup" } })
+                    @Html.DisplayFor(model => model.EMAIL, new { htmlAttributes = new { @class = "emailSignup", id = "signEmail" , @readonly = true, disabled="disabled"} })
+                </div>
+                <div id="nameView">
+                    Name: @Html.DisplayFor(model => model.FIRST_NAME) @Html.DisplayFor(model => model.LAST_NAME)
                 </div>
                 <div>
                     @{
@@ -52,9 +81,6 @@
                             <p>Tell us something about you</p>
                         }
                     }
-                </div>
-                <div id="nameView">
-                    - @Html.DisplayFor(model => model.FIRST_NAME) @Html.DisplayFor(model => model.LAST_NAME)
                 </div>
                 <div>
                     <span class="glyphicon glyphicon-calendar"></span>
@@ -88,10 +114,6 @@
                         {
                             <p>Female</p>
                         }
-                        else
-                        {
-
-                        }
                     }
                 </div>
             </div>
@@ -99,7 +121,10 @@
         <div class="col-md-8">
             <div class="postsPage">
                 @{
-                    Html.RenderAction("ViewPosts", "Pastebook", new { ID = Model.ID });
+                    if (@ViewBag.FriendshipStatus == "Friends" || Model.USER_NAME == Session["username"].ToString())
+                    {
+                        Html.RenderAction("ViewPosts", "Pastebook", new { ID = Model.ID });
+                    }
                 }
             </div>
         </div>
@@ -115,120 +140,9 @@
         var commentOnPostURL = '@Url.Action("CommentOnPost", "Pastebook")';
         var likePostURL = '@Url.Action("LikePost", "Pastebook")';
         var reloadUrl = '@Url.Action("ViewPosts", "Pastebook", new { ID = Model.ID })';
-
-        function newPost() {
-            var postString = $("#postTxt").val();
-
-            if (postString.length > 0) {
-                var data = {
-                    profileOwner:@Model.ID,
-                    postString : postString
-                }
-
-                $.ajax({
-                    url: postUrl,
-                    data: data,
-                    success: function (data) {
-                        SuccessPost(data)
-                    },
-                    error: function () {
-                        alert("Somethin Went Wrong");
-                    }
-                });
-
-                var SuccessPost = function(data){
-                    $("#postTxt").val("");
-                    $(".postsPage").load(reloadUrl);
-                }
-
-            } else {
-                alert("Can't post nothin!");
-            }
-        }
-
-        function commentOnPost(ID) {
-            var comment = $("#"+ID.toString()).val();
-
-            if (comment.length > 0) {
-                var data = {
-                    postID: ID,
-                    comment: comment
-                }
-                $.ajax({
-                    url: commentOnPostURL,
-                    data: data,
-                    success: function (data) {
-                        SuccessPost(data)
-                    },
-                    error: function () {
-                        alert("Somethin Went Wrong");
-                    }
-                });
-
-                var SuccessPost = function (data) {
-                    $("#commentTxt").val("");
-                    $(".postsPage").load(reloadUrl);
-                }
-
-            } else {
-                alert("Can't post nothin!");
-            }
-        }
-
-        function likePost(ID){
-            var data = {
-                postID: ID
-            }
-            $.ajax({
-                url: likePostURL,
-                data: data,
-                success: function (data) {
-                    SuccessPost(data)
-                },
-                error: function () {
-                    alert("Somethin Went Wrong");
-                }
-            });
-
-            var SuccessPost = function (data) {
-                $("#commentTxt").val("");
-                $(".postsPage").load(reloadUrl);
-            }
-        }
-
-        function EditProfile(){
-            $('#editProfileModal').modal('show');
-        }
-
-        $("#EditImagePath").on('change', function () {
-            if (typeof (FileReader) != "undefined") {
-                var size = parseFloat($("#EditImagePath")[0].files[0].size / (1024)).toFixed(2);
-                var ext = $('#EditImagePath').val().split('.').pop().toLowerCase();
-
-                if ($.inArray(ext, ['png', 'jpg', 'jpeg']) != -1) {
-                    if(size < 30){
-                        var image_holder = $("#EditImageHolder");
-                        image_holder.empty();
-
-                        var reader = new FileReader();
-                        reader.onload = function (e) {
-                            $('#imagePreview').attr('src', e.target.result);
-                        }
-                        reader.readAsDataURL($(this)[0].files[0]);
-                    }else{
-                        $('#imagePreview').attr('src', '');
-                        $('#errorValidation').text("Image should not exceed 30 KB!");
-                    }
-                }else{
-                    $('#imagePreview').attr('src', '');
-                    $('#errorValidation').text("Invalid Image Format");
-                }
-            } else {
-                $('#imagePreview').attr('src', '');
-                $('#errorValidation').text("Something went wrong.");
-            }
-        });
-
+        var createFriendRequestURL = '@Url.Action("SendFriendRequest", "Pastebook", new { friendID = Model.ID })';
+        var respondToFriendRequestURL = '@Url.Action("RespondToFriendRequest", "Pastebook")';
     </script>
-
+    <script type="text/javascript" src="~/Scripts/Post.js"></script>
+    <script type="text/javascript" src="~/Scripts/Profile.js"></script>
 }

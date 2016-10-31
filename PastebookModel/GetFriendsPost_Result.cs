@@ -24,5 +24,7 @@ namespace PastebookModel
         public string LAST_NAME { get; set; }
         public byte[] PROFILE_PIC { get; set; }
         public string USER_NAME { get; set; }
+        public string Profile_FN { get; set; }
+        public string Profile_LN { get; set; }
     }
 }

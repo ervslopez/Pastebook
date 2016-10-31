@@ -5,25 +5,47 @@
 }
 <div class="container" id="friendListContainer">
     <div id="innerContainer">
-        @foreach (var item in Model)
-        {
-            <div class="friendContainer">
-                <div>
-                    @{
-                        var base64 = Convert.ToBase64String(item.PROFILE_PIC);
-                        var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-                    }
-                    <span role="button" class="friendPic">
-                        <img src="@imgSrc" alt="Profile Picture" class="mainProfilePic img-circle" onclick="location.href='@Url.Action("ViewProfile", "Pastebook", new { username = item.USER_NAME})'" />
-                    </span>
+
+        @if (Model.ToList().Count() > 0)
+            {
+            foreach (var item in Model)
+                {
+                <div class="friendContainer">
+                    <div>
+                        <span role="button" class="friendPic">
+                            @{
+                                var imgSrc = "";
+                                if (item.PROFILE_PIC != null)
+                                {
+                                    var base64 = Convert.ToBase64String(item.PROFILE_PIC);
+                                    imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                                    <img src=@imgSrc alt="Profile Picture" class="mainProfilePic img-circle" onclick="location.href='@Url.Action("ViewProfile", "Pastebook", new { username = item.USER_NAME})'" />
+                                }
+                                else
+                                {
+                                    <img src="~/Content/Images/default_Male.png" alt="Profile Picture" class="mainProfilePic img-circle" onclick="location.href='@Url.Action("ViewProfile", "Pastebook", new { username = item.USER_NAME})'" />
+                                }
+                            }
+                        </span>
+                    </div>
+                    <div id="searchContent">
+                        <div class="friendItem">
+                            <span><strong>@Html.DisplayFor(modelItem => item.FIRST_NAME) @Html.DisplayFor(modelItem => item.LAST_NAME)</strong></span>
+                        </div>
+                        <div class="friendItem">
+                            <span>@Html.DisplayFor(modelItem => item.ABOUT_ME)</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="friendItem">
-                    <span>@Html.DisplayFor(modelItem => item.FIRST_NAME) @Html.DisplayFor(modelItem => item.LAST_NAME)</span>
-                </div>
-                <div class="friendItem">
-                    <span>@Html.DisplayFor(modelItem => item.ABOUT_ME)</span>
-                </div>
-            </div>
-                        }
+                                }
+                                }
+                                else
+                                {
+                                    <div class="NoFriendContainer">
+                                        <div>
+                                            <h1 id="noFriendsMessage">You don't have any friends yet</h1>
+                                        </div>
+                                    </div>
+                                }
     </div>
 </div>

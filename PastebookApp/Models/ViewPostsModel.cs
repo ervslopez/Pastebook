@@ -9,6 +9,7 @@ namespace PastebookApp.Models
     public class ViewPostsModel
     {
         public UserModel user { get; set; }
+        public UserModel profileOwner { get; set; }
         public List<CompletePost> postList;
 
         public ViewPostsModel()

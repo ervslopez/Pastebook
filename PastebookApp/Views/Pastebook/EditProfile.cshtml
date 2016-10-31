@@ -24,16 +24,16 @@
                                             {
                                                 var base64 = Convert.ToBase64String(Model.PROFILE_PIC);
                                                 imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                                                <img id="imagePreview" src="@imgSrc" alt="Profile Picture" class="mainProfilePic img-circle" />
                                             }
                                             else
                                             {
-                                                imgSrc = "../../Content/Images/default_Male.png";
+                                                <img id="imagePreview" src="~/Content/Images/default_Male.png" alt="Profile Picture" class="mainProfilePic img-circle" />
                                             }
                                         }
-                                        <img id="imagePreview" src="@imgSrc" alt="Profile Picture" class="mainProfilePic img-circle" />
                                     </div>
                                     <div id="inputFile">
-                                        <input id="EditImagePath" type="file" name="file" accept="image/jpeg, image/png, image/jpg" />
+                                        <input id="EditImagePath" type="file" name="file" accept="image/*"/>
                                     </div>
                                 </div>
                                 @Html.ValidationMessageFor(model => model.PROFILE_PIC, "", new { @class = "text-danger", id = "errorValidation" })
@@ -49,7 +49,6 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary editFooter" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary editFooter">Save changes</button>
                     </div>
                     @Html.HiddenFor(model => model.BIRTHDAY);
@@ -65,6 +64,11 @@
                                             @Html.HiddenFor(model => model.USER_NAME);
                                             @Html.HiddenFor(model => model.PROFILE_PIC);
                                             }
+                @{ 
+                    Model.PASSWORD = " ";
+                    Model.CONFIRM_PASSWORD = " ";
+
+                }
             </div>
         </div>
     </div>

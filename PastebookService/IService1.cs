@@ -65,15 +65,23 @@ namespace PastebookService
         FriendResponse AcceptFriendship(FriendRequest request);
 
         [OperationContract]
+        FriendResponse DeclineFriendship(FriendRequest request);
+
+        [OperationContract]
         FriendResponse BlockAccount(FriendRequest request);
 
         [OperationContract]
         ViewFriendsListResponse ViewFriendsList(ViewFriendsListRequest request);
 
+        [OperationContract]
+        GetFriendshipStatusResponse GetFriendshipStatus(FriendRequest request);
+
         //Notification Related Services
         [OperationContract]
         GetAllNotificationsResponse GetAllNotifications(GetAllNotificationsRequest request);
-        
+
+        [OperationContract]
+        GetNotificationCountResponse GetNotificationCount(GetAllNotificationsRequest request);
         //Utilities
         [OperationContract]
         GetCountriesResponse GetCountries();

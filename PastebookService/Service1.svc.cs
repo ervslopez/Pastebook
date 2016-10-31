@@ -86,11 +86,14 @@ namespace PastebookService
             StatusResponse stat = postManager.LikePost(request);
             if (stat.Status && stat.errorList.Count == 0)
             {
-                if (!notificationManager.LikeNotification(request.like.POST_ID, request.like.LIKED_BY,
-                                                    postManager.GetPostOwnerID(request.like.POST_ID)))
+                int postOwnerID = postManager.GetPostOwnerID(request.like.POST_ID);
+                if (postOwnerID != request.like.LIKED_BY)
                 {
-                    stat.errorList.Add("Like Notification Failed To Send");
-                }
+                    if (!notificationManager.LikeNotification(request.like.POST_ID, request.like.LIKED_BY, postOwnerID))
+                    {
+                        stat.errorList.Add("Like Notification Failed To Send");
+                    }
+                }                
             }
             return stat;
         }
@@ -102,13 +105,17 @@ namespace PastebookService
             CommentOnPostResponse stat = postManager.CommentOnPost(request);
             if (stat.Status && stat.errorList.Count == 0)
             {
-                if (!notificationManager.CommentNotification(request.comment.POST_ID,
+                int postOwnerID = postManager.GetPostOwnerID(request.comment.POST_ID);
+                if (postOwnerID != request.comment.POSTER_ID)
+                {
+                    if (!notificationManager.CommentNotification(request.comment.POST_ID,
                                                             request.comment.POSTER_ID,
-                                                            postManager.GetPostOwnerID(request.comment.POST_ID),
+                                                            postOwnerID,
                                                             postManager.getCommentID(request.comment.POSTER_ID,
                                                             stat.commentDateTime)))
-                {
-                    stat.errorList.Add("Comment Notification Failed To Send");
+                    {
+                        stat.errorList.Add("Comment Notification Failed To Send");
+                    }
                 }
             }
             return stat;
@@ -122,7 +129,7 @@ namespace PastebookService
             FriendResponse stat = friendManager.RequestFriendship(request);
             if (stat.Status && stat.errorList.Count == 0)
             {
-                if (!notificationManager.FriendNotification(request.friend.FRIEND_ID, request.friend.USER_ID))
+                if (!notificationManager.FriendNotification(request.friend.USER_ID, request.friend.FRIEND_ID))
                 {
                     stat.errorList.Add("Friend Notification Failed To Send");
                 }
@@ -135,6 +142,11 @@ namespace PastebookService
             return friendManager.AcceptFriendship(request);
         }
 
+        public FriendResponse DeclineFriendship(FriendRequest request)
+        {
+            return friendManager.DeclineFriendship(request);
+        }
+
         public FriendResponse BlockAccount(FriendRequest request)
         {
             return friendManager.BlockAccount(request);
@@ -145,13 +157,23 @@ namespace PastebookService
             return friendManager.ViewFriendsList(request);
         }
 
+        public GetFriendshipStatusResponse GetFriendshipStatus(FriendRequest request)
+        {
+            return friendManager.GetFriendshipStatus(request);
+        }
+
         //Notification Related Services
 
         public GetAllNotificationsResponse GetAllNotifications(GetAllNotificationsRequest request)
         {
             return notificationManager.GetRecentNotifications(request.userID);
         }
-        
+
+        public GetNotificationCountResponse GetNotificationCount(GetAllNotificationsRequest request)
+        {
+            return new GetNotificationCountResponse() { count = notificationManager.GetNotifCount(request.userID) };
+        }
+
         //Utilities
 
         public GetCountriesResponse GetCountries()

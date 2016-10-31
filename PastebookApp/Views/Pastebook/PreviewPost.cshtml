@@ -2,97 +2,109 @@
 @{
     Session["page"] = "PreviewPost";
 }
-<div class="postsPage">
-</div>
-<div class="col-md-offset-2 col-md-8">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <div class="panel panel-default">
-                <div class="panel-heading" id="postHeader">
-                    <span>
-                        @Model.post.CREATED_DATE
-                    </span>
-                    <div>
-                        <span>
-                            @{
-                                var Base64 = Convert.ToBase64String(@Model.post.PROFILE_PIC);
-                                var ImgSrc = String.Format("data:image/gif;base64,{0}", Base64);
-                            }
-                            <img src="@ImgSrc" alt="Profile Picture" id="postProfilePic" class="img-circle" onclick="location.href='@Url.Action("ViewProfile", "Pastebook", new { username = Model.post.USER_NAME})'" />
-                        </span>
-                        <span>
-                            @Model.post.FIRST_NAME @Model.post.LAST_NAME
-                        </span>
-                    </div>
-                </div>
-                <div class="panel-heading">
-                    @Model.post.CONTENT
-                </div>
-                <div class="panel-body">
-                    <span>
-                        <span class="glyphicon glyphicon-apple" id="btnLike" onclick="postPreviewLike(@Model.post.ID)"></span>
-                    </span>
-                    <span>
-                        @Model.post.Like_Count Likes
-                    </span>
-                    <span>
-                        <span role="button" class="glyphicon glyphicon-eye-open" data-toggle="modal" data-target="#modal_@Model.post.ID"></span>
-                    </span>
-                    <span>
-                        @Model.post.Comment_Count Comments
-                    </span>
-                </div>
-            </div>
-        </div>
-
-        <div id="modal_@Model.post.ID" class="modal fade" role="dialog">
-            <div class="modal-dialog modal-sm">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">People who liked this post</h4>
-                    </div>
-                    <div class="modal-body">
-                        @foreach (var like in @Model.likes)
-                        {
-                            <div>
-                                <strong role="button" onclick="location.href='@Url.Action("ViewProfile", "Pastebook", new { username = like.USER_NAME})'">@like.FIRST_NAME @like.LAST_NAME</strong>
+<div class="postsPage col-md-12">
+    <div class="col-md-offset-2 col-md-8">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel panel-default">
+                    <div class="panel-heading" id="postHeader">
+                        <div class="container containerPost">
+                            <div class="col-md-1 profilePicHolder">
+                                @{
+                                    var imgSrc = "";
+                                    if (Model.post.PROFILE_PIC != null)
+                                    {
+                                        var Base64 = Convert.ToBase64String(Model.post.PROFILE_PIC);
+                                        imgSrc = String.Format("data:image/gif;base64,{0}", Base64);
+                                        <img src=@imgSrc alt="Profile Picture" id="postProfilePic" class="img-circle postProfilePic" onclick="location.href='@Url.Action("ViewProfile", "Pastebook", new { username = Model.post.USER_NAME})'" />
+                                    }
+                                    else
+                                    {
+                                        <img src="~/Content/Images/default_Male.png" alt="Profile Picture" id="postProfilePic" class="img-circle postProfilePic" onclick="location.href='@Url.Action("ViewProfile", "Pastebook", new { username = Model.post.USER_NAME})'" />
+                                    }
+                                }
                             </div>
-                        }
+                            <div class="col-md-9 postContent">
+                                <div>
+                                    <strong>@Model.post.FIRST_NAME @Model.post.LAST_NAME</strong>
+                                </div>
+                                <div class="col-md-offset-1 mainPost">
+                                    @Model.post.CONTENT
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                    <div class="panel-body">
+                        <span role="button" class="glyphicon glyphicon-apple" id="btnLike" onclick="postPreviewLike(@Model.post.ID)"></span>
+                        <span>@Model.post.Like_Count</span>
+                        <span><a href="#" data-toggle="modal" data-target="#modal_@Model.post.ID" id="likeLink">Likes</a></span>
+                        <span>@Model.post.Comment_Count Comments</span>
+                        <span class="pull-right">@Model.post.CREATED_DATE.ToString("MMM dd, yyyy hh:mm tt")</span>
                     </div>
                 </div>
-
             </div>
-        </div>
 
-        <div class="panel-body">
-            <div>
-                <textarea class="form-control commentBox" id="@Model.post.ID"></textarea>
-                <span class="glyphicon glyphicon-comment pull-right" id="btnComment" onclick="postPreviewComment(@Model.post.ID)"></span>
-
-            </div>
-            <div id="posts">
-                @foreach (var comment in @Model.comments)
-            {
-                    <div class="panel panel-info">
-                        <div class="panel-heading" id="commentHeader">
-                            <span>
-                                @comment.DATE_CREATED
-                            </span>
-                            <span>
-                                @comment.FIRST_NAME @comment.LAST_NAME
-                            </span>
+            <div id="modal_@Model.post.ID" class="modal fade" role="dialog">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">People who likes this post</h4>
                         </div>
-                        <div class="panel-footer">
-                            <p>
-                                @comment.CONTENT
-                            </p>
+                        <div class="modal-body">
+                            @{
+                                if (@Model.likes.Count() > 0)
+                                {
+                                    foreach (var like in @Model.likes)
+                                    {
+                                        <div>
+                                            <strong role="button" onclick="location.href='@Url.Action("ViewProfile", "Pastebook", new { username = like.USER_NAME})'">@like.FIRST_NAME @like.LAST_NAME</strong>
+                                        </div>
+                                    }
+                                }
+                                else
+                                {
+                                    <div>
+                                        <strong>No Likes Yet</strong>
+                                    </div>
+                                }
+                            }
                         </div>
                     </div>
-                }
+                </div>
+            </div>
+
+            <div class="panel-body">
+                <div id="posts">
+                    @foreach (var comment in @Model.comments)
+                    {
+                        <div class="panel panel-info">
+                            <div class="panel-heading" id="commentHeader">
+                                <span>
+                                    @comment.FIRST_NAME @comment.LAST_NAME
+                                </span>
+                                <span class="pull-right">
+                                    @comment.DATE_CREATED.ToString("MMM dd, yyyy hh:mm tt")
+                                </span>
+                            </div>
+                            <div class="panel-footer commentCont">
+                                <span>
+                                    @comment.CONTENT
+                                </span>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div>
+                    <textarea class="form-control commentBox" id="@Model.post.ID" placeholder="Write a comment..."></textarea>
+                    <span>
+                        @Html.ValidationMessage("", new { @class = "text-danger", id = "commentOnPostError" + @Model.post.ID.ToString() })
+                    </span>
+                    <span>
+                        <span role="button" class="btn btn-primary pull-right" id="btnComment" onclick="postPreviewComment(@Model.post.ID)">Publish Comment</span>
+                    </span>
+                </div>
             </div>
         </div>
     </div>
@@ -106,7 +118,7 @@
         var postUrl = '@Url.Action("PublishPost", "Pastebook")';
         var commentOnPostURL = '@Url.Action("CommentOnPost", "Pastebook")';
         var likePostURL = '@Url.Action("LikePost", "Pastebook")';
-        
+
     </script>
     <script type="text/javascript" src="~/Scripts/Post.js"></script>
 }

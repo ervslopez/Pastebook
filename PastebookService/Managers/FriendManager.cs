@@ -15,7 +15,7 @@ namespace PastebookService
                 if (accountDataAccess.UserIDExists(request.friend.USER_ID)
                     && accountDataAccess.UserIDExists(request.friend.FRIEND_ID))
                 {
-                    Friend friend = friendDataAccess.GetFriendshipStatus(request.friend.USER_ID, request.friend.FRIEND_ID);
+                    Friend friend = friendDataAccess.GetFriendshipStatus(request.friend.USER_ID, request.friend.FRIEND_ID, true);
                     if (!friendDataAccess.checkRelationship(request.friend.USER_ID, request.friend.FRIEND_ID, "N",
                                                                                     "Y", true))
                     {
@@ -70,9 +70,54 @@ namespace PastebookService
                             request.friend.CREATED_DATE = DateTime.Now;
 
                             request.friend.ID = friendDataAccess.GetFriendshipStatus(request.friend.USER_ID,
-                                                                                    request.friend.FRIEND_ID).ID;
+                                                                                    request.friend.FRIEND_ID, false).ID;
+                            
+                            if(resp.Status = friendDataAccess.UpdateFriendship(request.friend) > 0)
+                            {
+                                friendDataAccess.AddFriendshipStatus(new Friend() {
+                                    IsBLOCKED = 'N',
+                                    REQUEST = 'N',
+                                    USER_ID = request.friend.FRIEND_ID,
+                                    FRIEND_ID = request.friend.USER_ID,
+                                    CREATED_DATE = DateTime.Now
+                                });
+                            }
+                        }
+                    }
+                    else
+                    {
+                        resp.IsBlocked = true;
+                    }
+                }
+                else
+                {
+                    resp.Status = false;
+                }
+            }
+            catch (Exception e)
+            {
+                resp.errorList.Add(e.ToString());
+            }
+            return resp;
+        }
 
-                            resp.Status = friendDataAccess.UpdateFriendship(request.friend) > 0 ? true : false;
+        public FriendResponse DeclineFriendship(FriendRequest request)
+        {
+            FriendResponse resp = new FriendResponse();
+            try
+            {
+                if (accountDataAccess.UserIDExists(request.friend.USER_ID)
+                && accountDataAccess.UserIDExists(request.friend.FRIEND_ID))
+                {
+                    if (!friendDataAccess.checkRelationship(request.friend.USER_ID, request.friend.FRIEND_ID, "Y"))
+                    {
+                        resp.IsBlocked = false;
+                        if (friendDataAccess.checkRelationship(request.friend.FRIEND_ID, request.friend.USER_ID, "Y",
+                                                                                    "N", true))
+                        {
+                            resp.RequestExists = true;
+                            Friend friend = friendDataAccess.GetFriendshipStatus(request.friend.FRIEND_ID, request.friend.USER_ID, true);
+                            resp.Status = friendDataAccess.RemoveFriendshipStatus(friend) > 0 ? true : false;
                         }
                     }
                     else
@@ -106,7 +151,7 @@ namespace PastebookService
                         request.friend.REQUEST = 'N';
                         request.friend.IsBLOCKED = 'Y';
                         request.friend.ID = friendDataAccess.GetFriendshipStatus(request.friend.USER_ID,
-                                                                                    request.friend.FRIEND_ID).ID;
+                                                                                    request.friend.FRIEND_ID, true).ID;
 
                         var dummy = request.friend.USER_ID;
                         request.friend.USER_ID = request.friend.FRIEND_ID;
@@ -157,6 +202,26 @@ namespace PastebookService
             catch (Exception e)
             {
                 resp.errorList.Add(e.ToString());
+            }
+            return resp;
+        }
+
+        public GetFriendshipStatusResponse GetFriendshipStatus(FriendRequest request)
+        {
+            GetFriendshipStatusResponse resp = new GetFriendshipStatusResponse() {
+                friendshipStatus = "Not Friends"
+            };
+            Friend friend = friendDataAccess.GetFriendshipStatus(request.friend.USER_ID, request.friend.FRIEND_ID, true);
+
+            if(friend.REQUEST == 'N')
+            {
+                resp.friendshipStatus = "Friends";
+            }else if(friend.REQUEST == 'Y')
+            {
+                resp.friendshipStatus = "Pending";
+            }else if(friendDataAccess.CheckFriendRequestToConfirm(request.friend.USER_ID, request.friend.FRIEND_ID))
+            {
+                resp.friendshipStatus = "Confirm";
             }
             return resp;
         }

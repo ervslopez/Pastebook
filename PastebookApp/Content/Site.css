@@ -7,13 +7,14 @@
     width: 100%;
     height: 100%;
     /*background-image: url(Images/background.jpg);*/
-    background: url(../../Content/Images/background.jpg);
+    background: url(Images/background.jpg);
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
     background-color: #464646;
+    overflow-x: hidden;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -22,8 +23,8 @@
     padding-right: 15px;
 }
 
-#emailSignup{
-    text-decoration:none;
+#emailSignup {
+    text-decoration: none;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -46,26 +47,68 @@ textarea {
     resize: none;
 }
 
-.editFooter{
-    margin-top:10px;
+.editFooter {
+    margin-top: 10px;
 }
 
 form-control {
     width: 100%;
 }
 
-#footerModalEdit{
-    height:410px;
+#liker{
+    margin:20px;
+    cursor:pointer;
 }
 
-.navLink > a{
-    font-size:18px;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    padding-top:30px;
+.passwordSignUp, .otherSignup{
+    width:280px;
 }
 
-#errorValidation{
-margin-left:-130px;
+.otherSignup{
+    margin-bottom:-3px;
+}
+
+#signEmail{
+    text-decoration:none;
+    read
+}
+
+.signupRight{
+    height:34px;
+    margin-left:15px;
+    width:278px;
+}
+
+#noFriendsMessage{
+    
+}
+
+#mainNavbar {
+    background-color: #f0f8ff;
+    border-color: #0f1f26;
+    border-bottom-width: thick;
+}
+
+#likeLink {
+    display: inline;
+}
+
+#btnComment {
+    margin-top: 10px;
+}
+
+#footerModalEdit {
+    height: 410px;
+}
+
+.navLink > a {
+    font-size: 20px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    padding-top: 30px;
+}
+
+#errorValidation {
+    margin-left: -130px;
 }
 
 /* For the sign up and register page*/
@@ -131,7 +174,6 @@ img {
     height: 35px;
     width: 100px;
     margin-right: 20px;
-    color: #000;
     margin-top: 10px;
 }
 
@@ -145,8 +187,44 @@ img {
     background-color: rgba(193, 173, 214, 0.86);
 }
 
+.navbar-inverse .navbar-nav > li > a {
+    color: #0000EE;
+}
+
+    .navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:active {
+        color: #000000;
+    }
+
+.navbar-inverse .navbar-nav > .active > a {
+    color: #000000;
+}
+
+#searchContent {
+    height: 90px;
+    max-height: 90px;
+}
+
+#errorTxtLogin {
+    margin-top: 8px;
+}
+
+#usernameNav, #friendsNav {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 18px;
+    padding-bottom: 10px;
+    padding-top: 25px;
+}
+
+#navAppName {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 18px;
+    margin-top: 12px;
+}
+
 .containerPost {
     padding-left: 0px;
+    padding-right: 0px;
+    margin-right: 0px;
     width: inherit;
 }
 
@@ -163,6 +241,7 @@ img {
 .mainPost {
     margin-top: 15px;
     margin-left: 40px;
+    word-wrap: break-word;
 }
 
 .commentBox {
@@ -197,8 +276,12 @@ img {
     border-radius: 15px;
 }
 
-#emailPasswordEdit {
+#emailPasswordEdit{
     width: 500px;
+}
+
+#editPass{
+    margin-top: 20px;
 }
 
 .Banner {
@@ -259,6 +342,7 @@ img {
     border-radius: 5px;
     max-height: 400px;
     overflow: scroll;
+    overflow-x: hidden;
 }
 
 #addFriend {
@@ -268,14 +352,7 @@ img {
     padding-bottom: 10px;
 }
 
-::-webkit-scrollbar {
-    width: 0px;
-}
 
-::-webkit-scrollbar-track-piece {
-    background-color: transparent;
-    -webkit-border-radius: 6px;
-}
 /*Home Page*/
 
 .modal-dialog {
@@ -284,29 +361,44 @@ img {
 }
 
 /*FriendList*/
-#friendListContainer{
+#friendListContainer {
     background-color: rgba(110, 110, 126, 0.63);
     border-radius: 15px;
-    height: 550px;
+    height: 450px;
     padding: 5px;
+    overflow-x: hidden;
 }
 
-.friendItem{
+.friendItem {
     width: 100%;
     text-align: center;
     position: center;
 }
 
-.friendPic{
+.friendPic {
     margin-left: 25px;
 }
 
-.friendContainer{
+#noFriendsMessage, #noResultsMessage{
+text-align:center;
+}
+
+.friendContainer {
     background-color: rgba(128, 128, 128, 0.87);
     border-radius: 5px;
     padding: 5px;
     margin: 15px;
     width: 250px;
+    display: inline-block;
+}
+
+.NoFriendContainer{
+    background-color: rgba(128, 128, 128, 0.87);
+    border-radius: 5px;
+    padding: 5px;
+    margin: 15px;
+    width: 1130px;
+    text-align:center;
     display: inline-block;
 }
 
@@ -329,8 +421,9 @@ img {
     background-color: rgba(128, 128, 128, 0.87);
 }
 
-#btnEditPic {
+.btnViewProfileOrStatus {
     margin-bottom: 10px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 #usernameBig {
@@ -352,96 +445,121 @@ img {
 #imagePreview {
     height: 150px;
     width: 150px;
-    margin-left:100px;
+    margin-left: 100px;
 }
 
-#inputFile{
-    margin-top:10px;
+#inputFile {
+    margin-top: 10px;
 }
 
-a{
-    display:block;
+a {
+    display: block;
 }
 
-#searchListContainer{
+#searchListContainer {
     background-color: rgba(110, 110, 126, 0.63);
     border-radius: 15px;
     height: 550px;
     padding: 5px;
 }
 
-#innerContainer, #searchListContainer{
-    max-height: 550px;
-    overflow: scroll;
+#innerContainer, #searchListContainer {
+    max-height: 430px;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
-.searchItem {
-    width: 100%;
+.searchItem, .friendItem {
+    width: 230px;
     text-align: center;
     position: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    -ms-text-overflow: ellipsis;
 }
 
 .searchPic {
     margin-left: 25px;
 }
 
-.searchContainer {
+.searchContainer, .friendContainer {
     background-color: rgba(128, 128, 128, 0.87);
     border-radius: 5px;
     padding: 5px;
     margin: 15px;
     width: 250px;
-    display: inline-block;
+    height: 250px;
+    max-height: 300px;
+    display: inline-table;
 }
 
 /*Error Page*/
-#errorBody{
-    background-image: url('../../Content/Images/underConstruction.jpg');
-    background-position:center;
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+#errorBody {
+    background-image: url('Images/error-background.jpg');
+    background-position: center;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
-#errorContainer{
-    background-color:rgba(200, 186, 86, 0.20);
-    border-radius:30px;
-    text-align:center;
-    margin-left:400px;
-    margin-bottom:300px;
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+#errorContainer {
+    background-color: rgba(200, 186, 86, 0.20);
+    border-radius: 30px;
+    text-align: center;
+    margin-left: 400px;
+    margin-bottom: 300px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
-#maintenance{
-    font-size:60px;
+#maintenance {
+    font-size: 60px;
 }
 
-#message{
-    font-size:50px;
+#message {
+    font-size: 50px;
 }
 
-#message2{
-    font-size:30px;
+#message2 {
+    font-size: 30px;
 }
 
-#error404Body{
-    background-image: url('../../Content/Images/error-404.jpg');
-    background-position:center;
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    
+#error404Body {
+    background-image: url('Content/Images/error-404.jpg');
+    background-position: center;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
-#404Container{
+#404Container {
     background-color: rgba(245, 241, 241, 0.78);
-    border-radius:30px;
-    text-align:center;
-    margin-left:400px;
-    margin-bottom:300px;
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    border-radius: 30px;
+    text-align: center;
+    margin-left: 400px;
+    margin-bottom: 300px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
-#404maintenance{
-    font-size:60px;
+#404maintenance {
+    font-size: 60px;
 }
 
-#404message{
-    font-size:50px;
+#404message {
+    font-size: 50px;
+}
+
+.badge {
+    display: block;
+    min-width: 5px;
+    padding: 4px 4px;
+    font-size: 10px;
+    font-weight: bold;
+    line-height: 1;
+    color: #ffffff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    background-color: #999999;
+    border-radius: 10px;
+    margin-top: -10px;
+    position: absolute;
+    margin-left: 10px;
 }

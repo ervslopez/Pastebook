@@ -27,17 +27,15 @@ namespace PastebookService
             return result;
         }
 
-        public Friend GetFriendshipStatus(int userID, int friendID)
+        public int UpdateFriendship(Friend friend)
         {
-            Friend result = new Friend();
+            int result = 0;
             try
             {
                 using (var context = new DB_PASTEBOOKEntities())
                 {
-                    result = FriendMapper.toFriend(context.PB_FRIEND
-                                                    .Where(x => (x.USER_ID == userID && x.FRIEND_ID == friendID)
-                                                        || (x.USER_ID == friendID && x.FRIEND_ID == userID))
-                                                    .SingleOrDefault());
+                    context.Entry(FriendMapper.toPB_FRIEND(friend)).State = EntityState.Modified;
+                    result = context.SaveChanges();
                 }
             }
             catch (Exception ex)
@@ -47,14 +45,16 @@ namespace PastebookService
             return result;
         }
 
-        public int UpdateFriendship(Friend friend)
+        public int RemoveFriendshipStatus(Friend friend)
         {
             int result = 0;
             try
             {
                 using (var context = new DB_PASTEBOOKEntities())
                 {
-                    context.Entry(FriendMapper.toPB_FRIEND(friend)).State = EntityState.Modified;
+                    //context.PB_FRIEND.Remove(FriendMapper.toPB_FRIEND(friend));
+                    //result = context.SaveChanges();
+                    context.Entry(FriendMapper.toPB_FRIEND(friend)).State = EntityState.Deleted;
                     result = context.SaveChanges();
                 }
             }
@@ -127,8 +127,8 @@ namespace PastebookService
                     //                .Where(u => u.ID == ID).FirstOrDefault();
 
                     var list = context.PB_FRIEND
-                                    .Where(f => f.IsBLOCKED == "N" && f.REQUEST == "N" && (f.FRIEND_ID == ID || f.USER_ID == ID))
-                                    .Select(f => f.PB_USER.ID == ID? f.PB_USER1: f.PB_USER)
+                                    .Where(f => f.IsBLOCKED == "N" && f.REQUEST == "N" && f.USER_ID == ID)
+                                    .Select(f => f.PB_USER)
                                     .ToList();
 
                     foreach (var item in list)
@@ -149,6 +149,52 @@ namespace PastebookService
                 listOfException.Add(ex);
             }
             return friendList;
+        }
+
+        public Friend GetFriendshipStatus(int userID, int friendID, bool strict)
+        {
+            Friend result = new Friend();
+            try
+            {
+                using (var context = new DB_PASTEBOOKEntities())
+                {
+                    if (strict)
+                    {
+                        result = FriendMapper.toFriend(context.PB_FRIEND
+                                                        .Where(x => x.USER_ID == userID && x.FRIEND_ID == friendID)
+                                                        .SingleOrDefault());
+                    }
+                    else
+                    {
+                        result = FriendMapper.toFriend(context.PB_FRIEND
+                                                        .Where(x => (x.USER_ID == userID && x.FRIEND_ID == friendID)
+                                                        ||(x.USER_ID == friendID && x.FRIEND_ID == userID))
+                                                        .SingleOrDefault());
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                listOfException.Add(ex);
+            }
+            return result;
+        }
+
+        public bool CheckFriendRequestToConfirm(int userID, int friendID)
+        {
+            bool result = false;
+            try
+            {
+                using (var context = new DB_PASTEBOOKEntities())
+                {
+                    result = context.PB_FRIEND.Any(x=>x.USER_ID == friendID && x.FRIEND_ID == userID && x.REQUEST == "Y");
+                }
+            }
+            catch (Exception ex)
+            {
+                listOfException.Add(ex);
+            }
+            return result;
         }
     }
 }

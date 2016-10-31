@@ -57,12 +57,15 @@ namespace PastebookService
             GetAllNotificationsResponse response = new GetAllNotificationsResponse();
             response.likesNotif = notificationDataAccess.GetAllRecentLikesNotification(userID);
             response.commentsNotif = notificationDataAccess.GetAllRecentCommentsNotification(userID);
+            response.friendRequestsNotif = notificationDataAccess.GetAllRecentFriendRequestsNotification(userID);
+            notificationDataAccess.AllNotifSeen(userID);
             return response;
         }
 
-        public bool AllNotificationsSeen(int userID)
+        public int GetNotifCount(int userID)
         {
-            throw new NotImplementedException();
+            return notificationDataAccess.GetNotificationCount(userID);
         }
+        
     }
 }

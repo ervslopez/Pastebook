@@ -276,6 +276,12 @@
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="ViewFriendsListResponse" nillable="true" type="tns:ViewFriendsListResponse" />
+  <xs:complexType name="GetFriendshipStatusResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="friendshipStatus" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GetFriendshipStatusResponse" nillable="true" type="tns:GetFriendshipStatusResponse" />
   <xs:complexType name="GetAllNotificationsRequest">
     <xs:sequence>
       <xs:element minOccurs="0" name="userID" type="xs:int" />
@@ -287,15 +293,26 @@
       <xs:extension base="tns:StatusResponse">
         <xs:sequence>
           <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/PastebookModel" minOccurs="0" name="commentsNotif" nillable="true" type="q6:ArrayOfGetCommentsNotif_Result" />
-          <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/PastebookModel" minOccurs="0" name="likesNotif" nillable="true" type="q7:ArrayOfGetLikesNotif_Result" />
+          <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/PastebookModel" minOccurs="0" name="friendRequestsNotif" nillable="true" type="q7:ArrayOfGetFriendRequestNotif_Result" />
+          <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/PastebookModel" minOccurs="0" name="likesNotif" nillable="true" type="q8:ArrayOfGetLikesNotif_Result" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="GetAllNotificationsResponse" nillable="true" type="tns:GetAllNotificationsResponse" />
+  <xs:complexType name="GetNotificationCountResponse">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:StatusResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="count" type="xs:int" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="GetNotificationCountResponse" nillable="true" type="tns:GetNotificationCountResponse" />
   <xs:complexType name="GetCountriesResponse">
     <xs:sequence>
-      <xs:element xmlns:q8="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="CountryList" nillable="true" type="q8:ArrayOfKeyValueOfintstring" />
+      <xs:element xmlns:q9="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="CountryList" nillable="true" type="q9:ArrayOfKeyValueOfintstring" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="GetCountriesResponse" nillable="true" type="tns:GetCountriesResponse" />

@@ -154,6 +154,8 @@
     <Compile Include="Response\GetAccountProfileResponse.cs" />
     <Compile Include="Response\GetAllNotificationsResponse.cs" />
     <Compile Include="Response\GetCountriesResponse.cs" />
+    <Compile Include="Response\GetFriendshipStatusResponse.cs" />
+    <Compile Include="Response\GetNotificationCountResponse.cs" />
     <Compile Include="Response\GetPostListResponse.cs" />
     <Compile Include="Response\GetPostResponse.cs" />
     <Compile Include="Response\SearchUsersResponse.cs" />

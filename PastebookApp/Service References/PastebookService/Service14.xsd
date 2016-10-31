@@ -225,45 +225,87 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="BlockAccount">
+  <xs:element name="DeclineFriendship">
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q33="http://schemas.datacontract.org/2004/07/PastebookService" minOccurs="0" name="request" nillable="true" type="q33:FriendRequest" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="DeclineFriendshipResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q34="http://schemas.datacontract.org/2004/07/PastebookService" minOccurs="0" name="DeclineFriendshipResult" nillable="true" type="q34:FriendResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="BlockAccount">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q35="http://schemas.datacontract.org/2004/07/PastebookService" minOccurs="0" name="request" nillable="true" type="q35:FriendRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="BlockAccountResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q34="http://schemas.datacontract.org/2004/07/PastebookService" minOccurs="0" name="BlockAccountResult" nillable="true" type="q34:FriendResponse" />
+        <xs:element xmlns:q36="http://schemas.datacontract.org/2004/07/PastebookService" minOccurs="0" name="BlockAccountResult" nillable="true" type="q36:FriendResponse" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="ViewFriendsList">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q35="http://schemas.datacontract.org/2004/07/PastebookService" minOccurs="0" name="request" nillable="true" type="q35:ViewFriendsListRequest" />
+        <xs:element xmlns:q37="http://schemas.datacontract.org/2004/07/PastebookService" minOccurs="0" name="request" nillable="true" type="q37:ViewFriendsListRequest" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="ViewFriendsListResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q36="http://schemas.datacontract.org/2004/07/PastebookService" minOccurs="0" name="ViewFriendsListResult" nillable="true" type="q36:ViewFriendsListResponse" />
+        <xs:element xmlns:q38="http://schemas.datacontract.org/2004/07/PastebookService" minOccurs="0" name="ViewFriendsListResult" nillable="true" type="q38:ViewFriendsListResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetFriendshipStatus">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q39="http://schemas.datacontract.org/2004/07/PastebookService" minOccurs="0" name="request" nillable="true" type="q39:FriendRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetFriendshipStatusResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q40="http://schemas.datacontract.org/2004/07/PastebookService" minOccurs="0" name="GetFriendshipStatusResult" nillable="true" type="q40:GetFriendshipStatusResponse" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetAllNotifications">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q37="http://schemas.datacontract.org/2004/07/PastebookService" minOccurs="0" name="request" nillable="true" type="q37:GetAllNotificationsRequest" />
+        <xs:element xmlns:q41="http://schemas.datacontract.org/2004/07/PastebookService" minOccurs="0" name="request" nillable="true" type="q41:GetAllNotificationsRequest" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetAllNotificationsResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q38="http://schemas.datacontract.org/2004/07/PastebookService" minOccurs="0" name="GetAllNotificationsResult" nillable="true" type="q38:GetAllNotificationsResponse" />
+        <xs:element xmlns:q42="http://schemas.datacontract.org/2004/07/PastebookService" minOccurs="0" name="GetAllNotificationsResult" nillable="true" type="q42:GetAllNotificationsResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetNotificationCount">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q43="http://schemas.datacontract.org/2004/07/PastebookService" minOccurs="0" name="request" nillable="true" type="q43:GetAllNotificationsRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetNotificationCountResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q44="http://schemas.datacontract.org/2004/07/PastebookService" minOccurs="0" name="GetNotificationCountResult" nillable="true" type="q44:GetNotificationCountResponse" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -275,7 +317,7 @@
   <xs:element name="GetCountriesResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q39="http://schemas.datacontract.org/2004/07/PastebookService" minOccurs="0" name="GetCountriesResult" nillable="true" type="q39:GetCountriesResponse" />
+        <xs:element xmlns:q45="http://schemas.datacontract.org/2004/07/PastebookService" minOccurs="0" name="GetCountriesResult" nillable="true" type="q45:GetCountriesResponse" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

@@ -12,14 +12,14 @@
                 {
                     var base64 = Convert.ToBase64String(Model.PROFILE_PIC);
                     imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+
+                    <img src=@imgSrc alt="Profile Picture" class="mainProfilePic img-circle" />
                 }
                 else
                 {
-                    imgSrc = "../../Content/Images/default_Male.png";
+                    <img src="~/Content/Images/default_Male.png" alt="Profile Picture" class="mainProfilePic img-circle" />
                 }
             }
-            <img src=@imgSrc alt="Profile Picture" class="mainProfilePic img-circle" />
-
         </div>
     </div>
     <div class="container">
@@ -64,29 +64,7 @@
         var commentOnPostURL = '@Url.Action("CommentOnPost", "Pastebook")';
         var likePostURL = '@Url.Action("LikePost", "Pastebook")';
         var reloadUrl = '@Url.Action("ViewPosts", "Pastebook", new { ID = Model.ID })';
-        var notifCountURL = '@Url.Action("GetAllNotifications", "Pastebook")';
         var IndexURL = '@Url.Action("Index", "Pastebook")';
-        
-        showBadge();
-
-        function showBadge() {
-            $.ajax({
-                url: notifCountURL,
-                data: null,
-                success: function (data) {
-                    SuccessPost(data)
-                },
-                error: function () {
-                    alert("Somethin Went Wrong");
-                }
-            });
-
-            var SuccessPost = function (data) {
-                if (data.Status.Count > 0) {
-                    $("#notifBadge").text(data.Status.Count);
-                }
-            }
-        }
     </script>
     <script type="text/javascript" src="~/Scripts/Post.js"></script>
 }

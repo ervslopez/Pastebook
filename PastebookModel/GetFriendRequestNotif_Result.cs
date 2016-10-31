@@ -11,20 +11,12 @@ namespace PastebookModel
 {
     using System;
     
-    public partial class GetNewsfeed_Result
+    public partial class GetFriendRequestNotif_Result
     {
-        public int ID { get; set; }
-        public string CONTENT { get; set; }
-        public int POSTER_ID { get; set; }
-        public System.DateTime CREATED_DATE { get; set; }
-        public int PROFILE_OWNER_ID { get; set; }
-        public Nullable<int> Like_Count { get; set; }
-        public Nullable<int> Comment_Count { get; set; }
+        public string USER_NAME { get; set; }
         public string FIRST_NAME { get; set; }
         public string LAST_NAME { get; set; }
-        public byte[] PROFILE_PIC { get; set; }
-        public string USER_NAME { get; set; }
-        public string Profile_FN { get; set; }
-        public string Profile_LN { get; set; }
+        public int NOTIF_ID { get; set; }
+        public string NOTIF_TYPE { get; set; }
     }
 }

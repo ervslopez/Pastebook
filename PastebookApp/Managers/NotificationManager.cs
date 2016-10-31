@@ -18,8 +18,18 @@ namespace PastebookApp.Managers
             GetAllNotificationsResponse resp = service.GetAllNotifications(new GetAllNotificationsRequest() {
                 userID = userID
             });
-            notifList = NotifMapper.toNotif(resp.likesNotif.ToList()).Concat(NotifMapper.toNotif(resp.commentsNotif.ToList())).OrderBy(x=>x.notifID).ToList();
+            notifList = NotifMapper.toNotif(resp.likesNotif.ToList())
+                .Concat(NotifMapper.toNotif(resp.commentsNotif.ToList()))
+                .Concat(NotifMapper.toNotif(resp.friendRequestsNotif.ToList())).ToList();
+            notifList = notifList.OrderByDescending(x=>x.notifID).ToList();
             return notifList;
+        }
+
+        public int GetNotificationCount(int userID)
+        {
+            int retVal = 0;
+            retVal = service.GetNotificationCount(new GetAllNotificationsRequest() { userID = userID}).count;
+            return retVal;
         }
     }
 }

@@ -44,16 +44,6 @@ namespace PastebookService
                 if (accountDataAccess.UserIDExists(request.accountID))
                 {
                     resp.Status = true;
-                    foreach (var item in postDataAccess.GetFriendsPost(request.accountID).ToList())
-                    {
-                        resp.postList.Add(new CompletePost()
-                        {
-                            post = item,
-                            comments = GetPostComments(item.ID),
-                            likes = GetPostLikes(item.ID)
-                        });
-                    }
-
                     foreach (var item in postDataAccess.GetAccountRelatedPosts(request.accountID).ToList())
                     {
                         resp.postList.Add(new CompletePost()
@@ -64,7 +54,17 @@ namespace PastebookService
                         });
                     }
 
-                    resp.postList.OrderByDescending(x => x.post.CREATED_DATE).ToList();
+                    foreach (var item in postDataAccess.GetFriendsPost(request.accountID).ToList())
+                    {
+                        resp.postList.Add(new CompletePost()
+                        {
+                            post = item,
+                            comments = GetPostComments(item.ID),
+                            likes = GetPostLikes(item.ID)
+                        });
+                    }
+
+                    resp.postList = resp.postList.OrderByDescending(x => x.post.CREATED_DATE).ToList();
                 }
                 else
                 {
@@ -94,6 +94,7 @@ namespace PastebookService
                             likes = GetPostLikes(item.ID)
                         });
                     }
+                    resp.postList = resp.postList.OrderByDescending(x => x.post.CREATED_DATE).ToList();
                 }
                 else
                 {

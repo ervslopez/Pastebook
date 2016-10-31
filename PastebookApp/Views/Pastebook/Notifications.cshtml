@@ -12,12 +12,22 @@
         </li>
         <hr />
     }
-    else
+    else if (item.notifType == 'C')
     {
         <li>
             <a role="button" href="#" onclick="location.href='@Url.Action("PreviewPost", "Pastebook", new { postID = @item.postID})'">
                 <strong>@item.name</strong> 
                 <p>has commented on one of your posts.</p>
+            </a>
+        </li>
+        <hr />
+    }
+    else
+    {
+        <li>
+            <a role="button" href="#" onclick="location.href='@Url.Action("ViewProfile", "Pastebook", new { username = @item.username})'">
+                <strong>@item.name</strong>
+                <p>has sent you a friend request.</p>
             </a>
         </li>
         <hr />

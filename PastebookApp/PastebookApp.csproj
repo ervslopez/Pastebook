@@ -182,14 +182,16 @@
     <Content Include="Content\font-awesome\css\font-awesome.min.css" />
     <Content Include="Content\font-awesome\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\Images\background.jpg" />
+    <Content Include="Content\Images\banner.jpg" />
     <Content Include="Content\Images\default_Female.png" />
     <Content Include="Content\Images\default_Male.png" />
     <Content Include="Content\Images\default_Man.jpg" />
     <Content Include="Content\Images\default_Woman.jpg" />
+    <Content Include="Content\Images\error-404.jpg" />
+    <Content Include="Content\Images\error-background.jpg" />
     <Content Include="Content\Images\login.png" />
     <Content Include="Content\Images\PastebookLogo.png" />
     <Content Include="Content\Images\signup.jpg" />
-    <Content Include="Content\Style.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -244,7 +246,9 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\LoginSignup.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\Pastebook.js" />
     <Content Include="Scripts\Post.js" />
+    <Content Include="Scripts\Profile.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
@@ -285,6 +289,12 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
     <Content Include="Service References\PastebookService\PastebookApp.PastebookService.SearchUsersResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\PastebookService\PastebookApp.PastebookService.GetNotificationCountResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\PastebookService\PastebookApp.PastebookService.GetFriendshipStatusResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
     <None Include="Service References\PastebookService\Service1.disco" />

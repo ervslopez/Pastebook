@@ -23,5 +23,57 @@ namespace PastebookApp.Managers
             }
             return friendList;
         }
+
+        public string CheckFriendshipStatus(int user, int friend)
+        {
+            var response = service.GetFriendshipStatus(new FriendRequest() {
+                friend = new Friend() {
+                    USER_ID = user,
+                    FRIEND_ID = friend
+                }
+            });
+            return response.friendshipStatus;
+        }
+
+        public bool SendFriendRequest(int user, int friend)
+        {
+            var resp = service.RequestFriendship(new FriendRequest() {
+                friend = new Friend() {
+                    USER_ID = user,
+                    FRIEND_ID = friend
+                }
+            });
+
+            return resp.Status;
+        }
+
+        public bool RespondToFriendRequest(int user, int friend, bool accept)
+        {
+            bool status = false;
+            if (accept)
+            {
+                status = service.AcceptFriendship(new FriendRequest()
+                {
+                    friend = new Friend()
+                    {
+                        USER_ID = user,
+                        FRIEND_ID = friend
+                    }
+                }).Status;
+            }
+            else
+            {
+                status = service.DeclineFriendship(new FriendRequest()
+                {
+                    friend = new Friend()
+                    {
+                        USER_ID = user,
+                        FRIEND_ID = friend
+                    }
+                }).Status;
+            }
+
+            return status;
+        }
     }
 }

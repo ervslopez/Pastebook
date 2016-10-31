@@ -14,7 +14,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.signup.USER_NAME, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.signup.USER_NAME, new { htmlAttributes = new { @class = "form-control" , id="usernameSU"} })
+                        @Html.EditorFor(model => model.signup.USER_NAME, new { htmlAttributes = new { @class = "form-control", id = "usernameSU" } })
                         @Html.ValidationMessageFor(model => model.signup.USER_NAME, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -22,7 +22,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.signup.FIRST_NAME, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.signup.FIRST_NAME, new { htmlAttributes = new { @class = "form-control" , id="firstNameSU"} })
+                        @Html.EditorFor(model => model.signup.FIRST_NAME, new { htmlAttributes = new { @class = "form-control", id = "firstNameSU" } })
                         @Html.ValidationMessageFor(model => model.signup.FIRST_NAME, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -30,7 +30,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.signup.LAST_NAME, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.signup.LAST_NAME, new { htmlAttributes = new { @class = "form-control", id="lastNameSU" } })
+                        @Html.EditorFor(model => model.signup.LAST_NAME, new { htmlAttributes = new { @class = "form-control", id = "lastNameSU" } })
                         @Html.ValidationMessageFor(model => model.signup.LAST_NAME, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -38,7 +38,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.signup.BIRTHDAY, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.signup.BIRTHDAY, new { htmlAttributes = new { @class = "form-control", id = "dpBirthday" , @max = string.Format("{0:yyyy-MM-dd}", DateTime.Now) } })
+                        @Html.EditorFor(model => model.signup.BIRTHDAY, new { htmlAttributes = new { @class = "form-control", id = "dpBirthday", @max = string.Format("{0:yyyy-MM-dd}", DateTime.Now) } })
                         @Html.ValidationMessageFor(model => model.signup.BIRTHDAY, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -76,22 +76,33 @@
                 </div>
             </div>
             <div class="col-md-6 well well-lg" id="emailPasswordEdit">
-                <div class="col-md-9">
-                    <div>
-                        <label class="info">
-                            @Html.DisplayNameFor(model => model.signup.EMAIL)
-                        </label>
-                        @Html.DisplayFor(model => model.signup.EMAIL)
+                <div>
+                    <div class="col-md-8">
+                        <div>
+                            <label class="info form-inline">
+                                @Html.DisplayNameFor(model => model.signup.EMAIL)
+                                @Html.DisplayFor(model => model.signup.EMAIL)
+                            </label>
+                        </div>
                     </div>
-                    <div>
-                        <label class="info">
-                            @Html.DisplayNameFor(model => model.signup.PASSWORD)
-                        </label>
+                    <div class="col-md-4">
+                        <div>
+                            <input class="btn btn-primary" type="button" onclick="EditEmail()" value="Edit Email" />
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <div>
-                        <button type="button" onclick="EditEmailPassword()"><span class="glyphicon glyphicon-edit"> EDIT</span></button>
+                <div id="editPass">
+                    <div class="col-md-8">
+                        <div>
+                            <label class="info">
+                                @Html.DisplayNameFor(model => model.signup.PASSWORD)
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div>
+                            <input class="btn btn-primary" type="button" onclick="EditPassword()" value="Edit Password" />
+                        </div>
                     </div>
                 </div>
             </div>
@@ -102,69 +113,99 @@
         @Html.HiddenFor(model => model.signup.PROFILE_PIC)
         @Html.HiddenFor(model => model.signup.DATE_CREATED)
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+            <div class="col-md-offset-5 col-md-2">
+                <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </div>
     </div>
 
 
     <div class="container">
-        <div class="modal fade" id="editEmailPassModal" tabindex="-1" role="dialog" aria-labelledby="editEmailPassModalLabel" aria-hidden="true">
+        <div class="modal fade" id="editEmailModal" tabindex="-1" role="dialog" aria-labelledby="editEmailModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
-                        <h4 class="modal-title" id="editEmailPassModalLabel">Update Account</h4>
+                        <h4 class="modal-title" id="editEmailModalLabel">Update Account</h4>
                     </div>
                     <div class="modal-body">
-                        <div class="form-horizontal">
-                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.signup.EMAIL, htmlAttributes: new { @class = "control-label col-md-2" })
-                                <div class="col-md-10">
-                                    @Html.EditorFor(model => model.signup.EMAIL, new { htmlAttributes = new { @class = "form-control" , id="emailSU"} })
-                                    @Html.ValidationMessageFor(model => model.signup.EMAIL, "", new { @class = "text-danger" })
+                        <form action="" name="emailEdit">
+                            <div class="form-horizontal">
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.signup.EMAIL, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.signup.EMAIL, new { htmlAttributes = new { @class = "form-control", id = "emailSU", name="email" } })
+                                        @Html.ValidationMessageFor(model => model.signup.EMAIL, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.Label("Old Password", htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.OldPassword, new { htmlAttributes = new { @class = "form-control", id = "oldPassword" } })
+                                        @Html.ValidationMessageFor(model => model.OldPassword, "", new { @class = "text-danger", id = "errorMessage" , name="oldPassword"})
+                                    </div>
                                 </div>
                             </div>
-                            @{ 
-                                Model.signup.PASSWORD = "";
-                            }
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.signup.PASSWORD, htmlAttributes: new { @class = "control-label col-md-2" })
-                                <div class="col-md-10">
-                                    @Html.EditorFor(model => model.signup.PASSWORD, new { htmlAttributes = new { @class = "form-control" , placeholder="Enter new password if you want to change the existing", id= "newPass" } })
-                                    @Html.ValidationMessageFor(model => model.signup.PASSWORD, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.signup.CONFIRM_PASSWORD, htmlAttributes: new { @class = "control-label col-md-2" })
-                                <div class="col-md-10">
-                                    @Html.EditorFor(model => model.signup.CONFIRM_PASSWORD, new { htmlAttributes = new { @class = "form-control", placeholder="Confirm new Password" , id="confNewPass"} })
-                                    @Html.ValidationMessageFor(model => model.signup.CONFIRM_PASSWORD, "", new { @class = "text-danger", id = "errorMessage2" })
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                @Html.Label("Old Password", htmlAttributes: new { @class = "control-label col-md-2"})
-                                <div class="col-md-10">
-                                    @Html.EditorFor(model => model.OldPassword, new { htmlAttributes = new { @class = "form-control", id = "oldPassword" } })
-                                    @Html.ValidationMessageFor(model => model.OldPassword, "", new { @class = "text-danger", id="errorMessage"})
-                                </div>
-                            </div>
-                        </div>
+                        </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" onclick="CheckCredentials()">Save changes</button>
+                        <button type="button" class="btn btn-primary" onclick="CheckEmailCredentials()">Save changes</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-}
+    <div class="container">
+        <div class="modal fade" id="editPassModal" tabindex="-1" role="dialog" aria-labelledby="editPassModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="editPassModalLabel">Update Account</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-horizontal">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            @{
+                                Model.signup.PASSWORD = "";
+                            }
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.signup.PASSWORD, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.signup.PASSWORD, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter new password if you want to change the existing", id = "newPass" } })
+                                    @Html.ValidationMessageFor(model => model.signup.PASSWORD, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.signup.CONFIRM_PASSWORD, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.signup.CONFIRM_PASSWORD, new { htmlAttributes = new { @class = "form-control", placeholder = "Confirm new Password", id = "confNewPass" } })
+                                    @Html.ValidationMessageFor(model => model.signup.CONFIRM_PASSWORD, "", new { @class = "text-danger", id = "errorMessage2" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.Label("Old Password", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.OldPassword, new { htmlAttributes = new { @class = "form-control", id = "oldPassword" } })
+                                    @Html.ValidationMessageFor(model => model.OldPassword, "", new { @class = "text-danger", id = "errorMessage" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" onclick="CheckPasswordCredentials()">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+                                }
 
 
 @section Scripts{
@@ -174,7 +215,7 @@
     <script>
         var checkOldPasswordUrl = '@Url.Action("ConfirmOldPassword", "Pastebook")';
         var EditAccountInfoUrl = '@Url.Action("UpdatAccount", "Pastebook")';
-
+       
     </script>
     <script type="text/javascript" src="~/Scripts/LoginSignup.js"></script>
 }
