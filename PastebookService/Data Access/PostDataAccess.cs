@@ -89,6 +89,17 @@ namespace PastebookService
                 {
                     context.Entry(LikeMapper.ToPB_LIKE(like)).State = EntityState.Deleted;
                     result = context.SaveChanges();
+                    if(result> 0)
+                    {
+                       var notifList = context.PB_NOTIFICATION.Where(x=>x.POST_ID == like.POST_ID && x.SENDER_ID == like.LIKED_BY 
+                                && x.NOTIF_TYPE == "L").ToList();
+
+                        foreach (var item in notifList)
+                        {
+                            context.Entry(item).State = EntityState.Deleted;
+                        }
+                        var res = context.SaveChanges();
+                    }
                 }
             }
             catch (Exception ex)

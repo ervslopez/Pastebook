@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using PastebookApp.Models;
 using PastebookApp.Mapper;
 
+
 namespace PastebookApp.Managers
 {
     public class AccountManager
@@ -20,6 +21,7 @@ namespace PastebookApp.Managers
 
         public bool ValidateAccount(string email, string password, out UserModel model)
         {
+            
             LoginResponse resp = service.LoginUserAccount(new LoginRequest()
             {
                 email = email,

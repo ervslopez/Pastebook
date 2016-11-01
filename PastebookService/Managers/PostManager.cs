@@ -64,7 +64,7 @@ namespace PastebookService
                         });
                     }
 
-                    resp.postList = resp.postList.OrderByDescending(x => x.post.CREATED_DATE).ToList();
+                    resp.postList = resp.postList.OrderByDescending(x => x.post.CREATED_DATE).Take(100).ToList();
                 }
                 else
                 {
@@ -146,6 +146,10 @@ namespace PastebookService
                     else
                     {
                         resp.Status = postDataAccess.UnlikePost(request.like) > 0 ? true : false;
+                        if (resp.Status)
+                        {
+                            resp.Status = false;
+                        }
                     }
                 }
                 else

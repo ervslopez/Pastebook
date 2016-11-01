@@ -22,11 +22,6 @@
     padding-left: 15px;
     padding-right: 15px;
 }
-
-#emailSignup {
-    text-decoration: none;
-}
-
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
 */
@@ -55,6 +50,29 @@ form-control {
     width: 100%;
 }
 
+#signUpWelcome{
+    border:solid groove;
+    background-color: rgba(193, 173, 214, 0.89);
+    margin-top:60px;
+    width:400px;
+    border-radius:25px;
+}
+
+#share{
+    text-align:center;
+    font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+#pastebookLogoMain{
+    margin-left:110px;
+}
+
+#welcome{
+    font-size: 40px;
+    font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
+    margin-left:70px;
+}
+
 #liker{
     margin:20px;
     cursor:pointer;
@@ -68,19 +86,20 @@ form-control {
     margin-bottom:-3px;
 }
 
-#signEmail{
-    text-decoration:none;
-    read
+.notifClass{
+    text-align:center;
+    width:100%;
+    color: #110f0f;
+}
+
+.notifClass:hover{
+    color:black;
 }
 
 .signupRight{
     height:34px;
     margin-left:15px;
     width:278px;
-}
-
-#noFriendsMessage{
-    
 }
 
 #mainNavbar {
@@ -109,6 +128,11 @@ form-control {
 
 #errorValidation {
     margin-left: -130px;
+}
+
+.navbar-inverse .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:focus, .navbar-inverse .navbar-nav>.open>a:hover {
+    color: #fff;
+    background-color: transparent;
 }
 
 /* For the sign up and register page*/
@@ -221,6 +245,10 @@ img {
     margin-top: 12px;
 }
 
+#navAppName:hover{
+    color:black;
+}
+
 .containerPost {
     padding-left: 0px;
     padding-right: 0px;
@@ -232,6 +260,22 @@ img {
     margin-top: 20px;
     margin-left: 40px;
     height: 100%;
+}
+
+#thumbsUp{
+    color:dimgrey;
+}
+
+#thumbsUp:hover{
+    color:rgba(0, 0, 238, 0.81);
+}
+
+#thumbsDown{
+    color:rgba(0, 0, 238, 0.81);
+}
+
+#thumbsDown:hover{
+    color:dimgrey;
 }
 
 .postHeader {
@@ -331,10 +375,6 @@ img {
     font-size: medium;
 }
 
-#navUser {
-    margin-left: 80px;
-}
-
 #notifDropdown {
     width: 300px;
     padding: 5px;
@@ -361,12 +401,23 @@ img {
 }
 
 /*FriendList*/
-#friendListContainer {
+#friendListContainer, #mainNotifContainer {
     background-color: rgba(110, 110, 126, 0.63);
     border-radius: 15px;
     height: 450px;
     padding: 5px;
     overflow-x: hidden;
+}
+
+.navGlyph:hover, .navGlyph::selection{
+    color:black;
+}
+
+#mainNotifContainer{
+    width:70%;
+    padding-left:15%;
+    padding-right:15%;
+    border-radius: 5px;
 }
 
 .friendItem {
@@ -478,6 +529,28 @@ a {
     text-overflow: ellipsis;
     -o-text-overflow: ellipsis;
     -ms-text-overflow: ellipsis;
+}
+
+#navUser, #usernameNav, #aNavUsername, #usernameBig{
+    width:320px;
+     white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    -ms-text-overflow: ellipsis;
+}
+
+.toEllipsis{
+    width:250px;
+     white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    -ms-text-overflow: ellipsis;
+}
+
+#navUser{
+    width:400px;
 }
 
 .searchPic {

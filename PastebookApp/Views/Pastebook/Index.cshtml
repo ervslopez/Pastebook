@@ -32,7 +32,13 @@
             @using (Html.BeginForm("RegisterAccount", "Pastebook", FormMethod.Post))
             {
                 <div class="col-md-5 pull-left">
-                    
+                    <div class="container" id="signUpWelcome">
+                        <div>
+                            <label class="text-center" id="welcome">Welcome To</label>
+                            <img src="~/Content/Images/PastebookLogo.png" alt="Pastebook Logo" id="pastebookLogoMain"/>
+                            <p id="share" class="text-center">Share some happiness to the world!</p>
+                        </div>
+                    </div>
                 </div>
                 <div class="signupContent col-md-7 well well-lg pull-right">
                     <label class="loginAndSignupHeader">Sign Up</label>

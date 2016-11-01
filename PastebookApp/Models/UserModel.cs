@@ -45,7 +45,7 @@ namespace PastebookApp.Models
         [DataType(DataType.Password)]
         [Compare("PASSWORD", ErrorMessage = "Confirm Password not matched.")]
         [DisplayName("Confirm Password")]
-        [StringLength(30, ErrorMessage = "Confirm Password should be 8 to 30 characters long", MinimumLength =8)]
+        [StringLength(30, ErrorMessage = "Confirm Password should be less than 30 characters only")]
         public string CONFIRM_PASSWORD { get; set; }
 
         [Required(ErrorMessage = "Birthday is Required")]

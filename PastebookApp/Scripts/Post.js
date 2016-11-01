@@ -3,26 +3,30 @@
 
     $('#publishPostError').text("");
     if (postString.length > 0) {
-        var data = {
-            profileOwner:ID,
-            postString : postString
-        }
-        $.ajax({
-            url: postUrl,
-            data: data,
-            success: function (data) {
-                SuccessPost(data)
-            },
-            error: function () {
-                $('#publishPostError').text("Something went wrong. Please try again");
+        if (postString.length < 1000) {
+            var data = {
+                profileOwner: ID,
+                postString: postString
             }
-        });
+            $.ajax({
+                url: postUrl,
+                data: data,
+                success: function (data) {
+                    SuccessPost(data)
+                },
+                error: function () {
+                    $('#publishPostError').text("Something went wrong. Please try again");
+                }
+            });
 
-        var SuccessPost = function(data){
-            $("#postTxt").val("");
-            $(".postsPage").load(reloadUrl);
+            var SuccessPost = function (data) {
+                $("#postTxt").val("");
+                $(".postsPage").load(reloadUrl);
+            }
         }
-
+        else {
+            $('#publishPostError').text("Maximum post length is 1000 characters");
+        }
     } else {
         $('#publishPostError').text("Type in your post");
     }
@@ -33,24 +37,29 @@ function commentOnPost(ID) {
     $("#commentOnPostError" + ID.toString()).text("");
   
     if (comment.length > 0) {
-        var data = {
-            postID: ID,
-            comment: comment
+        if (comment.length > 1000) {
+            $("#commentOnPostError" + ID.toString()).text("Maximum comment length is 1000 characters");
         }
-        $.ajax({
-            url: commentOnPostURL,
-            data: data,
-            success: function (data) {
-                SuccessPost(data)
-            },
-            error: function () {
-                $('#commentOnPostError'+ID.toString()).text("Something went wrong. Please try again.");
+        else {
+            var data = {
+                postID: ID,
+                comment: comment
             }
-        });
+            $.ajax({
+                url: commentOnPostURL,
+                data: data,
+                success: function (data) {
+                    SuccessPost(data)
+                },
+                error: function () {
+                    $('#commentOnPostError' + ID.toString()).text("Something went wrong. Please try again.");
+                }
+            });
 
-        var SuccessPost = function (data) {
-            $("#" + ID.toString()).val("");
-            $(".postsPage").load(reloadUrl);
+            var SuccessPost = function (data) {
+                $("#" + ID.toString()).val("");
+                $(".postsPage").load(reloadUrl);
+            }
         }
     } else {
         $("#commentOnPostError" + ID.toString()).text("Type in your comment.");
@@ -82,25 +91,29 @@ function postPreviewComment(ID) {
     $("#commentOnPostError" + ID.toString()).text("");
 
     if (comment.length > 0) {
-        var data = {
-            postID: ID,
-            comment: comment
-        }
-        $.ajax({
-            url: commentOnPostURL,
-            data: data,
-            success: function (data) {
-                SuccessPost(data)
-            },
-            error: function () {
-                $('#commentOnPostError' + ID.toString()).text("Something went wrong. Please try again.");
+        if (comment.length > 1000) {
+            $("#commentOnPostError" + ID.toString()).text("Maximum comment length is 1000 characters");
+        } else {
+            var data = {
+                postID: ID,
+                comment: comment
             }
-        });
+            $.ajax({
+                url: commentOnPostURL,
+                data: data,
+                success: function (data) {
+                    SuccessPost(data)
+                },
+                error: function () {
+                    $('#commentOnPostError' + ID.toString()).text("Something went wrong. Please try again.");
+                }
+            });
 
-        var SuccessPost = function (data) {
-            $("#" + ID.toString()).val("");
-            location.reload();
-        }
+            var SuccessPost = function (data) {
+                $("#" + ID.toString()).val("");
+                location.reload();
+            }
+        }        
     } else {
         $("#commentOnPostError" + ID.toString()).text("Type in your comment.");
     }

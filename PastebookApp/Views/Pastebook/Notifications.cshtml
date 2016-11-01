@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<PastebookApp.Models.NotificationViewModel>
 
-@foreach (var item in Model)
+@foreach (var item in Model.Take(20))
 {
     if (item.notifType == 'L')
     {
@@ -32,4 +32,7 @@
         </li>
         <hr />
     }
+    
 }
+
+<button type="button" class="btn btn-primary pull-right" onclick="location.href = '@Url.Action("Notification", "Pastebook")'">View All Notifications</button>

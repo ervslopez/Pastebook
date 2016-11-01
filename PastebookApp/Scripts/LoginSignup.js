@@ -51,7 +51,7 @@ function CheckEmailCredentials() {
     var oldPassword = $('#oldPassword').val();
     var email = email = $('#emailSU').val();
 
-    if (email.length > 0) {
+    if (email.length > 0 && /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/.test(email)) {
         $('#errorMessage').text("");
         if (oldPassword.length > 0) {
             var data = {
@@ -82,7 +82,7 @@ function CheckEmailCredentials() {
 function updateEmailInfo() {
     var data = {
         email: $('#emailSU').val(),
-        password: $('#newPass').val()
+        password: $('#oldPassword').val()
     }
 
     $.ajax({
@@ -98,85 +98,65 @@ function updateEmailInfo() {
 }
 
 function CheckPasswordCredentials() {
-    var oldPassword = $('#oldPassword').val();
-
-    if (oldPassword.length > 0) {
-        var data = {
-            password: oldPassword
-        }
-        $.ajax({
-            url: checkOldPasswordUrl,
-            data: data,
-            success: function (data) {
-                if (data.Status) {
-                    updatePasswordInfo()
-                } else {
-                    $('#errorMessage').text("Password is incorrect");
+    var oldPassword = $('#oldPassword2').val();
+    var newPass = $('#newPass').val();
+    var confNewPass = $('#confNewPass').val();
+    if (newPass.length > 0) {
+        $('#errorNewPass').text(""); 
+        if (confNewPass == newPass) {
+            $('#errorConfPass').text(""); 
+            if (oldPassword.length > 0) {
+                $('#errorOldPass').text("");
+                var data = {
+                    password: oldPassword
                 }
-            },
-            error: function () {
-                $('#errorMessage').text("Something went wrong");
-            }
-        });
+                $.ajax({
+                    url: checkOldPasswordUrl,
+                    data: data,
+                    success: function (data) {
+                        if (data.Status) {
+                            updatePasswordInfo()
+                        } else {
+                            $('#errorOldPass').text("Old Password is incorrect");
+                        }
+                    },
+                    error: function () {
+                        $('#errorOldPass').text("Something went wrong");
+                    }
+                });
 
+            } else {
+                $('#errorOldPass').text("Old Password is a required field!");
+            }
+        }
+        else {
+            $('#errorConfPass').text("Confirm Password not matched");
+        }
     } else {
-        $('#errorMessage').text("Old password is a required field!");
+        $('#errorNewPass').text("New Password is a required field");
+        if (confNewPass.length == 0) {
+            $('#errorConfPass').text("Confirm Password is a required field");
+        }
+        if (oldPassword.length == 0) {
+            $('#errorOldPass').text("Old Password is a required field");
+        }
     }
 }
 
 function updatePasswordInfo() {
     var data = {
-        email: $('#emailSU').val(),
+        email: null,
         password: $('#newPass').val()
     }
 
-    if ($('#newPass').val() == $('#confNewPass').val()) {
-        $.ajax({
-            url: EditAccountInfoUrl,
-            data: data,
-            success: function (data) {
-                location.reload();
-            },
-            error: function () {
-                $('#errorMessage').text("Something went wrong");
-            }
-        });
-    }
-    else {
-        $('#errorMessage2').text("Passwords do not match");
-    }
+    $.ajax({
+        url: EditAccountInfoUrl,
+        data: data,
+        success: function (data) {
+            location.reload();
+        },
+        error: function () {
+            $('#errorMessage').text("Something went wrong");
+        }
+    });
 }
-
-//function checkEmailForm() {
-//    $("form[name='emailEdit']").validate({
-//        // Specify validation rules
-//        rules: {
-//            // The key name on the left side is the name attribute
-//            // of an input field. Validation rules are defined
-//            // on the right side
-//            email: "required",
-//            oldPassword: "required",
-//            email: {
-//                required: true,
-//                email: true
-//            },
-//            oldPassword: {
-//                required: true,
-//                minlength: 8
-//            }
-//        },
-//        // Specify validation error messages
-//        messages: {
-//            password: {
-//                required: "Confirm Password field is Required",
-//                minlength: "Less than 30 characters only"
-//            },
-//            email: "Please enter a valid email address"
-//        },
-//        // Make sure the form is submitted to the destination defined
-//        // in the "action" attribute of the form when valid
-//        submitHandler: function (form) {
-//            return 
-//        }
-//    });
-//}

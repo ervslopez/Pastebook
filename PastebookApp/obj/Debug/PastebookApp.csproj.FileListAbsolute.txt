@@ -50,3 +50,4 @@ C:\Users\Bootcamp\Source\Repos\Pastebook\PastebookApp\bin\Antlr3.Runtime.pdb
 C:\Users\Bootcamp\Source\Repos\Pastebook\PastebookApp\bin\Newtonsoft.Json.xml
 C:\Users\Bootcamp\Source\Repos\Pastebook\PastebookApp\obj\Debug\PastebookApp.dll
 C:\Users\Bootcamp\Source\Repos\Pastebook\PastebookApp\obj\Debug\PastebookApp.pdb
+C:\Users\Bootcamp\Source\Repos\Pastebook\PastebookApp\obj\Debug\PastebookApp.csprojResolveAssemblyReference.cache

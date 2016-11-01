@@ -156,6 +156,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Managers\Authorization.cs" />
     <Compile Include="Managers\FriendManager.cs" />
     <Compile Include="Managers\NotificationManager.cs" />
     <Compile Include="Managers\PostManager.cs" />
@@ -304,7 +305,9 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -342,6 +345,7 @@
     <Content Include="Views\Pastebook\PreviewPost.cshtml" />
     <Content Include="Views\Pastebook\SearchUsers.cshtml" />
     <Content Include="Views\Error\Error404.cshtml" />
+    <Content Include="Views\Pastebook\Notification.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

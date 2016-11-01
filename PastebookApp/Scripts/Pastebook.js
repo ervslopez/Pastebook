@@ -2,9 +2,15 @@
     $("#notifDropdown").load(notifUrl);
 }
 function checkInput() {
-    var input = $('#searchTxt').val();
-    if (input.length <= 0) {
+    var input = $('#searchTxt').val().trim();
+    if (input.length == 0) {
         $('#searchUserError').text('Invalid name to search for');
+        $("#searchUserError").fadeTo(3000, 900).slideUp(900, function () {
+            $("#searchUserError").slideUp(900);
+        });
+        
+    } else {
+        location.href = Url.Action("SearchUsers", "Pastebook", new {name : input});
     }
 }
 function showBadge() {

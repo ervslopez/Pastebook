@@ -19,7 +19,7 @@
                     <img src="~/Content/Images/default_Male.png" alt="Profile Picture" id="postMainProfilePic" class="img-circle col-md-3" />
                 }
             }
-            <textarea class="form-control col-md-6" id="postTxt"></textarea>
+            <textarea class="form-control col-md-6" id="postTxt" placeholder="Share something today..."></textarea>
             <span>
                 @Html.ValidationMessage("", new { @class = "text-danger", id = "publishPostError" })
             </span>
@@ -78,11 +78,11 @@
                     <div class="panel-body">
                         @if (@item.likes.Any(x => x.USER_NAME == (string)Session["username"]))
                         {
-                            <span role="button" class="glyphicon glyphicon-thumbs-down" onclick="likePost(@item.post.ID)"></span>
+                            <span role="button" id="thumbsDown" class="glyphicon glyphicon-thumbs-up" onclick="likePost(@item.post.ID)"></span>
                         }
                         else
                         {
-                            <span role="button" class="glyphicon glyphicon-thumbs-up" onclick="likePost(@item.post.ID)"></span>
+                            <span role="button" id="thumbsUp" class="glyphicon glyphicon-thumbs-up" onclick="likePost(@item.post.ID)"></span>
                         }
                         <span>@item.post.Like_Count</span>
                         <span><a href="#" data-toggle="modal" data-target="#modal_@item.post.ID" id="likeLink">Likes</a></span>

@@ -26,45 +26,43 @@
                         if (Session["username"] != null && Session["page"].ToString() != "Index")
                         {
                             <div class="navbar-form navbar-left" role="search" id="navSearch">
-                                @using (Html.BeginForm("SearchUsers", "Pastebook", FormMethod.Post))
-                                {
                                     <div class="form-group">
                                         <input type="text" class="form-control" name="name" placeholder="Find other users here..." id="searchTxt">
                                     </div>
-                                        <button type="submit" class="btn btn-default" id="btnSearch" onclick="checkInput()">
-                                            <span class="glyphicon glyphicon-search"></span>
+                                        <button type="button" class="btn btn-default" id="btnSearch" onclick="checkInput()">
+                                            <span class="glyphicon glyphicon-search navGlyph"></span>
                                         </button>
                                         <div>
                                             <span>@Html.ValidationMessage("", new { @class = "text-danger", id = "searchUserError" })</span>
                                         </div>
-                                }
                             </div>
-                                <ul class="nav navbar-nav">
+                                <ul class="nav navbar-nav" id="mainNavbar">
                                     <li class="homeNav navLink" id="navUser">
-                                        <a class="navbar-brand stringNav">
-                                            <span id="usernameNav" class="navLink">@Html.ActionLink((string)Session["username"], "ViewProfile", "Pastebook", new { username = (string)Session["username"] }, null)</span>
+                                        <a class="navbar-brand stringNav" id="aNavUsername" 
+                                            href="@Url.Action("ViewProfile", "Pastebook", new { username = (string)Session["username"] })" >
+                                            @Session["username"]
                                         </a>
                                     </li>
                                     <li class="homeNav">
                                         <a class="navbar-brand" href="@Url.Action("Home", "Pastebook")">
-                                            <span class="glyphicon glyphicon-home"></span>
+                                            <span class="glyphicon glyphicon-home navGlyph"></span>
                                         </a>
                                     </li>
                                     <li class="dropdown homeNav">
                                         <a class="dropdown-toggle navbar-brand" data-toggle="dropdown" href="#" onclick="showNotif()">
-                                            <span class="glyphicon glyphicon-globe"></span>
+                                            <span class="glyphicon glyphicon-globe navGlyph"></span>
                                             <span class="badge" id="notifBadge"></span>
                                         </a>
                                         <ul class="dropdown-menu" id="notifDropdown"></ul>
                                     </li>
                                     <li class="homeNav">
                                         <a class="navbar-brand" href="@Url.Action("ViewFriendList", "Pastebook")">
-                                            <span class="glyphicon glyphicon-user"></span>
+                                            <span class="glyphicon glyphicon-user navGlyph"></span>
                                         </a>
                                     </li>
                                     <li class="homeNav">
                                         <a class="navbar-brand" href="@Url.Action("Settings", "Pastebook")">
-                                            <span class="glyphicon glyphicon-cog"></span>
+                                            <span class="glyphicon glyphicon-cog navGlyph"></span>
                                         </a>
                                     </li>
                                 </ul>
@@ -100,12 +98,12 @@
         var notifUrl = '@Url.Action("Notifications", "Pastebook")';
         var notifCountURL = '@Url.Action("GetAllNotifications", "Pastebook")';
 
-        var user = @Session["id"];
+        @*var user = @Session["id"];
 
         if(user != null)
         {
             setInterval(function () { showBadge() }, 3000);
-        }
+        }*@
     </script>
 
     <script type="text/javascript" src="~/Scripts/Pastebook.js"></script>

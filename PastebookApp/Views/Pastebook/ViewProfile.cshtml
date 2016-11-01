@@ -65,7 +65,10 @@
                     </strong>
                 </div>
                 <div id="emailView">
-                    @Html.DisplayFor(model => model.EMAIL, new { htmlAttributes = new { @class = "emailSignup", id = "signEmail" , @readonly = true, disabled="disabled"} })
+                    @{
+                        var email = Model.EMAIL;
+                    }
+                    @Model.EMAIL
                 </div>
                 <div id="nameView">
                     Name: @Html.DisplayFor(model => model.FIRST_NAME) @Html.DisplayFor(model => model.LAST_NAME)
